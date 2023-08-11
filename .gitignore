@@ -1,0 +1,12 @@
+.mypy_cache/
+.vscode/
+build/
+codenav.egg-info/
+dist/
+src/codenav/__pycache__/
+src/codenav/.mypy_cache
+test/_cleandoc_test.py_working_docs/
+test/.mypy_cache/
+test/cleandoc_log.txt
+docs/conf.txt
+_old/
