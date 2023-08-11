@@ -1,30 +1,19 @@
-# snipsearch
+# CodéNav
 
-Python package to search multiple strings within Python snippets.
+Web App for cleaning, searching, editing, and navigating Python code.
 
 ## Install
 
-pip install snipsearch
+pip install codenav
 
 ## Usage
 
-snipsearch [-h] [-n N] searchdir searchterm1 searchterm2 ...  
-  
-Find code snippets which are most related to search keywords.  
-  
-positional arguments:  
-&nbsp;&nbsp;&nbsp;&nbsp;searchdir&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Directory containing Python (.py) files to search through  
-&nbsp;&nbsp;&nbsp;&nbsp;searchterms&nbsp;&nbsp;&nbsp;&nbsp;List as many strings as you would like to search for (all equally weighted)  
-  
-optional arguments:  
-&nbsp;&nbsp;&nbsp;&nbsp;-h, --help&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;show this help message and exit  
-&nbsp;&nbsp;&nbsp;&nbsp;-n N, -number N&nbsp;&nbsp;&nbsp;&nbsp;Number of code snippet results to print  
-
+codenav
 ## Read The Docs
 
 Download "docs" folder or check preview below.
 
-https://htmlpreview.github.io/?https://github.com/jkrist2696/snipsearch/blob/main/docs/index.html
+https://htmlpreview.github.io/?https://github.com/jkrist2696/codenav/blob/main/docs/index.html
 
 
 ## Contributing

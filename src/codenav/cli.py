@@ -11,7 +11,7 @@ import codenav as cn
 
 def main():
     """Run full command line process"""
-    # desc = "Web App for cleaning, searching, editing, and navigating Python code"
+    # desc = "Web App for cleaning, searching, editing, and navigating Python code."
     # parser = ArgumentParser(prog="codenav", description=desc)
     # args = vars(parser.parse_args())
     # print(f"\nCommand Line Args:\n{args}\n")

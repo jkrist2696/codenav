@@ -6,18 +6,21 @@ Created on Sun Jul  2 12:18:08 2023
 
 """
 # SETUP PROCESS BELOW
-# cleandoc -d ./../src/snipsearch -w
+# cleandoc -d ./../src/{NAME} -w
 # python setup.py bdist_wheel sdist
 # twine check dist/*
 # twine upload dist/*
 
+from os import path
 from setuptools import find_packages, setup
 from pipreqs.pipreqs import get_all_imports, get_pkg_names, get_import_local
 
 # PARAMETERS
-NAME = "snipsearch"
+setupdir = path.realpath(__file__)[0]
+NAME = path.split(setupdir)[1]
+# add code to grab last version pushed to Pypi
 VERSION = "0.0.1"
-DESC = "Python package to search multiple strings within Python snippets."
+DESC = "Web App for cleaning, searching, editing, and navigating Python code."
 
 
 with open("README.md", "r", encoding="utf-8") as readme:
