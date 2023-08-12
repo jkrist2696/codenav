@@ -17,7 +17,7 @@ from dash import ctx, html, ALL
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
 from snipsearch import search_all_pyfiles
-import dash_sweet_components as sweet
+from . import dash_sweet_components as sweet
 from .file_system_node import create_fs_nodes
 from .dash_trees import file_sys_tree
 from .shell_server import get_from_queue
@@ -67,6 +67,15 @@ def dirpath_up(app, dirpath_id: str, upbutton_id: str, valname: str):
 
     @app.callback(outputs, inputs, states, prevent_initial_call=True)  #
     def up_dirpath(_nclicks, dirpath):
+        """up_dirpath.
+
+        Parameters
+        ----------
+        _nclicks :
+            _nclicks
+        dirpath :
+            dirpath
+        """
         _none_check(_nclicks)
         _none_zerolen_check(dirpath)
         return [path.dirname(dirpath.rstrip("/").rstrip("\\"))]
@@ -82,6 +91,15 @@ def dirpath_store(app, storepath_id: str, dirpath_id: str):
 
     @app.callback(outputs, inputs, states)  #
     def update_dirpath(dirpath, storepath):
+        """update_dirpath.
+
+        Parameters
+        ----------
+        dirpath :
+            dirpath
+        storepath :
+            storepath
+        """
         # print(f"\ndirpath: {dirpath}\nstorepath: {storepath}")
         if dirpath is not None:
             if path.isdir(dirpath):
@@ -101,6 +119,13 @@ def tree_create(app, tree_loader_id: str, dirpath_id: str, tree_id: str):
 
     @app.callback(outputs, inputs)  # , prevent_initial_call=True
     def create_tree(dirpath):
+        """create_tree.
+
+        Parameters
+        ----------
+        dirpath :
+            dirpath
+        """
         _none_check(dirpath)
         if not path.isdir(dirpath):
             return sweet.dark_text("Directory Does Not Exist"), "error"
@@ -119,6 +144,17 @@ def tree_expand(app, tree_id: str):
 
     @app.callback(outputs, inputs, states, prevent_initial_call=True)
     def expand_tree(selected, expanded, treedata):
+        """expand_tree.
+
+        Parameters
+        ----------
+        selected :
+            selected
+        expanded :
+            expanded
+        treedata :
+            treedata
+        """
         selectdata = _selectdata_check(selected, treedata)
         if selectdata["type"] == "file":
             raise PreventUpdate
@@ -143,6 +179,17 @@ def tab_store(app, tabs_id: str, storetabs_id: str):
 
     @app.callback(output1, output2, inputs, states)
     def store_tab(storetabs, activekey, tabitems):
+        """store_tab.
+
+        Parameters
+        ----------
+        storetabs :
+            storetabs
+        activekey :
+            activekey
+        tabitems :
+            tabitems
+        """
         _none_check(storetabs)
         if activekey and ctx.triggered_id == tabs_id:
             storetabs["_active"] = activekey
@@ -161,6 +208,17 @@ def tree_open_file(app, storetabs_id: str, tree_id: str):
 
     @app.callback(outputs, inputs, states, prevent_initial_call=True)
     def open_file(selected, treedata, storetabs):
+        """open_file.
+
+        Parameters
+        ----------
+        selected :
+            selected
+        treedata :
+            treedata
+        storetabs :
+            storetabs
+        """
         selectdata = _selectdata_check(selected, treedata)
         if not selectdata["type"] == "file":
             raise PreventUpdate
@@ -183,6 +241,15 @@ def tab_new(app, storetabs_id: str, newtab_id: str):
 
     @app.callback(outputs, inputs, states, prevent_initial_call=True)
     def new_tab(_nclicks, storetabs):
+        """new_tab.
+
+        Parameters
+        ----------
+        _nclicks :
+            _nclicks
+        storetabs :
+            storetabs
+        """
         storetabs = _storetabs_append(
             storetabs, None, "# New Tab Contents\n\n", "New Tab", ctype="ace"
         )
@@ -200,6 +267,19 @@ def tab_delete(app, tabs_id: str, storetabs_id: str):
 
     @app.callback(outputs, inputs, state1, state2, prevent_initial_call=True)
     def delete_tab(delkey, tabitems, activekey, storetabs):
+        """delete_tab.
+
+        Parameters
+        ----------
+        delkey :
+            delkey
+        tabitems :
+            tabitems
+        activekey :
+            activekey
+        storetabs :
+            storetabs
+        """
         _none_check(delkey)
         ind = [i for i, item in enumerate(tabitems) if item["key"] == delkey]
         tabitems = [item for item in tabitems if item["key"] != delkey]
@@ -226,6 +306,15 @@ def tab_edit(app, storetabs_id: str, edittab_id: str):
 
     @app.callback(outputs, inputs, states, prevent_initial_call=True)
     def edit_tab(_nclicks, storetabs):
+        """edit_tab.
+
+        Parameters
+        ----------
+        _nclicks :
+            _nclicks
+        storetabs :
+            storetabs
+        """
         _none_check(storetabs)
         activekey = storetabs["_active"]
         if activekey not in storetabs:
@@ -254,6 +343,23 @@ def tab_save(app, storetabs_id: str, savetab_id: str, notify_id: str):
 
     @app.callback(outputs, inputs, states1, states2, states3, prevent_initial_call=True)
     def save_tab(_nclicks, storetabs, tabpaths, pathids, tabaces, aceids):
+        """save_tab.
+
+        Parameters
+        ----------
+        _nclicks :
+            _nclicks
+        storetabs :
+            storetabs
+        tabpaths :
+            tabpaths
+        pathids :
+            pathids
+        tabaces :
+            tabaces
+        aceids :
+            aceids
+        """
         _none_check(storetabs)
         activekey = storetabs["_active"]
         if activekey not in storetabs:
@@ -314,6 +420,17 @@ def button_start_cmd(
 
     @app.callback(outputs, inputs, states, prevent_initial_call=True)
     def start_command(_nclicks, stdstore, storeval):
+        """start_command.
+
+        Parameters
+        ----------
+        _nclicks :
+            _nclicks
+        stdstore :
+            stdstore
+        storeval :
+            storeval
+        """
         _none_check(storeval)
         _none_check(_nclicks)
         _none_check(stdstore)
@@ -355,6 +472,15 @@ def button_start_cmd(
 
     @app.callback(outputs, inputs, states)
     def stop_button(stdstore, storeval):
+        """stop_button.
+
+        Parameters
+        ----------
+        stdstore :
+            stdstore
+        storeval :
+            storeval
+        """
         _none_check(storeval)
         _none_check(stdstore)
         text_in = stdstore["text"]
@@ -376,6 +502,15 @@ def stdstore_update(app, stdstore_id: str, interval_id: str):
 
     @app.callback(outputs, inputs, states, prevent_initial_call=True)
     def update_stdstore(_intervals, stdstore):
+        """update_stdstore.
+
+        Parameters
+        ----------
+        _intervals :
+            _intervals
+        stdstore :
+            stdstore
+        """
         if not stdstore:
             stdstore = {"proc_id": None, "stop": None}
             stdstore["text"] = f"{READY_STR}\n"
@@ -418,6 +553,13 @@ def stdout_update(app, stdstore_id: str, stdout_id: str):
 
     @app.callback(outputs, inputs)
     def update_stdout(stdstore):
+        """update_stdout.
+
+        Parameters
+        ----------
+        stdstore :
+            stdstore
+        """
         _none_check(stdstore)
         storetext = stdstore["text"]
         return [storetext]
@@ -432,6 +574,13 @@ def show_hide_search(app, search_id: str, result_id: str):
 
     @app.callback(outputs, inputs)
     def showhidesearch(search):
+        """showhidesearch.
+
+        Parameters
+        ----------
+        search :
+            search
+        """
         if not search:
             width = "0vw"
             minwidth = "0"
@@ -461,6 +610,17 @@ def run_search(app, search_id: str, loader_id: str, storepath_id: str, result_id
 
     @app.callback(outputs, inputs, states)
     def runsearch(_style, searchdir, searchval):
+        """runsearch.
+
+        Parameters
+        ----------
+        _style :
+            _style
+        searchdir :
+            searchdir
+        searchval :
+            searchval
+        """
         _none_check(searchval)
         _none_check(searchdir)
         if not path.exists(searchdir):
@@ -488,6 +648,17 @@ def open_search(app, storetabs_id: str):
 
     @app.callback(outputs, inputs, states, prevent_initial_call=True)
     def opensearchfile(_nclicks, storetabs, respaths):
+        """opensearchfile.
+
+        Parameters
+        ----------
+        _nclicks :
+            _nclicks
+        storetabs :
+            storetabs
+        respaths :
+            respaths
+        """
         if not any(_nclicks):
             raise PreventUpdate
         # print(f"\n{_nclicks}\n{ctx.triggered_prop_ids}")
@@ -505,6 +676,17 @@ def open_search(app, storetabs_id: str):
 
     @app.callback(outputs, inputs, states, prevent_initial_call=True)
     def opensearchsnip(_nclicks, storetabs, restexts):
+        """opensearchsnip.
+
+        Parameters
+        ----------
+        _nclicks :
+            _nclicks
+        storetabs :
+            storetabs
+        restexts :
+            restexts
+        """
         if not any(_nclicks):
             raise PreventUpdate
         ind = int(ctx.triggered_id["index"]) - 1
@@ -517,6 +699,15 @@ def open_search(app, storetabs_id: str):
 
 # Pre Checks Below
 def _selectdata_check(selected, treedata):
+    """_selectdata_check.
+
+    Parameters
+    ----------
+    selected :
+        selected
+    treedata :
+        treedata
+    """
     if not selected:
         raise PreventUpdate
     selectdata = [data for data in treedata if data["key"] == selected[0]]
@@ -526,11 +717,25 @@ def _selectdata_check(selected, treedata):
 
 
 def _none_check(value):
+    """_none_check.
+
+    Parameters
+    ----------
+    value :
+        value
+    """
     if not value:
         raise PreventUpdate
 
 
 def _not_none_haslen(value):
+    """_not_none_haslen.
+
+    Parameters
+    ----------
+    value :
+        value
+    """
     if not value:
         return False
     if len(value) == 0:
@@ -539,6 +744,13 @@ def _not_none_haslen(value):
 
 
 def _none_zerolen_check(value):
+    """_none_zerolen_check.
+
+    Parameters
+    ----------
+    value :
+        value
+    """
     if not value:
         raise PreventUpdate
     if len(value) == 0:
@@ -568,6 +780,17 @@ def read_storepath(storepath):
 def _puts(
     ptypes: Union[list[str], str], call_ids: Union[list[str], str], names: list[str]
 ):
+    """_puts.
+
+    Parameters
+    ----------
+    ptypes : Union[list[str], str]
+        ptypes
+    call_ids : Union[list[str], str]
+        call_ids
+    names : list[str]
+        names
+    """
     if not isinstance(call_ids, list):
         call_ids = [call_ids] * len(names)
     if not isinstance(ptypes, list):
@@ -588,10 +811,41 @@ def _puts(
 
 
 def _tabdict(children, label: str, key: str) -> dict:
+    """_tabdict.
+
+    Parameters
+    ----------
+    children :
+        children
+    label : str
+        label
+    key : str
+        key
+
+    Returns
+    -------
+    dict
+
+    """
     return {"label": label, "key": key, "children": children, "closable": True}
 
 
 def _storetabs_append(storetabs, itempath: str, text: str, name: str, ctype="prism"):
+    """_storetabs_append.
+
+    Parameters
+    ----------
+    storetabs :
+        storetabs
+    itempath : str
+        itempath
+    text : str
+        text
+    name : str
+        name
+    ctype :
+        ctype
+    """
     if not storetabs:
         storetabs = {}
     storekeys = [key for key in storetabs.keys() if key.isdigit()]
@@ -614,6 +868,15 @@ def _storetabs_append(storetabs, itempath: str, text: str, name: str, ctype="pri
 
 
 def _tabitems_from_dict(storetabs: dict, tabitems: list):
+    """_tabitems_from_dict.
+
+    Parameters
+    ----------
+    storetabs : dict
+        storetabs
+    tabitems : list
+        tabitems
+    """
     storetabs_cp = dict(storetabs)
     if not tabitems:
         tabitems = []
@@ -639,6 +902,13 @@ def _tabitems_from_dict(storetabs: dict, tabitems: list):
 
 
 def _make_tabdiv(storeitem: dict):
+    """_make_tabdiv.
+
+    Parameters
+    ----------
+    storeitem : dict
+        storeitem
+    """
     isfile = False
     text = storeitem["text"]
     header_id = {"type": "tabinput", "index": storeitem["key"]}

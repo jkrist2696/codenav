@@ -23,6 +23,23 @@ class FileSystemNode:
         ftype: str,
         ind: int,
     ):
+        """__init__.
+
+        Parameters
+        ----------
+        name : str
+            name
+        directory : str
+            directory
+        parent : "FileSystemNode"
+            parent
+        children : list["FileSystemNode"]
+            children
+        ftype : str
+            ftype
+        ind : int
+            ind
+        """
         self.name = name
         self.directory = directory.replace("\\", "/")
         self.parent = parent
