@@ -9,6 +9,7 @@ pip install codenav
 ## Usage
 
 codenav
+
 ## Read The Docs
 
 Download "docs" folder or check preview below.

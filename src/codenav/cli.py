@@ -6,7 +6,7 @@ Created on Sun Jul  2 12:18:08 2023
 """
 
 # from argparse import ArgumentParser
-import codenav as cn
+from codenav import serve_app
 
 
 def main():
@@ -16,7 +16,7 @@ def main():
     # args = vars(parser.parse_args())
     # print(f"\nCommand Line Args:\n{args}\n")
     # args = [args[key] for key in args.keys()]
-    cn.serve_app()
+    serve_app()
 
 
 if __name__ == "__main__":

@@ -6,7 +6,7 @@ Created on Fri Jul 14 23:39:06 2023
 
 """
 
-from os import getcwd
+from os import getcwd, environ
 import webbrowser
 import socket
 from threading import Timer
@@ -14,6 +14,7 @@ from waitress import serve
 from dash import Dash, html, dcc, clientside_callback
 from dash.dependencies import Input, Output
 from dash_bootstrap_components import themes
+import cleandoc  # pylint: disable=W0611
 import dash_sweet_components as sweet
 import dash_trees as trees
 import dash_callbacks as call
@@ -21,7 +22,9 @@ from .file_system_node import create_fs_nodes
 
 
 # CONSTANTS
-ACTIVATE_CMD = "C:/ProgramData/Anaconda3/Scripts/activate.bat && conda activate py39"
+CURRENT_ENV = environ["CONDA_DEFAULT_ENV"]
+CONDA_PATH = "C:/ProgramData/Anaconda3/Scripts/activate.bat"
+ACTIVATE_CMD = f"{CONDA_PATH} && conda activate {CURRENT_ENV}"
 SERVER_CMD = f'{ACTIVATE_CMD} && python "{call.SHELL_SERVER_PATH}" "dash_testing" "'
 PERSIST = True
 TREE_ID = "tree"
@@ -42,9 +45,9 @@ INTERVAL_ID = "stdout_int"
 CLEAN_FILE_ID = "File"
 CLEAN_ALL_ID = "All"
 CLEAN_DOC_ID = "Doc"
-CLEAN_FILE_CMD = f"{ACTIVATE_CMD} && python cleandoc -f "  #  -w
-CLEAN_ALL_CMD = f"{ACTIVATE_CMD} && python cleandoc -nodoc -d "  #  -w
-CLEAN_DOC_CMD = f"{ACTIVATE_CMD} && python cleandoc -d "
+CLEAN_FILE_CMD = f"{ACTIVATE_CMD} && cleandoc -f "  #  -w
+CLEAN_ALL_CMD = f"{ACTIVATE_CMD} && cleandoc -nodoc -d "  #  -w
+CLEAN_DOC_CMD = f"{ACTIVATE_CMD} && cleandoc -d "
 TAG_SEARCH_ID = "tagsearch"
 LOAD_SEARCH_ID = "searchloader"
 RESULT_ID = "searchresults"
