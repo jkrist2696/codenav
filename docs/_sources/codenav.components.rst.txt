@@ -1,0 +1,58 @@
+codenav.components package
+==========================
+
+.. automodule:: codenav.components
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+codenav.components.dash\_callbacks module
+-----------------------------------------
+
+.. automodule:: codenav.components.dash_callbacks
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+codenav.components.dash\_sweet\_components module
+-------------------------------------------------
+
+.. automodule:: codenav.components.dash_sweet_components
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+codenav.components.dash\_trees module
+-------------------------------------
+
+.. automodule:: codenav.components.dash_trees
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+codenav.components.file\_system\_node module
+--------------------------------------------
+
+.. automodule:: codenav.components.file_system_node
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+codenav.components.helper module
+--------------------------------
+
+.. automodule:: codenav.components.helper
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+codenav.components.shell\_server module
+---------------------------------------
+
+.. automodule:: codenav.components.shell_server
+   :members:
+   :undoc-members:
+   :show-inheritance:

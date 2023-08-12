@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="English" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>codenav.components.dash_callbacks &mdash; codenav 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            codenav
+          </a>
+              <div class="version">
+                0.0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../codenav.html">codenav package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">codenav</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">codenav.components.dash_callbacks</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for codenav.components.dash_callbacks</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Fri Jul 14 23:39:06 2023</span>
+
+<span class="sd">@author: jkris</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># from psutil import pid_exists</span>
+
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">access</span><span class="p">,</span> <span class="n">W_OK</span><span class="p">,</span> <span class="n">getcwd</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">textwrap</span> <span class="kn">import</span> <span class="n">wrap</span>
+<span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">Popen</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">psutil</span>
+<span class="kn">from</span> <span class="nn">dash</span> <span class="kn">import</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">ALL</span>
+<span class="kn">from</span> <span class="nn">dash.dependencies</span> <span class="kn">import</span> <span class="n">Input</span><span class="p">,</span> <span class="n">Output</span><span class="p">,</span> <span class="n">State</span>
+<span class="kn">from</span> <span class="nn">dash.exceptions</span> <span class="kn">import</span> <span class="n">PreventUpdate</span>
+<span class="kn">from</span> <span class="nn">snipsearch</span> <span class="kn">import</span> <span class="n">search_all_pyfiles</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">dash_sweet_components</span> <span class="k">as</span> <span class="n">sweet</span>
+<span class="kn">from</span> <span class="nn">.file_system_node</span> <span class="kn">import</span> <span class="n">create_fs_nodes</span>
+<span class="kn">from</span> <span class="nn">.dash_trees</span> <span class="kn">import</span> <span class="n">file_sys_tree</span>
+<span class="kn">from</span> <span class="nn">.shell_server</span> <span class="kn">import</span> <span class="n">get_from_queue</span>
+
+
+<span class="c1"># CONSTANTS</span>
+<span class="n">scriptdir</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">QUEUE_NAME</span> <span class="o">=</span> <span class="s2">&quot;dash_testing&quot;</span>
+<span class="n">ACTIVATE_CMD</span> <span class="o">=</span> <span class="s2">&quot;C:/ProgramData/Anaconda3/Scripts/activate.bat &amp;&amp; conda activate py39&quot;</span>
+<span class="n">SHELL_SERVER_PATH</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">scriptdir</span><span class="p">,</span> <span class="s2">&quot;shell_server.py&quot;</span><span class="p">)</span>
+<span class="n">SERVER_CMD</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ACTIVATE_CMD</span><span class="si">}</span><span class="s1"> &amp;&amp; python &quot;</span><span class="si">{</span><span class="n">SHELL_SERVER_PATH</span><span class="si">}</span><span class="s1">&quot; &quot;</span><span class="si">{</span><span class="n">QUEUE_NAME</span><span class="si">}</span><span class="s1">&quot; &quot;&#39;</span>
+<span class="n">READY_STR</span> <span class="o">=</span> <span class="s2">&quot;#%# Command Window Ready #%#&quot;</span>
+<span class="c1"># PORT = 1000</span>
+
+<span class="n">SCROLLDOWN</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    function(prismchildren) {</span>
+<span class="s2">        botright = document.getElementById(&#39;botright&#39;)</span>
+<span class="s2">        if (typeof botright === &quot;undefined&quot;) {</span>
+<span class="s2">            return &quot;placeholder&quot;</span>
+<span class="s2">        }</span>
+<span class="s2">        child1 = botright.children[0];</span>
+<span class="s2">        if (typeof child1 === &quot;undefined&quot;) {</span>
+<span class="s2">            return &quot;placeholder&quot;</span>
+<span class="s2">        }</span>
+<span class="s2">        child2 = child1.children[1];</span>
+<span class="s2">        if (typeof child2 === &quot;undefined&quot;) {</span>
+<span class="s2">            return &quot;placeholder&quot;</span>
+<span class="s2">        }</span>
+<span class="s2">        viewport = child2.children[1];</span>
+<span class="s2">        if (typeof viewport === &quot;undefined&quot;) {</span>
+<span class="s2">            return &quot;placeholder&quot;</span>
+<span class="s2">        }</span>
+<span class="s2">        viewport.scrollTo({top:viewport.scrollHeight, behavior: &#39;smooth&#39;});</span>
+<span class="s2">        return &quot;placeholder&quot;</span>
+<span class="s2">    }</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+
+
+<span class="c1"># Callbacks below</span>
+<div class="viewcode-block" id="dirpath_up"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks.dirpath_up">[docs]</a><span class="k">def</span> <span class="nf">dirpath_up</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">dirpath_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">upbutton_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">valname</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    dirpath_up</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="n">dirpath_id</span><span class="p">,</span> <span class="p">[</span><span class="n">valname</span><span class="p">])</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="n">upbutton_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;n_clicks&quot;</span><span class="p">])</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">dirpath_id</span><span class="p">,</span> <span class="p">[</span><span class="n">valname</span><span class="p">])</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">prevent_initial_call</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1">#</span>
+    <span class="k">def</span> <span class="nf">up_dirpath</span><span class="p">(</span><span class="n">_nclicks</span><span class="p">,</span> <span class="n">dirpath</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;up_dirpath.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        _nclicks :</span>
+<span class="sd">            _nclicks</span>
+<span class="sd">        dirpath :</span>
+<span class="sd">            dirpath</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_none_check</span><span class="p">(</span><span class="n">_nclicks</span><span class="p">)</span>
+        <span class="n">_none_zerolen_check</span><span class="p">(</span><span class="n">dirpath</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">dirpath</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">))]</span></div>
+
+
+<div class="viewcode-block" id="dirpath_store"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks.dirpath_store">[docs]</a><span class="k">def</span> <span class="nf">dirpath_store</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">storepath_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dirpath_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    dirpath_update</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">dirpath_id</span><span class="p">,</span> <span class="n">storepath_id</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">])</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="n">dirpath_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">])</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">storepath_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">states</span><span class="p">)</span>  <span class="c1">#</span>
+    <span class="k">def</span> <span class="nf">update_dirpath</span><span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="n">storepath</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;update_dirpath.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dirpath :</span>
+<span class="sd">            dirpath</span>
+<span class="sd">        storepath :</span>
+<span class="sd">            storepath</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># print(f&quot;\ndirpath: {dirpath}\nstorepath: {storepath}&quot;)</span>
+        <span class="k">if</span> <span class="n">dirpath</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">dirpath</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">dirpath</span><span class="p">,</span> <span class="n">dirpath</span>
+            <span class="k">raise</span> <span class="n">PreventUpdate</span>
+        <span class="k">if</span> <span class="n">_not_none_haslen</span><span class="p">(</span><span class="n">storepath</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">storepath</span><span class="p">,</span> <span class="n">storepath</span>
+        <span class="k">return</span> <span class="n">getcwd</span><span class="p">(),</span> <span class="n">getcwd</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="tree_create"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks.tree_create">[docs]</a><span class="k">def</span> <span class="nf">tree_create</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">tree_loader_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dirpath_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tree_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    create_tree</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">tree_loader_id</span><span class="p">,</span> <span class="n">dirpath_id</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;children&quot;</span><span class="p">,</span> <span class="s2">&quot;status&quot;</span><span class="p">])</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="n">dirpath_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">])</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>  <span class="c1"># , prevent_initial_call=True</span>
+    <span class="k">def</span> <span class="nf">create_tree</span><span class="p">(</span><span class="n">dirpath</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;create_tree.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dirpath :</span>
+<span class="sd">            dirpath</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_none_check</span><span class="p">(</span><span class="n">dirpath</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">dirpath</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">sweet</span><span class="o">.</span><span class="n">dark_text</span><span class="p">(</span><span class="s2">&quot;Directory Does Not Exist&quot;</span><span class="p">),</span> <span class="s2">&quot;error&quot;</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="n">create_fs_nodes</span><span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;.py&quot;</span><span class="p">])</span>
+        <span class="n">tree</span> <span class="o">=</span> <span class="n">file_sys_tree</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">tree_id</span><span class="p">,</span> <span class="n">persistence</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">selectedKeys</span><span class="o">=</span><span class="p">[])</span>
+        <span class="k">return</span> <span class="n">tree</span><span class="p">,</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="tree_expand"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks.tree_expand">[docs]</a><span class="k">def</span> <span class="nf">tree_expand</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">tree_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    tree_expand</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">tree_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;expandedKeys&quot;</span><span class="p">,</span> <span class="s2">&quot;selectedKeys&quot;</span><span class="p">])</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="n">tree_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;selectedKeys&quot;</span><span class="p">])</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">tree_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;expandedKeys&quot;</span><span class="p">,</span> <span class="s2">&quot;treeData&quot;</span><span class="p">])</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">prevent_initial_call</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">expand_tree</span><span class="p">(</span><span class="n">selected</span><span class="p">,</span> <span class="n">expanded</span><span class="p">,</span> <span class="n">treedata</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;expand_tree.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        selected :</span>
+<span class="sd">            selected</span>
+<span class="sd">        expanded :</span>
+<span class="sd">            expanded</span>
+<span class="sd">        treedata :</span>
+<span class="sd">            treedata</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">selectdata</span> <span class="o">=</span> <span class="n">_selectdata_check</span><span class="p">(</span><span class="n">selected</span><span class="p">,</span> <span class="n">treedata</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">selectdata</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">PreventUpdate</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">expanded</span><span class="p">:</span>
+            <span class="n">expanded</span> <span class="o">=</span> <span class="p">[</span><span class="n">selectdata</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">]]</span>
+            <span class="k">return</span> <span class="n">expanded</span><span class="p">,</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">selectdata</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">expanded</span><span class="p">:</span>
+            <span class="n">expanded</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">selectdata</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">expanded</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">selectdata</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">expanded</span><span class="p">,</span> <span class="p">[]</span></div>
+
+
+<div class="viewcode-block" id="tab_store"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks.tab_store">[docs]</a><span class="k">def</span> <span class="nf">tab_store</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">tabs_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">storetabs_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    tree_open_file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">output1</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">tabs_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">,</span> <span class="s2">&quot;activeKey&quot;</span><span class="p">])</span>
+    <span class="n">output2</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">storetabs_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">storetabs_id</span><span class="p">,</span> <span class="n">tabs_id</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;activeKey&quot;</span><span class="p">])</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">tabs_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">])</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">output1</span><span class="p">,</span> <span class="n">output2</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">states</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">store_tab</span><span class="p">(</span><span class="n">storetabs</span><span class="p">,</span> <span class="n">activekey</span><span class="p">,</span> <span class="n">tabitems</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;store_tab.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        storetabs :</span>
+<span class="sd">            storetabs</span>
+<span class="sd">        activekey :</span>
+<span class="sd">            activekey</span>
+<span class="sd">        tabitems :</span>
+<span class="sd">            tabitems</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_none_check</span><span class="p">(</span><span class="n">storetabs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">activekey</span> <span class="ow">and</span> <span class="n">ctx</span><span class="o">.</span><span class="n">triggered_id</span> <span class="o">==</span> <span class="n">tabs_id</span><span class="p">:</span>
+            <span class="n">storetabs</span><span class="p">[</span><span class="s2">&quot;_active&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">activekey</span>
+        <span class="k">if</span> <span class="n">ctx</span><span class="o">.</span><span class="n">triggered_id</span> <span class="o">==</span> <span class="n">storetabs_id</span><span class="p">:</span>
+            <span class="n">tabitems</span><span class="p">,</span> <span class="n">activekey</span> <span class="o">=</span> <span class="n">_tabitems_from_dict</span><span class="p">(</span><span class="n">storetabs</span><span class="p">,</span> <span class="n">tabitems</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tabitems</span><span class="p">,</span> <span class="n">activekey</span><span class="p">,</span> <span class="n">storetabs</span></div>
+
+
+<div class="viewcode-block" id="tree_open_file"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks.tree_open_file">[docs]</a><span class="k">def</span> <span class="nf">tree_open_file</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">storetabs_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tree_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    tree_open_file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">storetabs_id</span><span class="p">,</span> <span class="n">tree_id</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;selectedKeys&quot;</span><span class="p">])</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="n">tree_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;selectedKeys&quot;</span><span class="p">])</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">tree_id</span><span class="p">,</span> <span class="n">storetabs_id</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;treeData&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">])</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">prevent_initial_call</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">open_file</span><span class="p">(</span><span class="n">selected</span><span class="p">,</span> <span class="n">treedata</span><span class="p">,</span> <span class="n">storetabs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;open_file.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        selected :</span>
+<span class="sd">            selected</span>
+<span class="sd">        treedata :</span>
+<span class="sd">            treedata</span>
+<span class="sd">        storetabs :</span>
+<span class="sd">            storetabs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">selectdata</span> <span class="o">=</span> <span class="n">_selectdata_check</span><span class="p">(</span><span class="n">selected</span><span class="p">,</span> <span class="n">treedata</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">selectdata</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">PreventUpdate</span>
+        <span class="n">filepath</span> <span class="o">=</span> <span class="n">selectdata</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span>
+        <span class="n">_filedir</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+        <span class="n">storetabs</span> <span class="o">=</span> <span class="n">_storetabs_append</span><span class="p">(</span>
+            <span class="n">storetabs</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">ctype</span><span class="o">=</span><span class="s2">&quot;prism&quot;</span>
+        <span class="p">)</span>
+        <span class="c1"># print(&quot;\n&quot; + storetabs[&quot;_active&quot;] + &quot;\n&quot; + str(storetabs))</span>
+        <span class="k">return</span> <span class="n">storetabs</span><span class="p">,</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="tab_new"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks.tab_new">[docs]</a><span class="k">def</span> <span class="nf">tab_new</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">storetabs_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">newtab_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    tab_new</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="n">storetabs_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="n">newtab_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;n_clicks&quot;</span><span class="p">])</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">storetabs_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">prevent_initial_call</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">new_tab</span><span class="p">(</span><span class="n">_nclicks</span><span class="p">,</span> <span class="n">storetabs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;new_tab.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        _nclicks :</span>
+<span class="sd">            _nclicks</span>
+<span class="sd">        storetabs :</span>
+<span class="sd">            storetabs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">storetabs</span> <span class="o">=</span> <span class="n">_storetabs_append</span><span class="p">(</span>
+            <span class="n">storetabs</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;# New Tab Contents</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;New Tab&quot;</span><span class="p">,</span> <span class="n">ctype</span><span class="o">=</span><span class="s2">&quot;ace&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">storetabs</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="tab_delete"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks.tab_delete">[docs]</a><span class="k">def</span> <span class="nf">tab_delete</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">tabs_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">storetabs_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    tab_delete</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="n">storetabs_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="n">tabs_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;latestDeletePane&quot;</span><span class="p">])</span>
+    <span class="n">state1</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">tabs_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">,</span> <span class="s2">&quot;activeKey&quot;</span><span class="p">])</span>
+    <span class="n">state2</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">storetabs_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">state1</span><span class="p">,</span> <span class="n">state2</span><span class="p">,</span> <span class="n">prevent_initial_call</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">delete_tab</span><span class="p">(</span><span class="n">delkey</span><span class="p">,</span> <span class="n">tabitems</span><span class="p">,</span> <span class="n">activekey</span><span class="p">,</span> <span class="n">storetabs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;delete_tab.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        delkey :</span>
+<span class="sd">            delkey</span>
+<span class="sd">        tabitems :</span>
+<span class="sd">            tabitems</span>
+<span class="sd">        activekey :</span>
+<span class="sd">            activekey</span>
+<span class="sd">        storetabs :</span>
+<span class="sd">            storetabs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_none_check</span><span class="p">(</span><span class="n">delkey</span><span class="p">)</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tabitems</span><span class="p">)</span> <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">delkey</span><span class="p">]</span>
+        <span class="n">tabitems</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">tabitems</span> <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">delkey</span><span class="p">]</span>
+        <span class="n">_deleted</span> <span class="o">=</span> <span class="n">storetabs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">delkey</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">activekey</span> <span class="o">!=</span> <span class="n">delkey</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">storetabs</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_not_none_haslen</span><span class="p">(</span><span class="n">tabitems</span><span class="p">):</span>
+            <span class="n">activekey</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span>
+        <span class="k">elif</span> <span class="n">ind</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">activekey</span> <span class="o">=</span> <span class="n">tabitems</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;key&quot;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">activekey</span> <span class="o">=</span> <span class="n">tabitems</span><span class="p">[</span><span class="n">ind</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="s2">&quot;key&quot;</span><span class="p">]</span>
+        <span class="n">storetabs</span><span class="p">[</span><span class="s2">&quot;_active&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">activekey</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">storetabs</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="tab_edit"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks.tab_edit">[docs]</a><span class="k">def</span> <span class="nf">tab_edit</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">storetabs_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">edittab_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    tab_edit</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="n">storetabs_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="n">edittab_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;n_clicks&quot;</span><span class="p">])</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">storetabs_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">prevent_initial_call</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">edit_tab</span><span class="p">(</span><span class="n">_nclicks</span><span class="p">,</span> <span class="n">storetabs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;edit_tab.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        _nclicks :</span>
+<span class="sd">            _nclicks</span>
+<span class="sd">        storetabs :</span>
+<span class="sd">            storetabs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_none_check</span><span class="p">(</span><span class="n">storetabs</span><span class="p">)</span>
+        <span class="n">activekey</span> <span class="o">=</span> <span class="n">storetabs</span><span class="p">[</span><span class="s2">&quot;_active&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">activekey</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">storetabs</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">PreventUpdate</span>
+        <span class="n">_none_check</span><span class="p">(</span><span class="n">storetabs</span><span class="p">[</span><span class="n">activekey</span><span class="p">][</span><span class="s2">&quot;path&quot;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">storetabs</span><span class="p">[</span><span class="n">activekey</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ace&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">PreventUpdate</span>
+        <span class="c1"># filepath = storetabs[activekey][&quot;path&quot;]</span>
+        <span class="c1"># if not access(filepath, W_OK):</span>
+        <span class="c1">#    raise PreventUpdate</span>
+        <span class="n">storetabs</span><span class="p">[</span><span class="n">activekey</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;ace&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">storetabs</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="tab_save"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks.tab_save">[docs]</a><span class="k">def</span> <span class="nf">tab_save</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">storetabs_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">savetab_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">notify_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    tab_save</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">([</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">],</span> <span class="p">[</span><span class="n">notify_id</span><span class="p">,</span> <span class="n">storetabs_id</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;children&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">])</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="n">savetab_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;n_clicks&quot;</span><span class="p">])</span>
+    <span class="n">states1</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">storetabs_id</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
+    <span class="n">tabinput_id</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;tabinput&quot;</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="n">ALL</span><span class="p">}</span>
+    <span class="n">tabace_id</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;tabace&quot;</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="n">ALL</span><span class="p">}</span>
+    <span class="n">states2</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">tabinput_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">])</span>
+    <span class="n">states3</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">tabace_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">])</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">states1</span><span class="p">,</span> <span class="n">states2</span><span class="p">,</span> <span class="n">states3</span><span class="p">,</span> <span class="n">prevent_initial_call</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">save_tab</span><span class="p">(</span><span class="n">_nclicks</span><span class="p">,</span> <span class="n">storetabs</span><span class="p">,</span> <span class="n">tabpaths</span><span class="p">,</span> <span class="n">pathids</span><span class="p">,</span> <span class="n">tabaces</span><span class="p">,</span> <span class="n">aceids</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;save_tab.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        _nclicks :</span>
+<span class="sd">            _nclicks</span>
+<span class="sd">        storetabs :</span>
+<span class="sd">            storetabs</span>
+<span class="sd">        tabpaths :</span>
+<span class="sd">            tabpaths</span>
+<span class="sd">        pathids :</span>
+<span class="sd">            pathids</span>
+<span class="sd">        tabaces :</span>
+<span class="sd">            tabaces</span>
+<span class="sd">        aceids :</span>
+<span class="sd">            aceids</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_none_check</span><span class="p">(</span><span class="n">storetabs</span><span class="p">)</span>
+        <span class="n">activekey</span> <span class="o">=</span> <span class="n">storetabs</span><span class="p">[</span><span class="s2">&quot;_active&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">activekey</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">storetabs</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">PreventUpdate</span>
+        <span class="k">if</span> <span class="n">storetabs</span><span class="p">[</span><span class="n">activekey</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;ace&quot;</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;You must edit the file before saving&quot;</span>
+            <span class="n">notify_error</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span><span class="s2">&quot;Save Error&quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="s2">&quot;carbon:unsaved&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">notify_error</span><span class="p">,</span> <span class="n">storetabs</span>
+        <span class="n">savepath</span> <span class="o">=</span> <span class="n">tabpaths</span><span class="p">[</span>
+            <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="nb">id</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pathids</span><span class="p">)</span> <span class="k">if</span> <span class="nb">id</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">activekey</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="p">]</span>
+        <span class="n">savetext</span> <span class="o">=</span> <span class="n">tabaces</span><span class="p">[</span>
+            <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="nb">id</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">aceids</span><span class="p">)</span> <span class="k">if</span> <span class="nb">id</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">activekey</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="p">]</span>
+        <span class="n">_none_check</span><span class="p">(</span><span class="n">savepath</span><span class="p">)</span>
+        <span class="n">savedir</span><span class="p">,</span> <span class="n">savename</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">savepath</span><span class="p">)</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">savedir</span><span class="p">):</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Directory does not exist&quot;</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">access</span><span class="p">(</span><span class="n">savedir</span><span class="p">,</span> <span class="n">W_OK</span><span class="p">):</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;You do not have write access to this directory&quot;</span>
+        <span class="k">elif</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">savepath</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">access</span><span class="p">(</span><span class="n">savepath</span><span class="p">,</span> <span class="n">W_OK</span><span class="p">):</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;You do not have write access to this file&quot;</span>
+        <span class="k">if</span> <span class="n">message</span><span class="p">:</span>
+            <span class="n">notify_error</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span><span class="s2">&quot;Save Error&quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="s2">&quot;carbon:unsaved&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">notify_error</span><span class="p">,</span> <span class="n">storetabs</span>
+        <span class="n">storetabs</span><span class="p">[</span><span class="n">activekey</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;prism&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">savepath</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">savefile</span><span class="p">:</span>
+            <span class="n">savefile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">savetext</span><span class="p">)</span>
+        <span class="n">storetabs</span><span class="p">[</span><span class="n">activekey</span><span class="p">][</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">savename</span>
+        <span class="n">storetabs</span><span class="p">[</span><span class="n">activekey</span><span class="p">][</span><span class="s2">&quot;path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">savepath</span>
+        <span class="n">storetabs</span><span class="p">[</span><span class="n">activekey</span><span class="p">][</span><span class="s2">&quot;text&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">notify</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span>
+            <span class="s2">&quot;Saved Successfully&quot;</span><span class="p">,</span> <span class="n">savename</span><span class="p">,</span> <span class="s2">&quot;mingcute:save-line&quot;</span><span class="p">,</span> <span class="s2">&quot;green&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">notify</span><span class="p">,</span> <span class="n">storetabs</span></div>
+
+
+<div class="viewcode-block" id="button_start_cmd"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks.button_start_cmd">[docs]</a><span class="k">def</span> <span class="nf">button_start_cmd</span><span class="p">(</span>
+    <span class="n">app</span><span class="p">,</span>
+    <span class="n">command</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">stdstore_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">storeval_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">state_fxn</span><span class="p">,</span>
+    <span class="n">button_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">button_icon</span><span class="p">,</span>
+    <span class="n">button_property</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">first</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    button_start_cmd</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="n">stdstore_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">first</span><span class="p">:</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">stdstore_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="n">button_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;n_clicks&quot;</span><span class="p">])</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">stdstore_id</span><span class="p">,</span> <span class="n">storeval_id</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">])</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">prevent_initial_call</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">start_command</span><span class="p">(</span><span class="n">_nclicks</span><span class="p">,</span> <span class="n">stdstore</span><span class="p">,</span> <span class="n">storeval</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;start_command.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        _nclicks :</span>
+<span class="sd">            _nclicks</span>
+<span class="sd">        stdstore :</span>
+<span class="sd">            stdstore</span>
+<span class="sd">        storeval :</span>
+<span class="sd">            storeval</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_none_check</span><span class="p">(</span><span class="n">storeval</span><span class="p">)</span>
+        <span class="n">_none_check</span><span class="p">(</span><span class="n">_nclicks</span><span class="p">)</span>
+        <span class="n">_none_check</span><span class="p">(</span><span class="n">stdstore</span><span class="p">)</span>
+        <span class="n">text_in</span> <span class="o">=</span> <span class="n">stdstore</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span>
+        <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="n">nowstr</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">-%m-%y %H:%M:%S&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">READY_STR</span> <span class="ow">in</span> <span class="n">text_in</span><span class="p">:</span>
+            <span class="n">scriptpath</span> <span class="o">=</span> <span class="n">state_fxn</span><span class="p">(</span><span class="n">storeval</span><span class="p">)</span>
+            <span class="n">runcmd</span> <span class="o">=</span> <span class="n">SERVER_CMD</span> <span class="o">+</span> <span class="n">command</span> <span class="o">+</span> <span class="s1">&#39;&quot;&quot;&#39;</span> <span class="o">+</span> <span class="n">scriptpath</span> <span class="o">+</span> <span class="s1">&#39;&quot;&quot;&quot;&#39;</span>
+            <span class="n">parent_proc</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">(</span><span class="n">runcmd</span><span class="p">)</span>  <span class="c1"># , shell=True</span>
+            <span class="n">runtext</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">wrap</span><span class="p">(</span><span class="n">runcmd</span><span class="p">,</span> <span class="mi">150</span><span class="p">))</span>
+            <span class="n">text_out</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">#%# PROCESS ID: </span><span class="si">{</span><span class="n">parent_proc</span><span class="o">.</span><span class="n">pid</span><span class="si">}</span><span class="s2"> #%#&quot;</span>
+                <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&gt;&gt; [</span><span class="si">{</span><span class="n">nowstr</span><span class="si">}</span><span class="s1">] Running Command:</span><span class="se">\n</span><span class="s1">    </span><span class="si">{</span><span class="n">runtext</span><span class="si">}</span><span class="se">\n</span><span class="s1">&quot;&quot;&quot; &quot;</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="p">)</span>
+            <span class="n">stdstore</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">text_out</span>
+            <span class="n">stdstore</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">button_id</span>
+            <span class="n">stdstore</span><span class="p">[</span><span class="s2">&quot;proc_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent_proc</span><span class="o">.</span><span class="n">pid</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">stdstore</span><span class="p">]</span>
+        <span class="n">server_proc_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">stdstore</span><span class="p">[</span><span class="s2">&quot;proc_id&quot;</span><span class="p">])</span>
+        <span class="n">curbutton_id</span> <span class="o">=</span> <span class="n">stdstore</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">curbutton_id</span> <span class="o">!=</span> <span class="n">button_id</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">PreventUpdate</span>
+        <span class="k">if</span> <span class="n">psutil</span><span class="o">.</span><span class="n">pid_exists</span><span class="p">(</span><span class="n">server_proc_id</span><span class="p">):</span>
+            <span class="n">_n1</span><span class="p">,</span> <span class="n">_s1</span> <span class="o">=</span> <span class="n">get_from_queue</span><span class="p">(</span><span class="n">server_proc_id</span><span class="p">,</span> <span class="n">QUEUE_NAME</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="s2">&quot;user stop&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;status: </span><span class="si">{</span><span class="n">_s1</span><span class="si">}</span><span class="se">\n</span><span class="s2">newlines: </span><span class="si">{</span><span class="n">_n1</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">stopstr</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">#%# [</span><span class="si">{</span><span class="n">nowstr</span><span class="si">}</span><span class="s2">] Process Stopped #%#</span><span class="se">\n</span><span class="si">{</span><span class="n">READY_STR</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># stopstr = f&quot;{READY_STR}\n&quot;</span>
+            <span class="k">raise</span> <span class="n">PreventUpdate</span>
+        <span class="n">stdstore</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">text_in</span> <span class="o">+</span> <span class="n">stopstr</span>
+        <span class="n">stdstore</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">stdstore</span><span class="p">]</span>
+
+    <span class="n">stop_icon</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">iconify</span><span class="p">(</span><span class="s2">&quot;fe:stop&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">)</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">button_id</span><span class="p">,</span> <span class="p">[</span><span class="n">button_property</span><span class="p">])</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="n">stdstore_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">storeval_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">states</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">stop_button</span><span class="p">(</span><span class="n">stdstore</span><span class="p">,</span> <span class="n">storeval</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;stop_button.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        stdstore :</span>
+<span class="sd">            stdstore</span>
+<span class="sd">        storeval :</span>
+<span class="sd">            storeval</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_none_check</span><span class="p">(</span><span class="n">storeval</span><span class="p">)</span>
+        <span class="n">_none_check</span><span class="p">(</span><span class="n">stdstore</span><span class="p">)</span>
+        <span class="n">text_in</span> <span class="o">=</span> <span class="n">stdstore</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span>
+        <span class="n">curbutton_id</span> <span class="o">=</span> <span class="n">stdstore</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">READY_STR</span> <span class="ow">in</span> <span class="n">text_in</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">button_icon</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">curbutton_id</span> <span class="o">!=</span> <span class="n">button_id</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">PreventUpdate</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">stop_icon</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="stdstore_update"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks.stdstore_update">[docs]</a><span class="k">def</span> <span class="nf">stdstore_update</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">stdstore_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">interval_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    stdout_update</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">stdstore_id</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">interval_id</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;n_intervals&quot;</span><span class="p">])</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">stdstore_id</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">prevent_initial_call</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">update_stdstore</span><span class="p">(</span><span class="n">_intervals</span><span class="p">,</span> <span class="n">stdstore</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;update_stdstore.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        _intervals :</span>
+<span class="sd">            _intervals</span>
+<span class="sd">        stdstore :</span>
+<span class="sd">            stdstore</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">stdstore</span><span class="p">:</span>
+            <span class="n">stdstore</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;proc_id&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;stop&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+            <span class="n">stdstore</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">READY_STR</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">stdstore</span><span class="p">]</span>
+        <span class="n">text_in</span> <span class="o">=</span> <span class="n">stdstore</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span>
+        <span class="n">server_proc_id</span> <span class="o">=</span> <span class="n">stdstore</span><span class="p">[</span><span class="s2">&quot;proc_id&quot;</span><span class="p">]</span>
+        <span class="n">_none_check</span><span class="p">(</span><span class="n">server_proc_id</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">newlines</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">get_from_queue</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">server_proc_id</span><span class="p">),</span> <span class="n">QUEUE_NAME</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ConnectionResetError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="n">newlines</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">psutil</span><span class="o">.</span><span class="n">pid_exists</span><span class="p">(</span><span class="n">server_proc_id</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">READY_STR</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">text_in</span><span class="p">):</span>
+            <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="n">nowstr</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">-%m-%y %H:%M:%S&quot;</span><span class="p">)</span>
+            <span class="n">donestr</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">#%# [</span><span class="si">{</span><span class="n">nowstr</span><span class="si">}</span><span class="s2">] Process Complete #%#</span><span class="se">\n</span><span class="si">{</span><span class="n">READY_STR</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="n">stdstore</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">text_in</span> <span class="o">+</span> <span class="n">donestr</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">stdstore</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">newlines</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">PreventUpdate</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">status</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">newlines</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;status: </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">    newlines: </span><span class="si">{</span><span class="n">newlines</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">_n1</span><span class="p">,</span> <span class="n">_s1</span> <span class="o">=</span> <span class="n">get_from_queue</span><span class="p">(</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">server_proc_id</span><span class="p">),</span> <span class="n">QUEUE_NAME</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="s2">&quot;completion&quot;</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;status: </span><span class="si">{</span><span class="n">_s1</span><span class="si">}</span><span class="se">\n</span><span class="s2">newlines: </span><span class="si">{</span><span class="n">_n1</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">PreventUpdate</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">newlines</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">PreventUpdate</span>
+        <span class="n">text_out</span> <span class="o">=</span> <span class="n">text_in</span> <span class="o">+</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">newlines</span><span class="p">)</span>
+        <span class="n">stdstore</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">text_out</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">stdstore</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="stdout_update"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks.stdout_update">[docs]</a><span class="k">def</span> <span class="nf">stdout_update</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">stdstore_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">stdout_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    stdout_store</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">stdout_id</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;children&quot;</span><span class="p">])</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">stdstore_id</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">update_stdout</span><span class="p">(</span><span class="n">stdstore</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;update_stdout.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        stdstore :</span>
+<span class="sd">            stdstore</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_none_check</span><span class="p">(</span><span class="n">stdstore</span><span class="p">)</span>
+        <span class="n">storetext</span> <span class="o">=</span> <span class="n">stdstore</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">storetext</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="show_hide_search"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks.show_hide_search">[docs]</a><span class="k">def</span> <span class="nf">show_hide_search</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">search_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">result_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    show_hide_search</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;middle&quot;</span><span class="p">,</span> <span class="n">result_id</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;style&quot;</span><span class="p">,</span> <span class="s2">&quot;style&quot;</span><span class="p">])</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">search_id</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">])</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">showhidesearch</span><span class="p">(</span><span class="n">search</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;showhidesearch.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        search :</span>
+<span class="sd">            search</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">search</span><span class="p">:</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="s2">&quot;0vw&quot;</span>
+            <span class="n">minwidth</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="s2">&quot;12vw&quot;</span>
+            <span class="n">minwidth</span> <span class="o">=</span> <span class="s2">&quot;5vw&quot;</span>
+        <span class="n">style</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="s2">&quot;100vh&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span>
+            <span class="s2">&quot;minWidth&quot;</span><span class="p">:</span> <span class="n">minwidth</span><span class="p">,</span>
+            <span class="s2">&quot;display&quot;</span><span class="p">:</span> <span class="s2">&quot;inline-block&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;overflow&quot;</span><span class="p">:</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;resize&quot;</span><span class="p">:</span> <span class="s2">&quot;horizontal&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;background&quot;</span><span class="p">:</span> <span class="s2">&quot;#181818&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;border&quot;</span><span class="p">:</span> <span class="s2">&quot;1px solid #5C5F66&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">style</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;display&quot;</span><span class="p">:</span> <span class="s2">&quot;none&quot;</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="run_search"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks.run_search">[docs]</a><span class="k">def</span> <span class="nf">run_search</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">search_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">loader_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">storepath_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">result_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    show_hide_search</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">loader_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;children&quot;</span><span class="p">])</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;middle&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;style&quot;</span><span class="p">])</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">storepath_id</span><span class="p">,</span> <span class="n">search_id</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">])</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">states</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">runsearch</span><span class="p">(</span><span class="n">_style</span><span class="p">,</span> <span class="n">searchdir</span><span class="p">,</span> <span class="n">searchval</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;runsearch.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        _style :</span>
+<span class="sd">            _style</span>
+<span class="sd">        searchdir :</span>
+<span class="sd">            searchdir</span>
+<span class="sd">        searchval :</span>
+<span class="sd">            searchval</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_none_check</span><span class="p">(</span><span class="n">searchval</span><span class="p">)</span>
+        <span class="n">_none_check</span><span class="p">(</span><span class="n">searchdir</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">searchdir</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">PreventUpdate</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">search_all_pyfiles</span><span class="p">(</span><span class="n">searchdir</span><span class="p">,</span> <span class="n">searchval</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
+        <span class="c1"># Parse the results myself and turn into Divs with text and 2 buttons each</span>
+        <span class="c1"># resultstr = crs.get_result_str(results, number=10)</span>
+        <span class="c1"># resultcode = [codetext(resultstr, &quot;searchtext&quot;)]</span>
+        <span class="c1"># return resultcode</span>
+        <span class="n">alldivs</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">create_search_results</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span><span class="n">alldivs</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">result_id</span><span class="p">)]</span></div>
+
+
+<div class="viewcode-block" id="open_search"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks.open_search">[docs]</a><span class="k">def</span> <span class="nf">open_search</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">storetabs_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    tab_edit</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">filebutton_ids</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;filebutton&quot;</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="n">ALL</span><span class="p">}</span>
+    <span class="n">respath_ids</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;respath&quot;</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="n">ALL</span><span class="p">}</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">([</span><span class="s2">&quot;d&quot;</span><span class="p">],</span> <span class="n">storetabs_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="n">filebutton_ids</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;n_clicks&quot;</span><span class="p">])</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">storetabs_id</span><span class="p">,</span> <span class="n">respath_ids</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;children&quot;</span><span class="p">])</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">prevent_initial_call</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">opensearchfile</span><span class="p">(</span><span class="n">_nclicks</span><span class="p">,</span> <span class="n">storetabs</span><span class="p">,</span> <span class="n">respaths</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;opensearchfile.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        _nclicks :</span>
+<span class="sd">            _nclicks</span>
+<span class="sd">        storetabs :</span>
+<span class="sd">            storetabs</span>
+<span class="sd">        respaths :</span>
+<span class="sd">            respaths</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">_nclicks</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">PreventUpdate</span>
+        <span class="c1"># print(f&quot;\n{_nclicks}\n{ctx.triggered_prop_ids}&quot;)</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">triggered_id</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">respath</span> <span class="o">=</span> <span class="n">respaths</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+        <span class="n">_filedir</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">respath</span><span class="p">)</span>
+        <span class="n">storetabs</span> <span class="o">=</span> <span class="n">_storetabs_append</span><span class="p">(</span><span class="n">storetabs</span><span class="p">,</span> <span class="n">respath</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">ctype</span><span class="o">=</span><span class="s2">&quot;prism&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">storetabs</span><span class="p">]</span>
+
+    <span class="n">snipbutton_id</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;snipbutton&quot;</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="n">ALL</span><span class="p">}</span>
+    <span class="n">restext_id</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;restext&quot;</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="n">ALL</span><span class="p">}</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">([</span><span class="s2">&quot;d&quot;</span><span class="p">],</span> <span class="n">storetabs_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="n">snipbutton_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;n_clicks&quot;</span><span class="p">])</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">storetabs_id</span><span class="p">,</span> <span class="n">restext_id</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;children&quot;</span><span class="p">])</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">prevent_initial_call</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">opensearchsnip</span><span class="p">(</span><span class="n">_nclicks</span><span class="p">,</span> <span class="n">storetabs</span><span class="p">,</span> <span class="n">restexts</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;opensearchsnip.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        _nclicks :</span>
+<span class="sd">            _nclicks</span>
+<span class="sd">        storetabs :</span>
+<span class="sd">            storetabs</span>
+<span class="sd">        restexts :</span>
+<span class="sd">            restexts</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">_nclicks</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">PreventUpdate</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">triggered_id</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">restext</span> <span class="o">=</span> <span class="n">restexts</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+        <span class="n">storetabs</span> <span class="o">=</span> <span class="n">_storetabs_append</span><span class="p">(</span>
+            <span class="n">storetabs</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">restext</span><span class="p">,</span> <span class="s2">&quot;Snip #&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ind</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">ctype</span><span class="o">=</span><span class="s2">&quot;prism&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">storetabs</span><span class="p">]</span></div>
+
+
+<span class="c1"># Pre Checks Below</span>
+<div class="viewcode-block" id="_selectdata_check"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks._selectdata_check">[docs]</a><span class="k">def</span> <span class="nf">_selectdata_check</span><span class="p">(</span><span class="n">selected</span><span class="p">,</span> <span class="n">treedata</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;_selectdata_check.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    selected :</span>
+<span class="sd">        selected</span>
+<span class="sd">    treedata :</span>
+<span class="sd">        treedata</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">selected</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">PreventUpdate</span>
+    <span class="n">selectdata</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">treedata</span> <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">selected</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">selectdata</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">PreventUpdate</span>
+    <span class="k">return</span> <span class="n">selectdata</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="_none_check"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks._none_check">[docs]</a><span class="k">def</span> <span class="nf">_none_check</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;_none_check.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    value :</span>
+<span class="sd">        value</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">PreventUpdate</span></div>
+
+
+<div class="viewcode-block" id="_not_none_haslen"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks._not_none_haslen">[docs]</a><span class="k">def</span> <span class="nf">_not_none_haslen</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;_not_none_haslen.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    value :</span>
+<span class="sd">        value</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="_none_zerolen_check"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks._none_zerolen_check">[docs]</a><span class="k">def</span> <span class="nf">_none_zerolen_check</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;_none_zerolen_check.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    value :</span>
+<span class="sd">        value</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">PreventUpdate</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">PreventUpdate</span></div>
+
+
+<span class="c1"># Helpers Below</span>
+<div class="viewcode-block" id="read_storetabs_file"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks.read_storetabs_file">[docs]</a><span class="k">def</span> <span class="nf">read_storetabs_file</span><span class="p">(</span><span class="n">storetabs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    read_storetabs_file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">activekey</span> <span class="o">=</span> <span class="n">storetabs</span><span class="p">[</span><span class="s2">&quot;_active&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">activekey</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">storetabs</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">PreventUpdate</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">storetabs</span><span class="p">[</span><span class="n">activekey</span><span class="p">][</span><span class="s2">&quot;path&quot;</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="n">PreventUpdate</span>
+    <span class="k">return</span> <span class="n">storetabs</span><span class="p">[</span><span class="n">activekey</span><span class="p">][</span><span class="s2">&quot;path&quot;</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="read_storepath"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks.read_storepath">[docs]</a><span class="k">def</span> <span class="nf">read_storepath</span><span class="p">(</span><span class="n">storepath</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    read_storepath</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">storepath</span></div>
+
+
+<div class="viewcode-block" id="_puts"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks._puts">[docs]</a><span class="k">def</span> <span class="nf">_puts</span><span class="p">(</span>
+    <span class="n">ptypes</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">],</span> <span class="n">call_ids</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">],</span> <span class="n">names</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;_puts.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ptypes : Union[list[str], str]</span>
+<span class="sd">        ptypes</span>
+<span class="sd">    call_ids : Union[list[str], str]</span>
+<span class="sd">        call_ids</span>
+<span class="sd">    names : list[str]</span>
+<span class="sd">        names</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">call_ids</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">call_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">call_ids</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ptypes</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">ptypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">ptypes</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+    <span class="n">outlist</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ptype</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ptypes</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">ptype</span> <span class="o">==</span> <span class="s2">&quot;o&quot;</span><span class="p">:</span>
+            <span class="n">outlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Output</span><span class="p">(</span><span class="n">call_ids</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+        <span class="k">elif</span> <span class="n">ptype</span> <span class="o">==</span> <span class="s2">&quot;d&quot;</span><span class="p">:</span>
+            <span class="n">outlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Output</span><span class="p">(</span><span class="n">call_ids</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">allow_duplicate</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">ptype</span> <span class="o">==</span> <span class="s2">&quot;i&quot;</span><span class="p">:</span>
+            <span class="n">outlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Input</span><span class="p">(</span><span class="n">call_ids</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+        <span class="k">elif</span> <span class="n">ptype</span> <span class="o">==</span> <span class="s2">&quot;s&quot;</span><span class="p">:</span>
+            <span class="n">outlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">State</span><span class="p">(</span><span class="n">call_ids</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;!! ptype &#39;</span><span class="si">{</span><span class="n">ptype</span><span class="si">}</span><span class="s2">&#39; is not support by &#39;puts&#39; function !!&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">outlist</span></div>
+
+
+<div class="viewcode-block" id="_tabdict"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks._tabdict">[docs]</a><span class="k">def</span> <span class="nf">_tabdict</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;_tabdict.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    children :</span>
+<span class="sd">        children</span>
+<span class="sd">    label : str</span>
+<span class="sd">        label</span>
+<span class="sd">    key : str</span>
+<span class="sd">        key</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">label</span><span class="p">,</span> <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="n">key</span><span class="p">,</span> <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="n">children</span><span class="p">,</span> <span class="s2">&quot;closable&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="_storetabs_append"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks._storetabs_append">[docs]</a><span class="k">def</span> <span class="nf">_storetabs_append</span><span class="p">(</span><span class="n">storetabs</span><span class="p">,</span> <span class="n">itempath</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ctype</span><span class="o">=</span><span class="s2">&quot;prism&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;_storetabs_append.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    storetabs :</span>
+<span class="sd">        storetabs</span>
+<span class="sd">    itempath : str</span>
+<span class="sd">        itempath</span>
+<span class="sd">    text : str</span>
+<span class="sd">        text</span>
+<span class="sd">    name : str</span>
+<span class="sd">        name</span>
+<span class="sd">    ctype :</span>
+<span class="sd">        ctype</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">storetabs</span><span class="p">:</span>
+        <span class="n">storetabs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">storekeys</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">storetabs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">storekeys</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">curkey</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">curkey</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">storekeys</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">storetabs</span><span class="p">[</span><span class="s2">&quot;_active&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">curkey</span>
+    <span class="n">storetabs</span><span class="p">[</span><span class="n">curkey</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">storetabs</span><span class="p">[</span><span class="n">curkey</span><span class="p">][</span><span class="s2">&quot;path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">itempath</span>
+    <span class="k">if</span> <span class="n">itempath</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">access</span><span class="p">(</span><span class="n">itempath</span><span class="p">,</span> <span class="n">W_OK</span><span class="p">):</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="o">+</span> <span class="s2">&quot; (Read Only)&quot;</span>
+    <span class="n">storetabs</span><span class="p">[</span><span class="n">curkey</span><span class="p">][</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+    <span class="n">storetabs</span><span class="p">[</span><span class="n">curkey</span><span class="p">][</span><span class="s2">&quot;text&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">text</span>
+    <span class="n">storetabs</span><span class="p">[</span><span class="n">curkey</span><span class="p">][</span><span class="s2">&quot;key&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">curkey</span>
+    <span class="n">storetabs</span><span class="p">[</span><span class="n">curkey</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ctype</span>
+    <span class="c1"># print(f&quot;\nactivekey in append: {curkey}&quot;)</span>
+    <span class="k">return</span> <span class="n">storetabs</span></div>
+
+
+<div class="viewcode-block" id="_tabitems_from_dict"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks._tabitems_from_dict">[docs]</a><span class="k">def</span> <span class="nf">_tabitems_from_dict</span><span class="p">(</span><span class="n">storetabs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">tabitems</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;_tabitems_from_dict.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    storetabs : dict</span>
+<span class="sd">        storetabs</span>
+<span class="sd">    tabitems : list</span>
+<span class="sd">        tabitems</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">storetabs_cp</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">storetabs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">tabitems</span><span class="p">:</span>
+        <span class="n">tabitems</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">new_tabitems</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">new_keys</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">curkey</span> <span class="o">=</span> <span class="n">storetabs_cp</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;_active&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">tabitem</span> <span class="ow">in</span> <span class="n">tabitems</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">tabitem</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">storetabs_cp</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">tabitem</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">curkey</span><span class="p">:</span>
+            <span class="n">storeitem</span> <span class="o">=</span> <span class="n">storetabs_cp</span><span class="p">[</span><span class="n">curkey</span><span class="p">]</span>
+            <span class="n">tabdiv</span> <span class="o">=</span> <span class="n">_make_tabdiv</span><span class="p">(</span><span class="n">storeitem</span><span class="p">)</span>
+            <span class="n">new_tabitems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_tabdict</span><span class="p">(</span><span class="n">tabdiv</span><span class="p">,</span> <span class="n">storeitem</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span> <span class="n">storeitem</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">]))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_tabitems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tabitem</span><span class="p">)</span>
+        <span class="n">new_keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tabitem</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">])</span>
+    <span class="n">new_storekeys</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">storetabs_cp</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">new_keys</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">storekey</span> <span class="ow">in</span> <span class="n">new_storekeys</span><span class="p">:</span>
+        <span class="n">storeitem</span> <span class="o">=</span> <span class="n">storetabs_cp</span><span class="p">[</span><span class="n">storekey</span><span class="p">]</span>
+        <span class="n">tabdiv</span> <span class="o">=</span> <span class="n">_make_tabdiv</span><span class="p">(</span><span class="n">storeitem</span><span class="p">)</span>
+        <span class="n">new_tabitems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_tabdict</span><span class="p">(</span><span class="n">tabdiv</span><span class="p">,</span> <span class="n">storeitem</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span> <span class="n">storeitem</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="n">new_tabitems</span><span class="p">,</span> <span class="n">curkey</span></div>
+
+
+<div class="viewcode-block" id="_make_tabdiv"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_callbacks._make_tabdiv">[docs]</a><span class="k">def</span> <span class="nf">_make_tabdiv</span><span class="p">(</span><span class="n">storeitem</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;_make_tabdiv.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    storeitem : dict</span>
+<span class="sd">        storeitem</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">isfile</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">storeitem</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span>
+    <span class="n">header_id</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;tabinput&quot;</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="n">storeitem</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">]}</span>
+    <span class="n">headerdiv</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">ant_input</span><span class="p">(</span><span class="s2">&quot;🗎 File Path&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">header_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">storeitem</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">]:</span>
+        <span class="n">isfile</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">storeitem</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">]</span>
+        <span class="n">headerdiv</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">ant_input</span><span class="p">(</span>
+            <span class="s2">&quot;🗎 File Path&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">header_id</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">storeitem</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">storeitem</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;edit&quot;</span><span class="p">:</span>
+        <span class="n">codediv</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">pyeditor</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">isfile</span><span class="o">=</span><span class="n">isfile</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">storeitem</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ace&quot;</span><span class="p">:</span>
+        <span class="n">ace_id</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;tabace&quot;</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="n">storeitem</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">]}</span>
+        <span class="n">codediv</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">ace_pyeditor</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">isfile</span><span class="o">=</span><span class="n">isfile</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">ace_id</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">codediv</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">pyprism</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">isfile</span><span class="o">=</span><span class="n">isfile</span><span class="p">)</span>
+    <span class="n">tabdiv</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">add_header_div</span><span class="p">(</span><span class="n">headerdiv</span><span class="p">,</span> <span class="n">codediv</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tabdiv</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, jkris.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

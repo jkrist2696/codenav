@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="English" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>codenav.components.dash_sweet_components &mdash; codenav 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            codenav
+          </a>
+              <div class="version">
+                0.0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../codenav.html">codenav package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">codenav</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">codenav.components.dash_sweet_components</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for codenav.components.dash_sweet_components</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Fri Jul 14 23:39:06 2023</span>
+
+<span class="sd">@author: jkris</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># https://icon-sets.iconify.design/fluent/folder-arrow-up-16-filled/</span>
+
+<span class="c1"># use this scrollbar?</span>
+<span class="c1"># import feffery_utils_components as fuc</span>
+<span class="c1"># alldiv = fuc.FefferyScrollbars(divlist, style={&quot;height&quot;: &quot;100vh&quot;, &quot;color&quot;: &quot;white&quot;})</span>
+<span class="c1"># from dash_holoniq_components import PageTitle</span>
+
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">import</span> <span class="nn">dash_bootstrap_components</span> <span class="k">as</span> <span class="nn">dbc</span>
+<span class="kn">import</span> <span class="nn">dash_mantine_components</span> <span class="k">as</span> <span class="nn">dmc</span>
+<span class="kn">import</span> <span class="nn">feffery_antd_components</span> <span class="k">as</span> <span class="nn">fac</span>
+<span class="kn">from</span> <span class="nn">dash_iconify</span> <span class="kn">import</span> <span class="n">DashIconify</span>
+<span class="kn">import</span> <span class="nn">dash_editor_components</span> <span class="k">as</span> <span class="nn">dec</span>
+<span class="kn">from</span> <span class="nn">dash_ace</span> <span class="kn">import</span> <span class="n">DashAceEditor</span>
+<span class="kn">from</span> <span class="nn">dash</span> <span class="kn">import</span> <span class="n">html</span>  <span class="c1"># , dash_table, dcc</span>
+<span class="kn">from</span> <span class="nn">.helper</span> <span class="kn">import</span> <span class="n">round_sigfig</span><span class="p">,</span> <span class="n">set_default</span>
+
+
+<span class="n">BG_COLOR_1_DARK</span> <span class="o">=</span> <span class="s2">&quot;#181818&quot;</span>
+<span class="n">BG_COLOR_2_DARK</span> <span class="o">=</span> <span class="s2">&quot;#5C5F66&quot;</span>
+<span class="n">BG_COLOR_3_DARK</span> <span class="o">=</span> <span class="s2">&quot;#373A40&quot;</span>
+<span class="n">BG_COLOR_4_DARK</span> <span class="o">=</span> <span class="s2">&quot;#25262B&quot;</span>  <span class="c1"># darkest one?</span>
+<span class="n">BG_COLOR_5_DARK</span> <span class="o">=</span> <span class="s2">&quot;#2C3333&quot;</span>
+<span class="n">BG_COLOR_BLUE_POP</span> <span class="o">=</span> <span class="s2">&quot;#094F9C&quot;</span>
+<span class="n">FG_COLOR_1_DARK</span> <span class="o">=</span> <span class="s2">&quot;white&quot;</span>
+<span class="n">FG_COLOR_2_DARK</span> <span class="o">=</span> <span class="s2">&quot;rgb(206, 212, 218)&quot;</span>
+<span class="n">BORD_COLOR_1_DARK</span> <span class="o">=</span> <span class="s2">&quot;#5C5F66&quot;</span>
+<span class="c1"># bg_color = &quot;#101113&quot;, &quot;#162780&quot;</span>
+
+
+<div class="viewcode-block" id="resize_col"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.resize_col">[docs]</a><span class="k">def</span> <span class="nf">resize_col</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    resize_col</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">divstyle</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="s2">&quot;100vh&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span>
+        <span class="s2">&quot;minWidth&quot;</span><span class="p">:</span> <span class="s2">&quot;6vw&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;display&quot;</span><span class="p">:</span> <span class="s2">&quot;inline-block&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;overflow&quot;</span><span class="p">:</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;resize&quot;</span><span class="p">:</span> <span class="s2">&quot;horizontal&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;background&quot;</span><span class="p">:</span> <span class="n">BG_COLOR_1_DARK</span><span class="p">,</span>
+        <span class="s2">&quot;border&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;1px solid </span><span class="si">{</span><span class="n">BG_COLOR_2_DARK</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="s2">&quot;style&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">divstyle</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;style&quot;</span><span class="p">])</span>
+        <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;style&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">divstyle</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="resize_row"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.resize_row">[docs]</a><span class="k">def</span> <span class="nf">resize_row</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    resize_row</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">divstyle</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="n">height</span><span class="p">,</span>
+        <span class="s2">&quot;minHeight&quot;</span><span class="p">:</span> <span class="s2">&quot;10vh&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;maxHeight&quot;</span><span class="p">:</span> <span class="s2">&quot;90vh&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;overflow&quot;</span><span class="p">:</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;resize&quot;</span><span class="p">:</span> <span class="s2">&quot;vertical&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;display&quot;</span><span class="p">:</span> <span class="s2">&quot;flex-inline&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;background&quot;</span><span class="p">:</span> <span class="n">BG_COLOR_1_DARK</span><span class="p">,</span>
+        <span class="s2">&quot;border&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;1px solid </span><span class="si">{</span><span class="n">BORD_COLOR_1_DARK</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="s2">&quot;style&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">divstyle</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;style&quot;</span><span class="p">])</span>
+        <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;style&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">divstyle</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="flex_col"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.flex_col">[docs]</a><span class="k">def</span> <span class="nf">flex_col</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    flex_col</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">divstyle</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;display&quot;</span><span class="p">:</span> <span class="s2">&quot;flex&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;flex&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;flexDirection&quot;</span><span class="p">:</span> <span class="s2">&quot;column&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;minWidth&quot;</span><span class="p">:</span> <span class="s2">&quot;6vw&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;background&quot;</span><span class="p">:</span> <span class="n">BG_COLOR_1_DARK</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="s2">&quot;style&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">divstyle</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;style&quot;</span><span class="p">])</span>
+        <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;style&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">divstyle</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="flex_row"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.flex_row">[docs]</a><span class="k">def</span> <span class="nf">flex_row</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    flex_row</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">divstyle</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;flex&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;display&quot;</span><span class="p">:</span> <span class="s2">&quot;flex-inline&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;background&quot;</span><span class="p">:</span> <span class="n">BG_COLOR_1_DARK</span><span class="p">,</span>
+        <span class="s2">&quot;overflow&quot;</span><span class="p">:</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;border&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;1px solid </span><span class="si">{</span><span class="n">BORD_COLOR_1_DARK</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="s2">&quot;style&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">divstyle</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;style&quot;</span><span class="p">])</span>
+        <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;style&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">divstyle</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="flex_container"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.flex_container">[docs]</a><span class="k">def</span> <span class="nf">flex_container</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    flex_container</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">flexdir</span> <span class="o">=</span> <span class="s2">&quot;row&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;flexcol&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;flexcol&quot;</span><span class="p">]:</span>
+            <span class="n">flexdir</span> <span class="o">=</span> <span class="s2">&quot;column&quot;</span>
+        <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;flexcol&quot;</span><span class="p">]</span>
+    <span class="n">divstyle</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;display&quot;</span><span class="p">:</span> <span class="s2">&quot;flex&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;background&quot;</span><span class="p">:</span> <span class="n">BG_COLOR_1_DARK</span><span class="p">,</span>
+        <span class="s2">&quot;colorScheme&quot;</span><span class="p">:</span> <span class="s2">&quot;dark&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;flexDirection&quot;</span><span class="p">:</span> <span class="n">flexdir</span><span class="p">,</span>
+        <span class="s2">&quot;minHeight&quot;</span><span class="p">:</span> <span class="s2">&quot;2vh&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;minWidth&quot;</span><span class="p">:</span> <span class="s2">&quot;2vw&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="s2">&quot;style&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">divstyle</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;style&quot;</span><span class="p">])</span>
+        <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;style&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">divstyle</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="tri_layout"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.tri_layout">[docs]</a><span class="k">def</span> <span class="nf">tri_layout</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">topright</span><span class="p">,</span> <span class="n">botright</span><span class="p">,</span> <span class="n">splits</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    tri_layout</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">splits</span> <span class="o">=</span> <span class="n">set_default</span><span class="p">(</span><span class="n">splits</span><span class="p">,</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
+    <span class="n">left_col</span> <span class="o">=</span> <span class="n">resize_col</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">splits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">vw&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+    <span class="n">topright_row</span> <span class="o">=</span> <span class="n">resize_row</span><span class="p">(</span><span class="n">topright</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">splits</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">vh&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">)</span>
+    <span class="n">botright_row</span> <span class="o">=</span> <span class="n">flex_row</span><span class="p">(</span><span class="n">botright</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;botright&quot;</span><span class="p">)</span>
+    <span class="n">right_col</span> <span class="o">=</span> <span class="n">flex_col</span><span class="p">([</span><span class="n">topright_row</span><span class="p">,</span> <span class="n">botright_row</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">flex_container</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">left_col</span><span class="p">,</span> <span class="n">right_col</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;100vw&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="s2">&quot;100vh&quot;</span><span class="p">}</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="quad_layout"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.quad_layout">[docs]</a><span class="k">def</span> <span class="nf">quad_layout</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">middle</span><span class="p">,</span> <span class="n">topright</span><span class="p">,</span> <span class="n">botright</span><span class="p">,</span> <span class="n">splits</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    quad_layout</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">splits</span> <span class="o">=</span> <span class="n">set_default</span><span class="p">(</span><span class="n">splits</span><span class="p">,</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
+    <span class="n">left_col</span> <span class="o">=</span> <span class="n">resize_col</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">splits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">vw&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+    <span class="n">middle_col</span> <span class="o">=</span> <span class="n">resize_col</span><span class="p">(</span>
+        <span class="n">middle</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">splits</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">vw&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;middle&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;minWidth&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">topright_row</span> <span class="o">=</span> <span class="n">resize_row</span><span class="p">(</span><span class="n">topright</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">splits</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">vh&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">)</span>
+    <span class="n">botright_row</span> <span class="o">=</span> <span class="n">flex_row</span><span class="p">(</span><span class="n">botright</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;botright&quot;</span><span class="p">)</span>
+    <span class="n">right_col</span> <span class="o">=</span> <span class="n">flex_col</span><span class="p">([</span><span class="n">topright_row</span><span class="p">,</span> <span class="n">botright_row</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">flex_container</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">left_col</span><span class="p">,</span> <span class="n">middle_col</span><span class="p">,</span> <span class="n">right_col</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;100vw&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="s2">&quot;100vh&quot;</span><span class="p">}</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="add_header_div"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.add_header_div">[docs]</a><span class="k">def</span> <span class="nf">add_header_div</span><span class="p">(</span><span class="n">header_div</span><span class="p">,</span> <span class="n">content_div</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    add_header_div</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">header_style</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;flex&quot;</span><span class="p">:</span> <span class="s2">&quot;0 0 2rem&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;border&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;background&quot;</span><span class="p">:</span> <span class="n">BG_COLOR_5_DARK</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">headerrow</span> <span class="o">=</span> <span class="n">flex_row</span><span class="p">(</span><span class="n">header_div</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">header_style</span><span class="p">)</span>
+    <span class="n">contentrow</span> <span class="o">=</span> <span class="n">flex_row</span><span class="p">(</span><span class="n">content_div</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;border&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">flex_container</span><span class="p">([</span><span class="n">headerrow</span><span class="p">,</span> <span class="n">contentrow</span><span class="p">],</span> <span class="n">flexcol</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="pyprism"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.pyprism">[docs]</a><span class="k">def</span> <span class="nf">pyprism</span><span class="p">(</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">isfile</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">linenums</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    mantine_prism</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">isfile</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">filereader</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">filereader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">divstyle</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">}</span>
+    <span class="k">if</span> <span class="s2">&quot;style&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">divstyle</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;style&quot;</span><span class="p">])</span>
+        <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;style&quot;</span><span class="p">]</span>
+    <span class="n">theme</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;colorScheme&quot;</span><span class="p">:</span> <span class="s2">&quot;dark&quot;</span><span class="p">}</span>
+    <span class="k">if</span> <span class="s2">&quot;theme&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">theme</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;theme&quot;</span><span class="p">])</span>
+        <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;theme&quot;</span><span class="p">]</span>
+    <span class="n">prismdiv</span> <span class="o">=</span> <span class="n">dmc</span><span class="o">.</span><span class="n">Prism</span><span class="p">(</span>
+        <span class="n">children</span><span class="o">=</span><span class="n">text</span><span class="p">,</span>
+        <span class="n">language</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
+        <span class="n">withLineNumbers</span><span class="o">=</span><span class="n">linenums</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">divstyle</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">darkprismdiv</span> <span class="o">=</span> <span class="n">dmc</span><span class="o">.</span><span class="n">MantineProvider</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">prismdiv</span><span class="p">],</span>
+        <span class="n">theme</span><span class="o">=</span><span class="n">theme</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">darkprismdiv</span></div>
+
+
+<div class="viewcode-block" id="hover_message"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.hover_message">[docs]</a><span class="k">def</span> <span class="nf">hover_message</span><span class="p">(</span><span class="n">component</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">style</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    hover_message</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dropdownstyle</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="n">BG_COLOR_4_DARK</span><span class="p">,</span>
+        <span class="s2">&quot;borderColor&quot;</span><span class="p">:</span> <span class="n">BG_COLOR_3_DARK</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">dmc</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s2">&quot;sm&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">FG_COLOR_1_DARK</span><span class="p">)</span>
+    <span class="n">hover_children</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">dmc</span><span class="o">.</span><span class="n">HoverCardTarget</span><span class="p">(</span><span class="n">component</span><span class="p">),</span>
+        <span class="n">dmc</span><span class="o">.</span><span class="n">HoverCardDropdown</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">dropdownstyle</span><span class="p">),</span>
+    <span class="p">]</span>
+    <span class="n">divstyle</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;minWidth&quot;</span><span class="p">:</span> <span class="s2">&quot;initial&quot;</span><span class="p">}</span>
+    <span class="k">if</span> <span class="n">style</span><span class="p">:</span>
+        <span class="n">divstyle</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">style</span><span class="p">)</span>
+    <span class="n">div</span> <span class="o">=</span> <span class="n">dmc</span><span class="o">.</span><span class="n">HoverCard</span><span class="p">(</span>
+        <span class="n">children</span><span class="o">=</span><span class="n">hover_children</span><span class="p">,</span>
+        <span class="n">openDelay</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+        <span class="n">closeDelay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">divstyle</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">div</span></div>
+
+
+<div class="viewcode-block" id="iconify"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.iconify">[docs]</a><span class="k">def</span> <span class="nf">iconify</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    icon</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">DashIconify</span><span class="p">(</span><span class="n">icon</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="action_icon"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.action_icon">[docs]</a><span class="k">def</span> <span class="nf">action_icon</span><span class="p">(</span>
+    <span class="n">iconname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">hover</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">call_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">variant</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;subtle&quot;</span><span class="p">,</span>
+    <span class="n">iconcolor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">FG_COLOR_1_DARK</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    action_icon</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">icon</span> <span class="o">=</span> <span class="n">DashIconify</span><span class="p">(</span><span class="n">icon</span><span class="o">=</span><span class="n">iconname</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">iconcolor</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+    <span class="n">action</span> <span class="o">=</span> <span class="n">dmc</span><span class="o">.</span><span class="n">ActionIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="n">variant</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s2">&quot;lg&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">call_id</span><span class="p">)</span>
+    <span class="n">actionhover</span> <span class="o">=</span> <span class="n">hover_message</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">hover</span><span class="p">)</span>
+    <span class="n">darkaction</span> <span class="o">=</span> <span class="n">dmc</span><span class="o">.</span><span class="n">MantineProvider</span><span class="p">(</span><span class="n">actionhover</span><span class="p">,</span> <span class="n">theme</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;colorScheme&quot;</span><span class="p">:</span> <span class="s2">&quot;dark&quot;</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">darkaction</span></div>
+
+
+<div class="viewcode-block" id="pyeditor"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.pyeditor">[docs]</a><span class="k">def</span> <span class="nf">pyeditor</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">isfile</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    pyeditor</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">isfile</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">filereader</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">filereader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">pyedit</span> <span class="o">=</span> <span class="n">dec</span><span class="o">.</span><span class="n">PythonEditor</span><span class="p">(</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="c1"># value=text,</span>
+        <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">FG_COLOR_1_DARK</span><span class="p">,</span>
+            <span class="s2">&quot;background&quot;</span><span class="p">:</span> <span class="s2">&quot;transparent&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;overflow&quot;</span><span class="p">:</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">pyedit</span></div>
+
+
+<div class="viewcode-block" id="ace_pyeditor"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.ace_pyeditor">[docs]</a><span class="k">def</span> <span class="nf">ace_pyeditor</span><span class="p">(</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">isfile</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ace_pyeditor</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">isfile</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">filereader</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">filereader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">aceeditor</span> <span class="o">=</span> <span class="n">DashAceEditor</span><span class="p">(</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="n">value</span><span class="o">=</span><span class="n">text</span><span class="p">,</span>
+        <span class="n">theme</span><span class="o">=</span><span class="s2">&quot;tomorrow&quot;</span><span class="p">,</span>  <span class="c1">#  github, monokai, tomorrow, twilight, textmate</span>
+        <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
+        <span class="n">tabSize</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="n">enableBasicAutocompletion</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">enableLiveAutocompletion</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="c1"># autocompleter=&#39;/autocompleter?prefix=&#39;,</span>
+        <span class="c1"># enableSnippets=True,</span>
+        <span class="n">placeholder</span><span class="o">=</span><span class="s2">&quot;Python code ...&quot;</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">FG_COLOR_2_DARK</span><span class="p">,</span>
+            <span class="s2">&quot;background&quot;</span><span class="p">:</span> <span class="s2">&quot;transparent&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">aceeditor</span></div>
+
+
+<div class="viewcode-block" id="file_tabs"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.file_tabs">[docs]</a><span class="k">def</span> <span class="nf">file_tabs</span><span class="p">(</span>
+    <span class="n">items</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+    <span class="n">call_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">newtab_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">edittab_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">runtab_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">savetab_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    filetabs</span>
+
+<span class="sd">    items = {label, key, children, closable: True}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">savebuton</span> <span class="o">=</span> <span class="n">action_icon</span><span class="p">(</span><span class="s2">&quot;fluent:save-28-regular&quot;</span><span class="p">,</span> <span class="s2">&quot;Save Current File&quot;</span><span class="p">,</span> <span class="n">savetab_id</span><span class="p">)</span>
+    <span class="n">runbutton</span> <span class="o">=</span> <span class="n">action_icon</span><span class="p">(</span>
+        <span class="s2">&quot;ph:play-fill&quot;</span><span class="p">,</span> <span class="s2">&quot;Run Current File&quot;</span><span class="p">,</span> <span class="n">runtab_id</span><span class="p">,</span> <span class="n">iconcolor</span><span class="o">=</span><span class="s2">&quot;#2AB047&quot;</span>
+    <span class="p">)</span>
+    <span class="n">newtabbutton</span> <span class="o">=</span> <span class="n">action_icon</span><span class="p">(</span><span class="s2">&quot;carbon:new-tab&quot;</span><span class="p">,</span> <span class="s2">&quot;New Tab&quot;</span><span class="p">,</span> <span class="n">newtab_id</span><span class="p">)</span>
+    <span class="n">editbutton</span> <span class="o">=</span> <span class="n">action_icon</span><span class="p">(</span><span class="s2">&quot;carbon:edit&quot;</span><span class="p">,</span> <span class="s2">&quot;Edit Current File&quot;</span><span class="p">,</span> <span class="n">edittab_id</span><span class="p">)</span>
+    <span class="n">rightdiv</span> <span class="o">=</span> <span class="n">dmc_group</span><span class="p">([</span><span class="n">runbutton</span><span class="p">,</span> <span class="n">editbutton</span><span class="p">,</span> <span class="n">newtabbutton</span><span class="p">])</span>
+    <span class="c1"># add play button here</span>
+    <span class="n">tabs</span> <span class="o">=</span> <span class="n">fac</span><span class="o">.</span><span class="n">AntdTabs</span><span class="p">(</span>
+        <span class="nb">id</span><span class="o">=</span><span class="n">call_id</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;editable-card&quot;</span><span class="p">,</span>
+        <span class="n">items</span><span class="o">=</span><span class="n">items</span><span class="p">,</span>
+        <span class="n">tabBarRightExtraContent</span><span class="o">=</span><span class="n">rightdiv</span><span class="p">,</span>
+        <span class="n">tabBarLeftExtraContent</span><span class="o">=</span><span class="n">savebuton</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">},</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">tabs</span></div>
+
+
+<div class="viewcode-block" id="icon_button"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.icon_button">[docs]</a><span class="k">def</span> <span class="nf">icon_button</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">iconnames</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    icon_button</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">buttonstyle</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;border&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;1px solid </span><span class="si">{</span><span class="n">BG_COLOR_3_DARK</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;minWidth&quot;</span><span class="p">:</span> <span class="s2">&quot;70px&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;background&quot;</span><span class="p">:</span> <span class="n">BG_COLOR_BLUE_POP</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="s2">&quot;style&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">buttonstyle</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;style&quot;</span><span class="p">])</span>
+        <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;style&quot;</span><span class="p">]</span>
+    <span class="n">call_id</span> <span class="o">=</span> <span class="n">text</span>
+    <span class="k">if</span> <span class="s2">&quot;id&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">call_id</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+    <span class="n">iconslist</span> <span class="o">=</span> <span class="p">[</span><span class="n">DashIconify</span><span class="p">(</span><span class="n">icon</span><span class="o">=</span><span class="n">icon</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span> <span class="k">for</span> <span class="n">icon</span> <span class="ow">in</span> <span class="n">iconnames</span><span class="p">]</span>
+    <span class="n">button</span> <span class="o">=</span> <span class="n">dmc</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">leftIcon</span><span class="o">=</span><span class="n">iconslist</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">buttonstyle</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">call_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">button</span> <span class="o">=</span> <span class="n">hover_message</span><span class="p">(</span><span class="n">button</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;minWidth&quot;</span><span class="p">:</span> <span class="s2">&quot;70px&quot;</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">button</span><span class="p">,</span> <span class="n">iconslist</span></div>
+
+
+<div class="viewcode-block" id="dmc_group"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.dmc_group">[docs]</a><span class="k">def</span> <span class="nf">dmc_group</span><span class="p">(</span><span class="n">children</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">style</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    dmc_group</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="n">dmc</span><span class="o">.</span><span class="n">Group</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">grow</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">})</span>
+    <span class="n">divstyle</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span> <span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;5px 5px&quot;</span><span class="p">}</span>
+    <span class="k">if</span> <span class="n">style</span><span class="p">:</span>
+        <span class="n">divstyle</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">style</span><span class="p">)</span>
+    <span class="n">groupdiv</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">([</span><span class="n">group</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">divstyle</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">groupdiv</span></div>
+
+
+<div class="viewcode-block" id="tag_search"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.tag_search">[docs]</a><span class="k">def</span> <span class="nf">tag_search</span><span class="p">(</span><span class="n">placeholder</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Search&quot;</span><span class="p">,</span> <span class="n">call_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;tagsearch&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    tag_search</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">divstyle</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">}</span>  <span class="c1"># &quot;padding&quot;: &quot;0px 5px&quot;,</span>
+    <span class="k">if</span> <span class="s2">&quot;style&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">divstyle</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;style&quot;</span><span class="p">])</span>
+        <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;style&quot;</span><span class="p">]</span>
+    <span class="n">tagsearch</span> <span class="o">=</span> <span class="n">fac</span><span class="o">.</span><span class="n">AntdSelect</span><span class="p">(</span>
+        <span class="nb">id</span><span class="o">=</span><span class="n">call_id</span><span class="p">,</span>
+        <span class="n">options</span><span class="o">=</span><span class="p">[],</span>
+        <span class="n">locale</span><span class="o">=</span><span class="s2">&quot;en-us&quot;</span><span class="p">,</span>
+        <span class="n">placeholder</span><span class="o">=</span><span class="s2">&quot;🔎 &quot;</span> <span class="o">+</span> <span class="n">placeholder</span><span class="p">,</span>
+        <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;tags&quot;</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">divstyle</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">tagsearchdiv</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span><span class="n">tagsearch</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">tagsearchdiv</span></div>
+
+
+<div class="viewcode-block" id="ant_input"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.ant_input">[docs]</a><span class="k">def</span> <span class="nf">ant_input</span><span class="p">(</span><span class="n">placeholder</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ant_input</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">divstyle</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">FG_COLOR_1_DARK</span><span class="p">,</span>
+        <span class="s2">&quot;background&quot;</span><span class="p">:</span> <span class="n">BG_COLOR_2_DARK</span><span class="p">,</span>
+        <span class="s2">&quot;borderColor&quot;</span><span class="p">:</span> <span class="n">BG_COLOR_3_DARK</span><span class="p">,</span>
+        <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="s2">&quot;style&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">divstyle</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;style&quot;</span><span class="p">])</span>
+        <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;style&quot;</span><span class="p">]</span>
+    <span class="n">inputdiv</span> <span class="o">=</span> <span class="n">fac</span><span class="o">.</span><span class="n">AntdInput</span><span class="p">(</span>
+        <span class="n">placeholder</span><span class="o">=</span><span class="n">placeholder</span><span class="p">,</span>
+        <span class="n">allowClear</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">divstyle</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">inputdiv</span></div>
+
+
+<div class="viewcode-block" id="spin_loader"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.spin_loader">[docs]</a><span class="k">def</span> <span class="nf">spin_loader</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">call_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    spin_loader</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">spinner</span> <span class="o">=</span> <span class="n">dbc</span><span class="o">.</span><span class="n">Spinner</span><span class="p">(</span>
+        <span class="n">children</span><span class="o">=</span><span class="n">children</span><span class="p">,</span>
+        <span class="nb">id</span><span class="o">=</span><span class="n">call_id</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#094F9C&quot;</span><span class="p">,</span>
+        <span class="n">delay_show</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+        <span class="n">delay_hide</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">spinner_style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="s2">&quot;absolute&quot;</span><span class="p">,</span> <span class="s2">&quot;top&quot;</span><span class="p">:</span> <span class="s2">&quot;10px&quot;</span><span class="p">},</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">spinner</span></div>
+
+
+<div class="viewcode-block" id="dash_index_string"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.dash_index_string">[docs]</a><span class="k">def</span> <span class="nf">dash_index_string</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    set_index_string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">indexstr</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">&lt;!DOCTYPE html&gt;</span><span class="se">\n</span><span class="s2">&lt;div style=&quot;width:100vw;height:100vh;background:#181818;&quot;&gt;</span><span class="se">\n</span><span class="s2">    &lt;head&gt;</span><span class="se">\n</span><span class="s2">        {%metas%}</span><span class="se">\n</span><span class="s2">        &lt;title&gt;{%title%}&lt;/title&gt;</span>
+<span class="s2">        {</span><span class="si">%f</span><span class="s2">avicon%}</span><span class="se">\n</span><span class="s2">        {</span><span class="si">%c</span><span class="s2">ss%}</span><span class="se">\n</span><span class="s2">    &lt;/head&gt;</span><span class="se">\n</span><span class="s2">    &lt;div&gt;</span><span class="se">\n</span><span class="s2">        &lt;!--[if IE]&gt;&lt;script&gt;</span>
+<span class="s2">        alert(&quot;Dash v2.7+ does not support Internet Explorer. Please use a newer browser.&quot;);</span>
+<span class="s2">        &lt;/script&gt;&lt;![endif]--&gt;</span><span class="se">\n</span><span class="s2">        {</span><span class="si">%a</span><span class="s2">pp_entry%}</span><span class="se">\n</span><span class="s2">        &lt;footer&gt;</span><span class="se">\n</span><span class="s2">            {</span><span class="si">%c</span><span class="s2">onfig%}</span>
+<span class="s2">            {</span><span class="si">%s</span><span class="s2">cripts%}</span><span class="se">\n</span><span class="s2">            {</span><span class="si">%r</span><span class="s2">enderer%}</span><span class="se">\n</span><span class="s2">        &lt;/footer&gt;</span><span class="se">\n</span><span class="s2">    &lt;/div&gt;</span><span class="se">\n</span><span class="s2">&lt;/div&gt;&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">indexstr</span></div>
+
+
+<div class="viewcode-block" id="dark_text"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.dark_text">[docs]</a><span class="k">def</span> <span class="nf">dark_text</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">style</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    dark_text</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">divstyle</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;background&quot;</span><span class="p">:</span> <span class="s2">&quot;transparent&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;0.5rem  0 0 2%&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;verticalAlign&quot;</span><span class="p">:</span> <span class="s2">&quot;middle&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;lineHeight&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="n">style</span><span class="p">:</span>
+        <span class="n">divstyle</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">style</span><span class="p">)</span>
+    <span class="n">div</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+        <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+            <span class="n">text</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;0 0 0 1%&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">),</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">divstyle</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">div</span></div>
+
+
+<div class="viewcode-block" id="notify_container"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.notify_container">[docs]</a><span class="k">def</span> <span class="nf">notify_container</span><span class="p">(</span><span class="n">children</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    notify_container</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cont</span> <span class="o">=</span> <span class="n">dmc</span><span class="o">.</span><span class="n">NotificationsProvider</span><span class="p">(</span><span class="n">children</span><span class="p">)</span>
+    <span class="n">darkcont</span> <span class="o">=</span> <span class="n">dmc</span><span class="o">.</span><span class="n">MantineProvider</span><span class="p">([</span><span class="n">cont</span><span class="p">],</span> <span class="n">theme</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;colorScheme&quot;</span><span class="p">:</span> <span class="s2">&quot;dark&quot;</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">darkcont</span></div>
+
+
+<div class="viewcode-block" id="notify"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.notify">[docs]</a><span class="k">def</span> <span class="nf">notify</span><span class="p">(</span><span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">iconname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">iconcolor</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    notify</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">notif</span> <span class="o">=</span> <span class="n">dmc</span><span class="o">.</span><span class="n">Notification</span><span class="p">(</span>
+        <span class="nb">id</span><span class="o">=</span><span class="n">message</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">&quot;show&quot;</span><span class="p">,</span>
+        <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">iconify</span><span class="p">(</span><span class="n">iconname</span><span class="p">,</span> <span class="n">iconcolor</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">notif</span></div>
+
+
+<div class="viewcode-block" id="search_result"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.search_result">[docs]</a><span class="k">def</span> <span class="nf">search_result</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">resultnum</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">padding</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;2.5px 5px 2.5px 5px&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    search_result</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">filepath_id</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;respath&quot;</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">resultnum</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span>
+    <span class="n">sniptext_id</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;restext&quot;</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">resultnum</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">])</span>
+    <span class="n">div1</span> <span class="o">=</span> <span class="n">dark_text</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;#</span><span class="si">{</span><span class="n">resultnum</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">div2</span> <span class="o">=</span> <span class="n">dark_text</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Score : </span><span class="si">{</span><span class="n">round_sigfig</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">div3</span> <span class="o">=</span> <span class="n">dark_text</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;      </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;string_num&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;newline_num&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> [matches / lines]&quot;</span>
+    <span class="p">)</span>
+    <span class="n">div4</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;display&quot;</span><span class="p">:</span> <span class="s2">&quot;none&quot;</span><span class="p">},</span> <span class="nb">id</span><span class="o">=</span><span class="n">filepath_id</span><span class="p">)</span>
+    <span class="n">div5</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;display&quot;</span><span class="p">:</span> <span class="s2">&quot;none&quot;</span><span class="p">},</span> <span class="nb">id</span><span class="o">=</span><span class="n">sniptext_id</span><span class="p">)</span>
+    <span class="n">snipicons</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;heroicons:scissors-solid&quot;</span><span class="p">,</span> <span class="s2">&quot;majesticons:open-line&quot;</span><span class="p">]</span>
+    <span class="n">snipbutton</span><span class="p">,</span> <span class="n">_none</span> <span class="o">=</span> <span class="n">icon_button</span><span class="p">(</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">snipicons</span><span class="p">,</span>
+        <span class="s2">&quot;Open Snip&quot;</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;background&quot;</span><span class="p">:</span> <span class="n">BG_COLOR_2_DARK</span><span class="p">},</span>
+        <span class="nb">id</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;snipbutton&quot;</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">resultnum</span><span class="p">)},</span>
+    <span class="p">)</span>
+    <span class="n">fileicons</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ant-design:file-twotone&quot;</span><span class="p">,</span> <span class="s2">&quot;majesticons:open-line&quot;</span><span class="p">]</span>
+    <span class="n">filebutton</span><span class="p">,</span> <span class="n">_none</span> <span class="o">=</span> <span class="n">icon_button</span><span class="p">(</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">fileicons</span><span class="p">,</span>
+        <span class="s2">&quot;Open File&quot;</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;background&quot;</span><span class="p">:</span> <span class="n">BG_COLOR_2_DARK</span><span class="p">},</span>
+        <span class="nb">id</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;filebutton&quot;</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">resultnum</span><span class="p">)},</span>
+    <span class="p">)</span>
+    <span class="n">buttons</span> <span class="o">=</span> <span class="n">dmc_group</span><span class="p">([</span><span class="n">snipbutton</span><span class="p">,</span> <span class="n">filebutton</span><span class="p">])</span>
+    <span class="n">alldivs</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">div1</span><span class="p">,</span> <span class="n">div2</span><span class="p">,</span> <span class="n">div3</span><span class="p">,</span> <span class="n">div4</span><span class="p">,</span> <span class="n">div5</span><span class="p">,</span> <span class="n">buttons</span><span class="p">],</span>
+        <span class="nb">id</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;searchtext</span><span class="si">{</span><span class="n">resultnum</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;border&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;1px solid </span><span class="si">{</span><span class="n">BG_COLOR_2_DARK</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;borderRadius&quot;</span><span class="p">:</span> <span class="s2">&quot;5px&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;outline&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{BG_COLOR_1_DARK}</span><span class="s2"> solid 5px&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;background&quot;</span><span class="p">:</span> <span class="s2">&quot;transparent&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;overflow&quot;</span><span class="p">:</span> <span class="s2">&quot;hidden&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+    <span class="n">container</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+        <span class="n">alldivs</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="n">padding</span><span class="p">,</span>
+            <span class="s2">&quot;background&quot;</span><span class="p">:</span> <span class="s2">&quot;transparent&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+    <span class="c1"># SHOULD I ALSO ADD THE CALLBACK GENERATION HERE?</span>
+    <span class="k">return</span> <span class="n">container</span></div>
+
+
+<div class="viewcode-block" id="create_search_results"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_sweet_components.create_search_results">[docs]</a><span class="k">def</span> <span class="nf">create_search_results</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    create_search_results</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">divlist</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">divlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">search_result</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;5px 5px 2.5px 5px&quot;</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">divlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">search_result</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;2.5px 5px 5px 5px&quot;</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">divlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">search_result</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">alldiv</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span><span class="n">divlist</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">alldiv</span></div>
+
+
+<span class="c1"># Other Ideas Antd navigation menu, sidebar, or just use Mantine icons bar</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, jkris.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

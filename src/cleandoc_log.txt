@@ -1,0 +1,152 @@
+11-08-23 23:49:26 cleandoc INFO ooooooooooooooooooooooooo Gen Docs Output oooooooooooooooooooooooooo
+
+11-08-23 23:49:34 cleandoc INFO ------------------------ Sphinx Make Output ------------------------
+Running Sphinx v6.2.1
+loading translations [English]... not available for built-in messages
+building [mo]: targets for 0 po files that are out of date
+writing output... 
+building [html]: targets for 3 source files that are out of date
+updating environment: [new config] 3 added, 0 changed, 0 removed
+reading sources... [ 33%] codenav                                              
+reading sources... [ 66%] codenav.components                                   
+reading sources... [100%] index                                                
+
+looking for now-outdated files... none found
+pickling environment... done
+checking consistency... done
+preparing documents... done
+writing output... [ 33%] codenav                                               
+writing output... [ 66%] codenav.components                                    
+writing output... [100%] index                                                 
+
+generating indices... genindex py-modindex done
+highlighting module code... [ 33%] codenav.app                                 
+highlighting module code... [ 66%] codenav.cli                                 
+highlighting module code... [100%] codenav.queue_test                          
+
+writing additional pages... search done
+copying static files... done
+copying extra files... done
+dumping search index in English (code: en)... done
+dumping object inventory... done
+build succeeded, 7 warnings.
+
+The HTML pages are in build\html.
+
+    11-08-23 23:49:30 printlog INFO queue_test_index: 0
+    11-08-23 23:49:30 printlog INFO queue_test_index: 1
+    11-08-23 23:49:30 printlog INFO queue_test_index: 2
+    11-08-23 23:49:30 printlog INFO queue_test_index: 3
+    11-08-23 23:49:30 printlog INFO queue_test_index: 4
+    11-08-23 23:49:30 printlog INFO queue_test_index: 5
+    11-08-23 23:49:30 printlog INFO queue_test_index: 6
+    11-08-23 23:49:30 printlog INFO queue_test_index: 7
+    11-08-23 23:49:30 printlog INFO queue_test_index: 8
+    11-08-23 23:49:30 printlog INFO queue_test_index: 9
+    11-08-23 23:49:30 printlog INFO queue_test_index: 10
+    11-08-23 23:49:30 printlog INFO queue_test_index: 11
+    11-08-23 23:49:30 printlog INFO queue_test_index: 12
+    11-08-23 23:49:30 printlog INFO queue_test_index: 13
+    11-08-23 23:49:30 printlog INFO queue_test_index: 14
+    11-08-23 23:49:30 printlog INFO queue_test_index: 15
+    11-08-23 23:49:31 printlog INFO queue_test_index: 16
+    11-08-23 23:49:31 printlog INFO queue_test_index: 17
+    11-08-23 23:49:31 printlog INFO queue_test_index: 18
+    11-08-23 23:49:31 printlog INFO queue_test_index: 19
+    11-08-23 23:49:31 printlog INFO queue_test_index: 20
+    11-08-23 23:49:31 printlog INFO queue_test_index: 21
+    11-08-23 23:49:31 printlog INFO queue_test_index: 22
+    11-08-23 23:49:31 printlog INFO queue_test_index: 23
+    11-08-23 23:49:31 printlog INFO queue_test_index: 24
+    11-08-23 23:49:31 printlog INFO queue_test_index: 25
+    11-08-23 23:49:31 printlog INFO queue_test_index: 26
+    11-08-23 23:49:31 printlog INFO queue_test_index: 27
+    11-08-23 23:49:31 printlog INFO queue_test_index: 28
+    11-08-23 23:49:31 printlog INFO queue_test_index: 29
+    11-08-23 23:49:31 printlog INFO queue_test_index: 30
+    11-08-23 23:49:31 printlog INFO queue_test_index: 31
+    11-08-23 23:49:31 printlog INFO queue_test_index: 32
+    11-08-23 23:49:31 printlog INFO queue_test_index: 33
+    11-08-23 23:49:31 printlog INFO queue_test_index: 34
+    11-08-23 23:49:31 printlog INFO queue_test_index: 35
+    11-08-23 23:49:31 printlog INFO queue_test_index: 36
+    11-08-23 23:49:31 printlog INFO queue_test_index: 37
+    11-08-23 23:49:31 printlog INFO queue_test_index: 38
+    11-08-23 23:49:31 printlog INFO queue_test_index: 39
+    11-08-23 23:49:31 printlog INFO queue_test_index: 40
+    11-08-23 23:49:31 printlog INFO queue_test_index: 41
+    11-08-23 23:49:31 printlog INFO queue_test_index: 42
+    11-08-23 23:49:31 printlog INFO queue_test_index: 43
+    11-08-23 23:49:31 printlog INFO queue_test_index: 44
+    11-08-23 23:49:31 printlog INFO queue_test_index: 45
+    11-08-23 23:49:31 printlog INFO queue_test_index: 46
+    11-08-23 23:49:31 printlog INFO queue_test_index: 47
+    11-08-23 23:49:32 printlog INFO queue_test_index: 48
+    11-08-23 23:49:32 printlog INFO queue_test_index: 49
+    11-08-23 23:49:32 printlog INFO queue_test_index: 50
+    11-08-23 23:49:32 printlog INFO queue_test_index: 51
+    11-08-23 23:49:32 printlog INFO queue_test_index: 52
+    11-08-23 23:49:32 printlog INFO queue_test_index: 53
+    11-08-23 23:49:32 printlog INFO queue_test_index: 54
+    11-08-23 23:49:32 printlog INFO queue_test_index: 55
+    11-08-23 23:49:32 printlog INFO queue_test_index: 56
+    11-08-23 23:49:32 printlog INFO queue_test_index: 57
+    11-08-23 23:49:32 printlog INFO queue_test_index: 58
+    11-08-23 23:49:32 printlog INFO queue_test_index: 59
+    11-08-23 23:49:32 printlog INFO queue_test_index: 60
+    11-08-23 23:49:32 printlog INFO queue_test_index: 61
+    11-08-23 23:49:32 printlog INFO queue_test_index: 62
+    11-08-23 23:49:32 printlog INFO queue_test_index: 63
+    11-08-23 23:49:32 printlog INFO queue_test_index: 64
+    11-08-23 23:49:32 printlog INFO queue_test_index: 65
+    11-08-23 23:49:32 printlog INFO queue_test_index: 66
+    11-08-23 23:49:32 printlog INFO queue_test_index: 67
+    11-08-23 23:49:32 printlog INFO queue_test_index: 68
+    11-08-23 23:49:32 printlog INFO queue_test_index: 69
+    11-08-23 23:49:32 printlog INFO queue_test_index: 70
+    11-08-23 23:49:32 printlog INFO queue_test_index: 71
+    11-08-23 23:49:32 printlog INFO queue_test_index: 72
+    11-08-23 23:49:32 printlog INFO queue_test_index: 73
+    11-08-23 23:49:32 printlog INFO queue_test_index: 74
+    11-08-23 23:49:32 printlog INFO queue_test_index: 75
+    11-08-23 23:49:32 printlog INFO queue_test_index: 76
+    11-08-23 23:49:32 printlog INFO queue_test_index: 77
+    11-08-23 23:49:32 printlog INFO queue_test_index: 78
+    11-08-23 23:49:33 printlog INFO queue_test_index: 79
+    11-08-23 23:49:33 printlog INFO queue_test_index: 80
+    11-08-23 23:49:33 printlog INFO queue_test_index: 81
+    11-08-23 23:49:33 printlog INFO queue_test_index: 82
+    11-08-23 23:49:33 printlog INFO queue_test_index: 83
+    11-08-23 23:49:33 printlog INFO queue_test_index: 84
+    11-08-23 23:49:33 printlog INFO queue_test_index: 85
+    11-08-23 23:49:33 printlog INFO queue_test_index: 86
+    11-08-23 23:49:33 printlog INFO queue_test_index: 87
+    11-08-23 23:49:33 printlog INFO queue_test_index: 88
+    11-08-23 23:49:33 printlog INFO queue_test_index: 89
+    11-08-23 23:49:33 printlog INFO queue_test_index: 90
+    11-08-23 23:49:33 printlog INFO queue_test_index: 91
+    11-08-23 23:49:33 printlog INFO queue_test_index: 92
+    11-08-23 23:49:33 printlog INFO queue_test_index: 93
+    11-08-23 23:49:33 printlog INFO queue_test_index: 94
+    11-08-23 23:49:33 printlog INFO queue_test_index: 95
+    11-08-23 23:49:33 printlog INFO queue_test_index: 96
+    11-08-23 23:49:33 printlog INFO queue_test_index: 97
+    11-08-23 23:49:33 printlog INFO queue_test_index: 98
+    11-08-23 23:49:33 printlog INFO queue_test_index: 99
+    11-08-23 23:49:33 printlog INFO queue_total_time: 2.0
+WARNING: autodoc: failed to import module 'components' from module 'codenav'; the following exception was raised:
+No module named 'codenav.components'
+WARNING: autodoc: failed to import module 'components.dash_callbacks' from module 'codenav'; the following exception was raised:
+No module named 'codenav.components'
+WARNING: autodoc: failed to import module 'components.dash_sweet_components' from module 'codenav'; the following exception was raised:
+No module named 'codenav.components'
+WARNING: autodoc: failed to import module 'components.dash_trees' from module 'codenav'; the following exception was raised:
+No module named 'codenav.components'
+WARNING: autodoc: failed to import module 'components.file_system_node' from module 'codenav'; the following exception was raised:
+No module named 'codenav.components'
+WARNING: autodoc: failed to import module 'components.helper' from module 'codenav'; the following exception was raised:
+No module named 'codenav.components'
+WARNING: autodoc: failed to import module 'components.shell_server' from module 'codenav'; the following exception was raised:
+No module named 'codenav.components'
+
+

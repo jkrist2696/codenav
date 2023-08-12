@@ -1,0 +1,42 @@
+codenav package
+===============
+
+.. automodule:: codenav
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   codenav.components
+
+Submodules
+----------
+
+codenav.app module
+------------------
+
+.. automodule:: codenav.app
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+codenav.cli module
+------------------
+
+.. automodule:: codenav.cli
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+codenav.queue\_test module
+--------------------------
+
+.. automodule:: codenav.queue_test
+   :members:
+   :undoc-members:
+   :show-inheritance:

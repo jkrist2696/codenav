@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="English" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>codenav.components.dash_trees &mdash; codenav 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            codenav
+          </a>
+              <div class="version">
+                0.0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../codenav.html">codenav package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">codenav</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">codenav.components.dash_trees</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for codenav.components.dash_trees</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Fri Jul 14 23:39:06 2023</span>
+
+<span class="sd">@author: jkris</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">import</span> <span class="nn">feffery_antd_components</span> <span class="k">as</span> <span class="nn">fac</span>
+
+<span class="n">BG_COLOR_1_DARK</span> <span class="o">=</span> <span class="s2">&quot;#181818&quot;</span>
+<span class="n">BG_COLOR_2_DARK</span> <span class="o">=</span> <span class="s2">&quot;#5C5F66&quot;</span>
+<span class="n">BG_COLOR_3_DARK</span> <span class="o">=</span> <span class="s2">&quot;#373A40&quot;</span>
+<span class="n">BG_COLOR_4_DARK</span> <span class="o">=</span> <span class="s2">&quot;#25262B&quot;</span>  <span class="c1"># darkest one?</span>
+<span class="n">BG_COLOR_BLUE_POP</span> <span class="o">=</span> <span class="s2">&quot;#094F9C&quot;</span>
+<span class="n">FG_COLOR_1_DARK</span> <span class="o">=</span> <span class="s2">&quot;white&quot;</span>
+
+
+<div class="viewcode-block" id="create_tree_list"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_trees.create_tree_list">[docs]</a><span class="k">def</span> <span class="nf">create_tree_list</span><span class="p">(</span><span class="n">file_objs</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">parent_icon</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">child_icon</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    create_tree_list</span>
+
+<span class="sd">    objects must have name, ftype, ind, path</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">treelist</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">file_objs</span><span class="p">:</span>
+        <span class="n">objpath</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">directory</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">leafdict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">ind</span><span class="p">),</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">obj</span><span class="o">.</span><span class="n">ftype</span><span class="p">,</span>
+            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">objpath</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="n">parent_icon</span> <span class="ow">and</span> <span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">objpath</span><span class="p">)):</span>
+            <span class="n">leafdict</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="o">**</span><span class="n">leafdict</span><span class="p">,</span>
+                <span class="o">**</span><span class="p">{</span><span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="n">parent_icon</span><span class="p">},</span>  <span class="c1"># , &quot;switcherIcon&quot;: &quot;antd-file&quot;</span>
+            <span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">leafdict</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="o">**</span><span class="n">leafdict</span><span class="p">,</span>
+                <span class="o">**</span><span class="p">{</span><span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="n">child_icon</span><span class="p">},</span>
+            <span class="p">}</span>
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
+            <span class="n">leafdict</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">leafdict</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="s2">&quot;parent&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ind</span><span class="p">)}}</span>
+        <span class="n">treelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">leafdict</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">treelist</span></div>
+
+
+<div class="viewcode-block" id="create_tree_select_list"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_trees.create_tree_select_list">[docs]</a><span class="k">def</span> <span class="nf">create_tree_select_list</span><span class="p">(</span><span class="n">file_objs</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    create_tree_select_list</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">treelist</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">file_objs</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">ftype</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">leafdict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">obj</span><span class="o">.</span><span class="n">directory</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">ind</span><span class="p">),</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
+                <span class="n">leafdict</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">leafdict</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="s2">&quot;parent&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ind</span><span class="p">)}}</span>
+        <span class="n">treelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">leafdict</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">treelist</span></div>
+
+
+<div class="viewcode-block" id="tree_list_to_dict"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_trees.tree_list_to_dict">[docs]</a><span class="k">def</span> <span class="nf">tree_list_to_dict</span><span class="p">(</span><span class="n">treelist</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    tree_list_to_dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">treedict</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="o">**</span><span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">treelist</span>
+    <span class="p">]</span>
+    <span class="k">return</span> <span class="n">treedict</span></div>
+
+
+<div class="viewcode-block" id="ant_tree"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_trees.ant_tree">[docs]</a><span class="k">def</span> <span class="nf">ant_tree</span><span class="p">(</span><span class="n">treelist</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">call_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ant_tree</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">treedict</span> <span class="o">=</span> <span class="n">tree_list_to_dict</span><span class="p">(</span><span class="n">treelist</span><span class="p">)</span>
+    <span class="n">div</span> <span class="o">=</span> <span class="n">fac</span><span class="o">.</span><span class="n">AntdTree</span><span class="p">(</span>
+        <span class="nb">id</span><span class="o">=</span><span class="n">call_id</span><span class="p">,</span>
+        <span class="n">treeData</span><span class="o">=</span><span class="n">treedict</span><span class="p">,</span>
+        <span class="n">treeDataMode</span><span class="o">=</span><span class="s2">&quot;flat&quot;</span><span class="p">,</span>
+        <span class="n">defaultExpandAll</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">showIcon</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">showLine</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;background&quot;</span><span class="p">:</span> <span class="n">BG_COLOR_1_DARK</span><span class="p">,</span>
+            <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">FG_COLOR_1_DARK</span><span class="p">,</span>  <span class="c1"># &quot;#B3B3B3&quot;,</span>
+            <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;flex&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">expandedKeys</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;0&quot;</span><span class="p">],</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">div</span></div>
+
+
+<div class="viewcode-block" id="ant_tree_select"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_trees.ant_tree_select">[docs]</a><span class="k">def</span> <span class="nf">ant_tree_select</span><span class="p">(</span><span class="n">treelist</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">call_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">searchpath</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ant_tree</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">treedict</span> <span class="o">=</span> <span class="n">tree_list_to_dict</span><span class="p">(</span><span class="n">treelist</span><span class="p">)</span>
+    <span class="n">div</span> <span class="o">=</span> <span class="n">fac</span><span class="o">.</span><span class="n">AntdTreeSelect</span><span class="p">(</span>
+        <span class="nb">id</span><span class="o">=</span><span class="n">call_id</span><span class="p">,</span>
+        <span class="n">locale</span><span class="o">=</span><span class="s2">&quot;en-us&quot;</span><span class="p">,</span>
+        <span class="n">treeData</span><span class="o">=</span><span class="n">treedict</span><span class="p">,</span>
+        <span class="n">treeDataMode</span><span class="o">=</span><span class="s2">&quot;flat&quot;</span><span class="p">,</span>
+        <span class="n">placeholder</span><span class="o">=</span><span class="s2">&quot;📁 Folder Path&quot;</span><span class="p">,</span>
+        <span class="n">defaultValue</span><span class="o">=</span><span class="n">searchpath</span><span class="p">,</span>
+        <span class="n">value</span><span class="o">=</span><span class="n">searchpath</span><span class="p">,</span>
+        <span class="c1"># persistence_type=&quot;session&quot;,</span>
+        <span class="c1"># autoClearSearchValue=False,</span>
+        <span class="c1"># treeNodeFilterProp=&quot;title&quot;,</span>
+        <span class="c1"># status=&quot;error&quot;,</span>
+        <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;minWidth&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">div</span></div>
+
+
+<div class="viewcode-block" id="file_sys_tree"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_trees.file_sys_tree">[docs]</a><span class="k">def</span> <span class="nf">file_sys_tree</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">tree_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    file_sys_tree</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">treelist</span> <span class="o">=</span> <span class="n">create_tree_list</span><span class="p">(</span>
+        <span class="n">nodes</span><span class="p">,</span>
+        <span class="n">parent_icon</span><span class="o">=</span><span class="s2">&quot;antd-folder&quot;</span><span class="p">,</span>
+        <span class="n">child_icon</span><span class="o">=</span><span class="s2">&quot;antd-file&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">treediv</span> <span class="o">=</span> <span class="n">ant_tree</span><span class="p">(</span><span class="n">treelist</span><span class="p">,</span> <span class="n">tree_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">treediv</span></div>
+
+
+<div class="viewcode-block" id="file_sys_tree_select"><a class="viewcode-back" href="../../../codenav.components.html#codenav.components.dash_trees.file_sys_tree_select">[docs]</a><span class="k">def</span> <span class="nf">file_sys_tree_select</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">select_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">searchpath</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    file_sys_tree</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">treeselectlist</span> <span class="o">=</span> <span class="n">create_tree_select_list</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
+    <span class="n">treeselectdiv</span> <span class="o">=</span> <span class="n">ant_tree_select</span><span class="p">(</span><span class="n">treeselectlist</span><span class="p">,</span> <span class="n">select_id</span><span class="p">,</span> <span class="n">searchpath</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">treeselectdiv</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, jkris.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

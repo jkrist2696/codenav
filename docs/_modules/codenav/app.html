@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="English" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>codenav.app &mdash; codenav 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            codenav
+          </a>
+              <div class="version">
+                0.0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../codenav.html">codenav package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">codenav</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">codenav.app</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for codenav.app</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Fri Jul 14 23:39:06 2023</span>
+
+<span class="sd">@author: jkris</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">getcwd</span><span class="p">,</span> <span class="n">environ</span>
+<span class="kn">import</span> <span class="nn">webbrowser</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Timer</span>
+<span class="kn">from</span> <span class="nn">waitress</span> <span class="kn">import</span> <span class="n">serve</span>
+<span class="kn">from</span> <span class="nn">dash</span> <span class="kn">import</span> <span class="n">Dash</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">dcc</span><span class="p">,</span> <span class="n">clientside_callback</span>
+<span class="kn">from</span> <span class="nn">dash.dependencies</span> <span class="kn">import</span> <span class="n">Input</span><span class="p">,</span> <span class="n">Output</span>
+<span class="kn">from</span> <span class="nn">dash_bootstrap_components</span> <span class="kn">import</span> <span class="n">themes</span>
+<span class="kn">import</span> <span class="nn">cleandoc</span>  <span class="c1"># pylint: disable=W0611</span>
+<span class="kn">from</span> <span class="nn">.dash</span> <span class="kn">import</span> <span class="n">dash_sweet_components</span> <span class="k">as</span> <span class="n">sweet</span>
+<span class="kn">from</span> <span class="nn">.dash</span> <span class="kn">import</span> <span class="n">dash_trees</span> <span class="k">as</span> <span class="n">trees</span>
+<span class="kn">from</span> <span class="nn">.dash</span> <span class="kn">import</span> <span class="n">dash_callbacks</span> <span class="k">as</span> <span class="n">call</span>
+<span class="kn">from</span> <span class="nn">.dash.file_system_node</span> <span class="kn">import</span> <span class="n">create_fs_nodes</span>
+
+
+<span class="c1"># CONSTANTS</span>
+<span class="n">CURRENT_ENV</span> <span class="o">=</span> <span class="n">environ</span><span class="p">[</span><span class="s2">&quot;CONDA_DEFAULT_ENV&quot;</span><span class="p">]</span>
+<span class="n">CONDA_PATH</span> <span class="o">=</span> <span class="s2">&quot;C:/ProgramData/Anaconda3/Scripts/activate.bat&quot;</span>
+<span class="n">ACTIVATE_CMD</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">CONDA_PATH</span><span class="si">}</span><span class="s2"> &amp;&amp; conda activate </span><span class="si">{</span><span class="n">CURRENT_ENV</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="n">SERVER_CMD</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ACTIVATE_CMD</span><span class="si">}</span><span class="s1"> &amp;&amp; python &quot;</span><span class="si">{</span><span class="n">call</span><span class="o">.</span><span class="n">SHELL_SERVER_PATH</span><span class="si">}</span><span class="s1">&quot; &quot;dash_testing&quot; &quot;&#39;</span>
+<span class="n">PERSIST</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">TREE_ID</span> <span class="o">=</span> <span class="s2">&quot;tree&quot;</span>
+<span class="n">TREE_LOADER_ID</span> <span class="o">=</span> <span class="s2">&quot;treeloader&quot;</span>
+<span class="n">PATH_INPUT_ID</span> <span class="o">=</span> <span class="s2">&quot;pathinput&quot;</span>
+<span class="n">FILE_TABS_ID</span> <span class="o">=</span> <span class="s2">&quot;filetabs&quot;</span>
+<span class="n">STORE_PATH_ID</span> <span class="o">=</span> <span class="s2">&quot;storepath&quot;</span>
+<span class="n">STORE_ITEMS_ID</span> <span class="o">=</span> <span class="s2">&quot;storeitems&quot;</span>
+<span class="n">STORE_CMD_ID</span> <span class="o">=</span> <span class="s2">&quot;storestdout&quot;</span>
+<span class="n">NEW_TAB_ID</span> <span class="o">=</span> <span class="s2">&quot;newtab&quot;</span>
+<span class="n">EDIT_TAB_ID</span> <span class="o">=</span> <span class="s2">&quot;edittab&quot;</span>
+<span class="n">RUN_TAB_ID</span> <span class="o">=</span> <span class="s2">&quot;runtab&quot;</span>
+<span class="n">RUN_TAB_CMD</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ACTIVATE_CMD</span><span class="si">}</span><span class="s2"> &amp;&amp; python &quot;</span>
+<span class="n">SAVE_TAB_ID</span> <span class="o">=</span> <span class="s2">&quot;savefile&quot;</span>
+<span class="n">UP_BUTTON_ID</span> <span class="o">=</span> <span class="s2">&quot;updir&quot;</span>
+<span class="n">STDOUT_ID</span> <span class="o">=</span> <span class="s2">&quot;stdout_text&quot;</span>
+<span class="n">INTERVAL_ID</span> <span class="o">=</span> <span class="s2">&quot;stdout_int&quot;</span>
+<span class="n">CLEAN_FILE_ID</span> <span class="o">=</span> <span class="s2">&quot;File&quot;</span>
+<span class="n">CLEAN_ALL_ID</span> <span class="o">=</span> <span class="s2">&quot;All&quot;</span>
+<span class="n">CLEAN_DOC_ID</span> <span class="o">=</span> <span class="s2">&quot;Doc&quot;</span>
+<span class="n">CLEAN_FILE_CMD</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ACTIVATE_CMD</span><span class="si">}</span><span class="s2"> &amp;&amp; cleandoc -f &quot;</span>  <span class="c1">#  -w</span>
+<span class="n">CLEAN_ALL_CMD</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ACTIVATE_CMD</span><span class="si">}</span><span class="s2"> &amp;&amp; cleandoc -nodoc -d &quot;</span>  <span class="c1">#  -w</span>
+<span class="n">CLEAN_DOC_CMD</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ACTIVATE_CMD</span><span class="si">}</span><span class="s2"> &amp;&amp; cleandoc -d &quot;</span>
+<span class="n">TAG_SEARCH_ID</span> <span class="o">=</span> <span class="s2">&quot;tagsearch&quot;</span>
+<span class="n">LOAD_SEARCH_ID</span> <span class="o">=</span> <span class="s2">&quot;searchloader&quot;</span>
+<span class="n">RESULT_ID</span> <span class="o">=</span> <span class="s2">&quot;searchresults&quot;</span>
+<span class="n">NOTIFY_ID</span> <span class="o">=</span> <span class="s2">&quot;notifydiv&quot;</span>
+<span class="n">PORT</span> <span class="o">=</span> <span class="mi">8050</span>
+<span class="n">DEBUG</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">LOCAL</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">if</span> <span class="n">LOCAL</span><span class="p">:</span>
+    <span class="n">HOST</span> <span class="o">=</span> <span class="s2">&quot;localhost&quot;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># host = &quot;pycodenav&quot;</span>
+    <span class="n">HOST</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostbyname</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">gethostname</span><span class="p">())</span>
+
+
+<div class="viewcode-block" id="codenav_app"><a class="viewcode-back" href="../../codenav.html#codenav.app.codenav_app">[docs]</a><span class="k">def</span> <span class="nf">codenav_app</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    create the dash app object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Stores</span>
+    <span class="n">storepath</span> <span class="o">=</span> <span class="n">dcc</span><span class="o">.</span><span class="n">Store</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">STORE_PATH_ID</span><span class="p">,</span> <span class="n">storage_type</span><span class="o">=</span><span class="s2">&quot;session&quot;</span><span class="p">)</span>
+    <span class="n">storeitems</span> <span class="o">=</span> <span class="n">dcc</span><span class="o">.</span><span class="n">Store</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">STORE_ITEMS_ID</span><span class="p">,</span> <span class="n">storage_type</span><span class="o">=</span><span class="s2">&quot;session&quot;</span><span class="p">)</span>
+    <span class="n">storecmd</span> <span class="o">=</span> <span class="n">dcc</span><span class="o">.</span><span class="n">Store</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">STORE_CMD_ID</span><span class="p">,</span> <span class="n">storage_type</span><span class="o">=</span><span class="s2">&quot;local&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Cleandoc Buttons Group</span>
+    <span class="n">cleanfile_icons</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;carbon:clean&quot;</span><span class="p">,</span> <span class="s2">&quot;ant-design:file-twotone&quot;</span><span class="p">]</span>
+    <span class="n">fc_button</span><span class="p">,</span> <span class="n">fc_icons</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">icon_button</span><span class="p">(</span>
+        <span class="n">CLEAN_FILE_ID</span><span class="p">,</span> <span class="n">cleanfile_icons</span><span class="p">,</span> <span class="s2">&quot;Clean Current File&quot;</span>
+    <span class="p">)</span>
+    <span class="n">cleanall_hint</span> <span class="o">=</span> <span class="s2">&quot;Clean All Files in Current Directory&quot;</span>
+    <span class="n">cleanall_icons</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;carbon:clean&quot;</span><span class="p">,</span> <span class="s2">&quot;ant-design:folder-twotone&quot;</span><span class="p">]</span>
+    <span class="n">ac_button</span><span class="p">,</span> <span class="n">ac_icons</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">icon_button</span><span class="p">(</span><span class="n">CLEAN_ALL_ID</span><span class="p">,</span> <span class="n">cleanall_icons</span><span class="p">,</span> <span class="n">cleanall_hint</span><span class="p">)</span>
+    <span class="n">cleandoc_hint</span> <span class="o">=</span> <span class="s2">&quot;Clean All Files and Create HTML Docs&quot;</span>
+    <span class="n">cleandoc_icons</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;carbon:clean&quot;</span><span class="p">,</span> <span class="s2">&quot;tabler:file-type-html&quot;</span><span class="p">]</span>
+    <span class="n">cd_button</span><span class="p">,</span> <span class="n">cd_icons</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">icon_button</span><span class="p">(</span><span class="n">CLEAN_DOC_ID</span><span class="p">,</span> <span class="n">cleandoc_icons</span><span class="p">,</span> <span class="n">cleandoc_hint</span><span class="p">)</span>
+    <span class="n">clean_buttons</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">dmc_group</span><span class="p">([</span><span class="n">fc_button</span><span class="p">,</span> <span class="n">ac_button</span><span class="p">,</span> <span class="n">cd_button</span><span class="p">])</span>
+
+    <span class="c1"># Folder Selection Bar</span>
+    <span class="n">upbut</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">action_icon</span><span class="p">(</span><span class="s2">&quot;lucide:folder-up&quot;</span><span class="p">,</span> <span class="s2">&quot;Up One Folder&quot;</span><span class="p">,</span> <span class="n">UP_BUTTON_ID</span><span class="p">)</span>
+    <span class="n">textdiv</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">ant_input</span><span class="p">(</span><span class="s2">&quot;📁 Folder Path&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">PATH_INPUT_ID</span><span class="p">,</span> <span class="n">persistence</span><span class="o">=</span><span class="n">PERSIST</span><span class="p">)</span>
+    <span class="c1"># , style={&quot;display&quot;: &quot;none&quot;}</span>
+    <span class="n">treeselectdiv</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+        <span class="p">[],</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;pathdiv&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span> <span class="s2">&quot;minWidth&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="s2">&quot;display&quot;</span><span class="p">:</span> <span class="s2">&quot;none&quot;</span><span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">treepathbar</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">upbut</span><span class="p">,</span> <span class="n">treeselectdiv</span><span class="p">,</span> <span class="n">textdiv</span><span class="p">],</span>
+        <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;display&quot;</span><span class="p">:</span> <span class="s2">&quot;flex&quot;</span><span class="p">,</span> <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span> <span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;5px 5px&quot;</span><span class="p">},</span>
+    <span class="p">)</span>
+    <span class="n">fs_nodes</span> <span class="o">=</span> <span class="n">create_fs_nodes</span><span class="p">(</span><span class="n">getcwd</span><span class="p">(),</span> <span class="n">ext</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;.py&quot;</span><span class="p">])</span>
+    <span class="n">treediv</span> <span class="o">=</span> <span class="n">trees</span><span class="o">.</span><span class="n">file_sys_tree</span><span class="p">(</span><span class="n">fs_nodes</span><span class="p">,</span> <span class="n">TREE_ID</span><span class="p">,</span> <span class="n">persistence</span><span class="o">=</span><span class="n">PERSIST</span><span class="p">)</span>
+    <span class="n">treeloader</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">spin_loader</span><span class="p">([</span><span class="n">treediv</span><span class="p">],</span> <span class="n">TREE_LOADER_ID</span><span class="p">)</span>
+    <span class="n">middle</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">spin_loader</span><span class="p">([</span><span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">RESULT_ID</span><span class="p">)],</span> <span class="n">LOAD_SEARCH_ID</span><span class="p">)</span>
+    <span class="n">searchdiv</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">tag_search</span><span class="p">(</span>
+        <span class="s2">&quot;Search Code Content&quot;</span><span class="p">,</span>
+        <span class="n">TAG_SEARCH_ID</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;0 5px&quot;</span><span class="p">},</span>
+        <span class="n">persistence</span><span class="o">=</span><span class="n">PERSIST</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">botleft</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">flex_row</span><span class="p">([</span><span class="n">treeloader</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;border&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">})</span>
+    <span class="n">left</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">flex_container</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">clean_buttons</span><span class="p">,</span> <span class="n">searchdiv</span><span class="p">,</span> <span class="n">treepathbar</span><span class="p">,</span> <span class="n">botleft</span><span class="p">],</span> <span class="n">flexcol</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+
+    <span class="n">topright</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">sweet</span><span class="o">.</span><span class="n">file_tabs</span><span class="p">(</span>
+            <span class="p">[],</span> <span class="n">FILE_TABS_ID</span><span class="p">,</span> <span class="n">NEW_TAB_ID</span><span class="p">,</span> <span class="n">EDIT_TAB_ID</span><span class="p">,</span> <span class="n">RUN_TAB_ID</span><span class="p">,</span> <span class="n">SAVE_TAB_ID</span>
+        <span class="p">)</span>
+    <span class="p">]</span>  <span class="c1">#  persistence=False</span>
+    <span class="n">interval</span> <span class="o">=</span> <span class="n">dcc</span><span class="o">.</span><span class="n">Interval</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">INTERVAL_ID</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+    <span class="n">prismdiv</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">pyprism</span><span class="p">(</span><span class="s2">&quot;Loading...&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">STDOUT_ID</span><span class="p">,</span> <span class="n">linenums</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">botright</span> <span class="o">=</span> <span class="p">[</span><span class="n">interval</span><span class="p">,</span> <span class="n">prismdiv</span><span class="p">]</span>
+    <span class="n">quadlayout</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">quad_layout</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">middle</span><span class="p">,</span> <span class="n">topright</span><span class="p">,</span> <span class="n">botright</span><span class="p">,</span> <span class="n">splits</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">60</span><span class="p">])</span>
+    <span class="n">run_icon</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">iconify</span><span class="p">(</span><span class="s2">&quot;ph:play-fill&quot;</span><span class="p">,</span> <span class="s2">&quot;#2AB047&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Dash App Creation</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">Dash</span><span class="p">(</span>
+        <span class="vm">__name__</span><span class="p">,</span>
+        <span class="n">update_title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">external_stylesheets</span><span class="o">=</span><span class="p">[</span><span class="n">themes</span><span class="o">.</span><span class="n">BOOTSTRAP</span><span class="p">],</span>
+    <span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">index_string</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">dash_index_string</span><span class="p">()</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;CodeNav 🧭&quot;</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">Main</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">storepath</span><span class="p">,</span>
+            <span class="n">storeitems</span><span class="p">,</span>
+            <span class="n">storecmd</span><span class="p">,</span>
+            <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span><span class="n">children</span><span class="o">=</span><span class="p">[],</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;hiddendiv&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;display&quot;</span><span class="p">:</span> <span class="s2">&quot;none&quot;</span><span class="p">}),</span>
+            <span class="n">sweet</span><span class="o">.</span><span class="n">notify_container</span><span class="p">([</span><span class="n">quadlayout</span><span class="p">,</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">NOTIFY_ID</span><span class="p">)]),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Callbacks</span>
+    <span class="n">call</span><span class="o">.</span><span class="n">dirpath_store</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">STORE_PATH_ID</span><span class="p">,</span> <span class="n">PATH_INPUT_ID</span><span class="p">)</span>
+    <span class="n">call</span><span class="o">.</span><span class="n">dirpath_up</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">PATH_INPUT_ID</span><span class="p">,</span> <span class="n">UP_BUTTON_ID</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">)</span>
+    <span class="n">call</span><span class="o">.</span><span class="n">tree_expand</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">TREE_ID</span><span class="p">)</span>
+    <span class="n">call</span><span class="o">.</span><span class="n">tree_create</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">TREE_LOADER_ID</span><span class="p">,</span> <span class="n">PATH_INPUT_ID</span><span class="p">,</span> <span class="n">TREE_ID</span><span class="p">)</span>
+    <span class="n">call</span><span class="o">.</span><span class="n">tree_open_file</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">STORE_ITEMS_ID</span><span class="p">,</span> <span class="n">TREE_ID</span><span class="p">)</span>
+    <span class="n">call</span><span class="o">.</span><span class="n">tab_store</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">FILE_TABS_ID</span><span class="p">,</span> <span class="n">STORE_ITEMS_ID</span><span class="p">)</span>
+    <span class="n">call</span><span class="o">.</span><span class="n">tab_new</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">STORE_ITEMS_ID</span><span class="p">,</span> <span class="n">NEW_TAB_ID</span><span class="p">)</span>
+    <span class="n">call</span><span class="o">.</span><span class="n">tab_delete</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">FILE_TABS_ID</span><span class="p">,</span> <span class="n">STORE_ITEMS_ID</span><span class="p">)</span>
+    <span class="n">call</span><span class="o">.</span><span class="n">tab_edit</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">STORE_ITEMS_ID</span><span class="p">,</span> <span class="n">EDIT_TAB_ID</span><span class="p">)</span>
+    <span class="n">call</span><span class="o">.</span><span class="n">tab_save</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">STORE_ITEMS_ID</span><span class="p">,</span> <span class="n">SAVE_TAB_ID</span><span class="p">,</span> <span class="n">NOTIFY_ID</span><span class="p">)</span>
+    <span class="n">call</span><span class="o">.</span><span class="n">button_start_cmd</span><span class="p">(</span>
+        <span class="n">app</span><span class="p">,</span>
+        <span class="n">RUN_TAB_CMD</span><span class="p">,</span>
+        <span class="n">STORE_CMD_ID</span><span class="p">,</span>
+        <span class="n">STORE_ITEMS_ID</span><span class="p">,</span>
+        <span class="n">call</span><span class="o">.</span><span class="n">read_storetabs_file</span><span class="p">,</span>
+        <span class="n">RUN_TAB_ID</span><span class="p">,</span>
+        <span class="n">run_icon</span><span class="p">,</span>
+        <span class="s2">&quot;children&quot;</span><span class="p">,</span>
+        <span class="n">first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">call</span><span class="o">.</span><span class="n">button_start_cmd</span><span class="p">(</span>
+        <span class="n">app</span><span class="p">,</span>
+        <span class="n">CLEAN_FILE_CMD</span><span class="p">,</span>
+        <span class="n">STORE_CMD_ID</span><span class="p">,</span>
+        <span class="n">STORE_ITEMS_ID</span><span class="p">,</span>
+        <span class="n">call</span><span class="o">.</span><span class="n">read_storetabs_file</span><span class="p">,</span>
+        <span class="n">CLEAN_FILE_ID</span><span class="p">,</span>
+        <span class="n">fc_icons</span><span class="p">,</span>
+        <span class="s2">&quot;leftIcon&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">call</span><span class="o">.</span><span class="n">button_start_cmd</span><span class="p">(</span>
+        <span class="n">app</span><span class="p">,</span>
+        <span class="n">CLEAN_ALL_CMD</span><span class="p">,</span>
+        <span class="n">STORE_CMD_ID</span><span class="p">,</span>
+        <span class="n">STORE_PATH_ID</span><span class="p">,</span>
+        <span class="n">call</span><span class="o">.</span><span class="n">read_storepath</span><span class="p">,</span>
+        <span class="n">CLEAN_ALL_ID</span><span class="p">,</span>
+        <span class="n">ac_icons</span><span class="p">,</span>
+        <span class="s2">&quot;leftIcon&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">call</span><span class="o">.</span><span class="n">button_start_cmd</span><span class="p">(</span>
+        <span class="n">app</span><span class="p">,</span>
+        <span class="n">CLEAN_DOC_CMD</span><span class="p">,</span>
+        <span class="n">STORE_CMD_ID</span><span class="p">,</span>
+        <span class="n">STORE_PATH_ID</span><span class="p">,</span>
+        <span class="n">call</span><span class="o">.</span><span class="n">read_storepath</span><span class="p">,</span>
+        <span class="n">CLEAN_DOC_ID</span><span class="p">,</span>
+        <span class="n">cd_icons</span><span class="p">,</span>
+        <span class="s2">&quot;leftIcon&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">call</span><span class="o">.</span><span class="n">stdout_update</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">STORE_CMD_ID</span><span class="p">,</span> <span class="n">STDOUT_ID</span><span class="p">)</span>
+    <span class="n">call</span><span class="o">.</span><span class="n">stdstore_update</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">STORE_CMD_ID</span><span class="p">,</span> <span class="n">INTERVAL_ID</span><span class="p">)</span>
+    <span class="n">call</span><span class="o">.</span><span class="n">show_hide_search</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">TAG_SEARCH_ID</span><span class="p">,</span> <span class="n">RESULT_ID</span><span class="p">)</span>
+    <span class="n">call</span><span class="o">.</span><span class="n">run_search</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">TAG_SEARCH_ID</span><span class="p">,</span> <span class="n">LOAD_SEARCH_ID</span><span class="p">,</span> <span class="n">STORE_PATH_ID</span><span class="p">,</span> <span class="n">RESULT_ID</span><span class="p">)</span>
+    <span class="n">call</span><span class="o">.</span><span class="n">open_search</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">STORE_ITEMS_ID</span><span class="p">)</span>
+
+    <span class="c1"># Clientside Callback</span>
+    <span class="n">clientside_callback</span><span class="p">(</span>
+        <span class="n">call</span><span class="o">.</span><span class="n">SCROLLDOWN</span><span class="p">,</span>
+        <span class="n">Output</span><span class="p">(</span><span class="s2">&quot;hiddendiv&quot;</span><span class="p">,</span> <span class="s2">&quot;children&quot;</span><span class="p">),</span>
+        <span class="n">Input</span><span class="p">(</span><span class="n">STDOUT_ID</span><span class="p">,</span> <span class="s2">&quot;children&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">app</span></div>
+
+
+<div class="viewcode-block" id="open_app"><a class="viewcode-back" href="../../codenav.html#codenav.app.open_app">[docs]</a><span class="k">def</span> <span class="nf">open_app</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Open dash app upon running script</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;http://</span><span class="si">{</span><span class="n">HOST</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">PORT</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="serve_app"><a class="viewcode-back" href="../../codenav.html#codenav.app.serve_app">[docs]</a><span class="k">def</span> <span class="nf">serve_app</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    serve codenav app</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">codenav_app</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">DEBUG</span><span class="p">:</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">run_server</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">PORT</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">LOCAL</span><span class="p">:</span>
+        <span class="n">Timer</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">open_app</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="n">serve</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">server</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="n">HOST</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">PORT</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">serve</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">server</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="n">HOST</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">PORT</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">serve_app</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, jkris.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

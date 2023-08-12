@@ -15,10 +15,10 @@ from dash import Dash, html, dcc, clientside_callback
 from dash.dependencies import Input, Output
 from dash_bootstrap_components import themes
 import cleandoc  # pylint: disable=W0611
-from .dash import dash_sweet_components as sweet
-from .dash import dash_trees as trees
-from .dash import dash_callbacks as call
-from .dash.file_system_node import create_fs_nodes
+from .components import dash_sweet_components as sweet
+from .components import dash_trees as trees
+from .components import dash_callbacks as call
+from .components.file_system_node import create_fs_nodes
 
 
 # CONSTANTS

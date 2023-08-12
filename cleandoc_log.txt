@@ -1,944 +1,152 @@
-11-08-23 21:55:42 cleandoc INFO ooooooooooooooooooo Checking File (1/10): cli.py ooooooooooooooooooo
+11-08-23 23:42:10 cleandoc INFO ooooooooooooooooooooooooo Gen Docs Output oooooooooooooooooooooooooo
 
-11-08-23 21:55:46 cleandoc INFO --------------------------- Mypy Output ----------------------------
-src\codenav\dash_trees.py:19: error: Incompatible default for argument "parent_icon" (default has type "None", argument has type "str")  [assignment]
-src\codenav\dash_trees.py:19: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_trees.py:19: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_trees.py:19: error: Incompatible default for argument "child_icon" (default has type "None", argument has type "str")  [assignment]
-src\codenav\file_system_node.py:52: error: "list[Any]" has no attribute "print_nested"  [attr-defined]
-src\codenav\file_system_node.py:65: error: Incompatible default for argument "parent" (default has type "None", argument has type "FileSystemNode")  [assignment]
-src\codenav\file_system_node.py:65: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:65: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:67: error: Incompatible default for argument "ext" (default has type "None", argument has type "list[str]")  [assignment]
-src\codenav\file_system_node.py:67: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:67: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:68: error: Incompatible default for argument "skip" (default has type "None", argument has type "list[str]")  [assignment]
-src\codenav\file_system_node.py:68: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:68: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:81: error: Argument 3 to "FileSystemNode" has incompatible type "None"; expected "FileSystemNode"  [arg-type]
-src\codenav\dash_sweet_components.py:138: error: Incompatible default for argument "splits" (default has type "None", argument has type "list[int]")  [assignment]
-src\codenav\dash_sweet_components.py:138: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:138: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:152: error: Incompatible default for argument "splits" (default has type "None", argument has type "list[int]")  [assignment]
-src\codenav\dash_sweet_components.py:152: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:152: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:217: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:217: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:217: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:376: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:376: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:376: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:459: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:459: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:459: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:27: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:27: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:27: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:27: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:34: error: Argument "authkey" to "QueueManager" has incompatible type "str"; expected "Optional[bytes]"  [arg-type]
-src\codenav\shell_server.py:35: error: Need type annotation for "queue"  [var-annotated]
-src\codenav\shell_server.py:37: error: Need type annotation for "queue_done"  [var-annotated]
-src\codenav\shell_server.py:47: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:47: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:47: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:47: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:55: error: Argument "authkey" to "QueueManager" has incompatible type "str"; expected "Optional[bytes]"  [arg-type]
-src\codenav\shell_server.py:78: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:78: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:78: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:80: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:81: error: Incompatible default for argument "stop" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:81: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:81: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:128: error: Item "None" of "Optional[IO[str]]" has no attribute "readline"  [union-attr]
-src\codenav\shell_server.py:131: error: Item "None" of "Optional[IO[str]]" has no attribute "close"  [union-attr]
-src\codenav\shell_server.py:182: error: Incompatible types in assignment (expression has type "float", variable has type "int")  [assignment]
-src\codenav\shell_server.py:185: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\shell_server.py:190: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:170: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:187: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:252: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:253: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:273: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
-src\codenav\dash_callbacks.py:486: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:487: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:497: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:503: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:504: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:513: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\codenav.py:13: error: Library stubs not installed for "waitress"  [import]
-src\codenav\codenav.py:13: note: Hint: "python3 -m pip install types-waitress"
-src\codenav\codenav.py:13: note: (or run "mypy --install-types" to install all missing stub packages)
-src\codenav\codenav.py:13: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-Found 40 errors in 6 files (checked 1 source file)
-
-
-11-08-23 21:55:46 cleandoc INFO ooooooooooooooooo Checking File (2/10): codenav.py ooooooooooooooooo
-
-11-08-23 21:55:47 cleandoc INFO ---------------------------- Doq Output ----------------------------
-Traceback (most recent call last):
-  File "C:\Users\jkris\.conda\envs\py39\lib\runpy.py", line 197, in _run_module_as_main
-    return _run_code(code, main_globals, None,
-  File "C:\Users\jkris\.conda\envs\py39\lib\runpy.py", line 87, in _run_code
-    exec(code, run_globals)
-  File "C:\Users\jkris\.conda\envs\py39\Scripts\doq.exe\__main__.py", line 7, in <module>
-  File "C:\Users\jkris\.conda\envs\py39\lib\site-packages\doq\cli.py", line 363, in main
-    ret = run(args)
-  File "C:\Users\jkris\.conda\envs\py39\lib\site-packages\doq\cli.py", line 200, in run
-    targets = get_targets(args)
-  File "C:\Users\jkris\.conda\envs\py39\lib\site-packages\doq\cli.py", line 182, in get_targets
-    lines = get_lines(args.file, args.start, args.end)
-  File "C:\Users\jkris\.conda\envs\py39\lib\site-packages\doq\cli.py", line 37, in get_lines
-    lines = [line.strip('\n') for line in f]
-  File "C:\Users\jkris\.conda\envs\py39\lib\site-packages\doq\cli.py", line 37, in <listcomp>
-    lines = [line.strip('\n') for line in f]
-  File "C:\Users\jkris\.conda\envs\py39\lib\encodings\cp1252.py", line 23, in decode
-    return codecs.charmap_decode(input,self.errors,decoding_table)[0]
-UnicodeDecodeError: 'charmap' codec can't decode byte 0x81 in position 3031: character maps to <undefined>
-
-
-11-08-23 21:55:51 cleandoc INFO -------------------------- Pylint Output ---------------------------
-************* Module codenav.codenav
-src\codenav\codenav.py:65:0: R0914: Too many local variables (33/15) (too-many-locals)
-src\codenav\codenav.py:65:0: R0915: Too many statements (54/50) (too-many-statements)
-
-------------------------------------------------------------------
-Your code has been rated at 9.83/10 (previous run: 9.83/10, +0.00)
-
-
-
-11-08-23 21:55:52 cleandoc INFO --------------------------- Mypy Output ----------------------------
-src\codenav\dash_trees.py:19: error: Incompatible default for argument "parent_icon" (default has type "None", argument has type "str")  [assignment]
-src\codenav\dash_trees.py:19: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_trees.py:19: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_trees.py:19: error: Incompatible default for argument "child_icon" (default has type "None", argument has type "str")  [assignment]
-src\codenav\file_system_node.py:52: error: "list[Any]" has no attribute "print_nested"  [attr-defined]
-src\codenav\file_system_node.py:65: error: Incompatible default for argument "parent" (default has type "None", argument has type "FileSystemNode")  [assignment]
-src\codenav\file_system_node.py:65: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:65: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:67: error: Incompatible default for argument "ext" (default has type "None", argument has type "list[str]")  [assignment]
-src\codenav\file_system_node.py:67: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:67: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:68: error: Incompatible default for argument "skip" (default has type "None", argument has type "list[str]")  [assignment]
-src\codenav\file_system_node.py:68: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:68: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:81: error: Argument 3 to "FileSystemNode" has incompatible type "None"; expected "FileSystemNode"  [arg-type]
-src\codenav\dash_sweet_components.py:138: error: Incompatible default for argument "splits" (default has type "None", argument has type "list[int]")  [assignment]
-src\codenav\dash_sweet_components.py:138: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:138: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:152: error: Incompatible default for argument "splits" (default has type "None", argument has type "list[int]")  [assignment]
-src\codenav\dash_sweet_components.py:152: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:152: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:217: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:217: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:217: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:376: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:376: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:376: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:459: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:459: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:459: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:27: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:27: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:27: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:27: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:34: error: Argument "authkey" to "QueueManager" has incompatible type "str"; expected "Optional[bytes]"  [arg-type]
-src\codenav\shell_server.py:35: error: Need type annotation for "queue"  [var-annotated]
-src\codenav\shell_server.py:37: error: Need type annotation for "queue_done"  [var-annotated]
-src\codenav\shell_server.py:47: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:47: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:47: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:47: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:55: error: Argument "authkey" to "QueueManager" has incompatible type "str"; expected "Optional[bytes]"  [arg-type]
-src\codenav\shell_server.py:78: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:78: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:78: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:80: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:81: error: Incompatible default for argument "stop" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:81: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:81: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:128: error: Item "None" of "Optional[IO[str]]" has no attribute "readline"  [union-attr]
-src\codenav\shell_server.py:131: error: Item "None" of "Optional[IO[str]]" has no attribute "close"  [union-attr]
-src\codenav\shell_server.py:182: error: Incompatible types in assignment (expression has type "float", variable has type "int")  [assignment]
-src\codenav\shell_server.py:185: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\shell_server.py:190: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:170: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:187: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:252: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:253: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:273: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
-src\codenav\dash_callbacks.py:486: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:487: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:497: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:503: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:504: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:513: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\codenav.py:13: error: Library stubs not installed for "waitress"  [import]
-src\codenav\codenav.py:13: note: Hint: "python3 -m pip install types-waitress"
-src\codenav\codenav.py:13: note: (or run "mypy --install-types" to install all missing stub packages)
-src\codenav\codenav.py:13: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-Found 40 errors in 6 files (checked 1 source file)
-
-
-11-08-23 21:55:52 cleandoc INFO ooooooooooooo Checking File (3/10): dash_callbacks.py oooooooooooooo
-
-11-08-23 21:55:53 cleandoc INFO ---------------------------- Doq Output ----------------------------
-
-                Simple Docstrings Added. Please Complete Them!
-
-
-11-08-23 21:55:56 cleandoc INFO -------------------------- Pylint Output ---------------------------
-************* Module codenav.dash_callbacks
-src\codenav\dash_callbacks.py:401:0: R0913: Too many arguments (9/5) (too-many-arguments)
-src\codenav\dash_callbacks.py:443:26: R1732: Consider using 'with' for resource-allocating operations (consider-using-with)
-
-------------------------------------------------------------------
-Your code has been rated at 9.95/10 (previous run: 9.95/10, +0.00)
-
-
-
-11-08-23 21:55:57 cleandoc INFO --------------------------- Mypy Output ----------------------------
-src\codenav\dash_trees.py:19: error: Incompatible default for argument "parent_icon" (default has type "None", argument has type "str")  [assignment]
-src\codenav\dash_trees.py:19: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_trees.py:19: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_trees.py:19: error: Incompatible default for argument "child_icon" (default has type "None", argument has type "str")  [assignment]
-src\codenav\file_system_node.py:52: error: "list[Any]" has no attribute "print_nested"  [attr-defined]
-src\codenav\file_system_node.py:65: error: Incompatible default for argument "parent" (default has type "None", argument has type "FileSystemNode")  [assignment]
-src\codenav\file_system_node.py:65: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:65: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:67: error: Incompatible default for argument "ext" (default has type "None", argument has type "list[str]")  [assignment]
-src\codenav\file_system_node.py:67: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:67: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:68: error: Incompatible default for argument "skip" (default has type "None", argument has type "list[str]")  [assignment]
-src\codenav\file_system_node.py:68: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:68: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:81: error: Argument 3 to "FileSystemNode" has incompatible type "None"; expected "FileSystemNode"  [arg-type]
-src\codenav\dash_sweet_components.py:138: error: Incompatible default for argument "splits" (default has type "None", argument has type "list[int]")  [assignment]
-src\codenav\dash_sweet_components.py:138: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:138: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:152: error: Incompatible default for argument "splits" (default has type "None", argument has type "list[int]")  [assignment]
-src\codenav\dash_sweet_components.py:152: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:152: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:217: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:217: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:217: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:376: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:376: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:376: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:459: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:459: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:459: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:27: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:27: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:27: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:27: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:34: error: Argument "authkey" to "QueueManager" has incompatible type "str"; expected "Optional[bytes]"  [arg-type]
-src\codenav\shell_server.py:35: error: Need type annotation for "queue"  [var-annotated]
-src\codenav\shell_server.py:37: error: Need type annotation for "queue_done"  [var-annotated]
-src\codenav\shell_server.py:47: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:47: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:47: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:47: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:55: error: Argument "authkey" to "QueueManager" has incompatible type "str"; expected "Optional[bytes]"  [arg-type]
-src\codenav\shell_server.py:78: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:78: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:78: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:80: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:81: error: Incompatible default for argument "stop" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:81: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:81: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:128: error: Item "None" of "Optional[IO[str]]" has no attribute "readline"  [union-attr]
-src\codenav\shell_server.py:131: error: Item "None" of "Optional[IO[str]]" has no attribute "close"  [union-attr]
-src\codenav\shell_server.py:182: error: Incompatible types in assignment (expression has type "float", variable has type "int")  [assignment]
-src\codenav\shell_server.py:185: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\shell_server.py:190: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:228: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:254: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:341: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:342: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:379: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
-src\codenav\dash_callbacks.py:646: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:647: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:668: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:674: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:675: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:695: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\codenav.py:13: error: Library stubs not installed for "waitress"  [import]
-src\codenav\codenav.py:13: note: Hint: "python3 -m pip install types-waitress"
-src\codenav\codenav.py:13: note: (or run "mypy --install-types" to install all missing stub packages)
-src\codenav\codenav.py:13: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-Found 40 errors in 6 files (checked 1 source file)
-
-
-11-08-23 21:55:57 cleandoc INFO oooooooooo Checking File (4/10): dash_sweet_components.py oooooooooo
-
-11-08-23 21:55:59 cleandoc INFO -------------------------- Pylint Output ---------------------------
-************* Module codenav.dash_sweet_components
-src\codenav\dash_sweet_components.py:319:0: R0913: Too many arguments (6/5) (too-many-arguments)
-src\codenav\dash_sweet_components.py:367:4: R1715: Consider using dict.get for getting values from a dict if a key is present or a default if not (consider-using-get)
-src\codenav\dash_sweet_components.py:510:0: R0914: Too many local variables (19/15) (too-many-locals)
-
-------------------------------------------------------------------
-Your code has been rated at 9.85/10 (previous run: 9.85/10, +0.00)
-
-
-
-11-08-23 21:55:59 cleandoc INFO --------------------------- Mypy Output ----------------------------
-src\codenav\dash_trees.py:19: error: Incompatible default for argument "parent_icon" (default has type "None", argument has type "str")  [assignment]
-src\codenav\dash_trees.py:19: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_trees.py:19: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_trees.py:19: error: Incompatible default for argument "child_icon" (default has type "None", argument has type "str")  [assignment]
-src\codenav\file_system_node.py:52: error: "list[Any]" has no attribute "print_nested"  [attr-defined]
-src\codenav\file_system_node.py:65: error: Incompatible default for argument "parent" (default has type "None", argument has type "FileSystemNode")  [assignment]
-src\codenav\file_system_node.py:65: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:65: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:67: error: Incompatible default for argument "ext" (default has type "None", argument has type "list[str]")  [assignment]
-src\codenav\file_system_node.py:67: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:67: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:68: error: Incompatible default for argument "skip" (default has type "None", argument has type "list[str]")  [assignment]
-src\codenav\file_system_node.py:68: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:68: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:81: error: Argument 3 to "FileSystemNode" has incompatible type "None"; expected "FileSystemNode"  [arg-type]
-src\codenav\dash_sweet_components.py:138: error: Incompatible default for argument "splits" (default has type "None", argument has type "list[int]")  [assignment]
-src\codenav\dash_sweet_components.py:138: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:138: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:152: error: Incompatible default for argument "splits" (default has type "None", argument has type "list[int]")  [assignment]
-src\codenav\dash_sweet_components.py:152: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:152: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:217: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:217: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:217: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:376: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:376: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:376: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:459: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:459: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:459: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:27: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:27: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:27: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:27: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:34: error: Argument "authkey" to "QueueManager" has incompatible type "str"; expected "Optional[bytes]"  [arg-type]
-src\codenav\shell_server.py:35: error: Need type annotation for "queue"  [var-annotated]
-src\codenav\shell_server.py:37: error: Need type annotation for "queue_done"  [var-annotated]
-src\codenav\shell_server.py:47: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:47: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:47: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:47: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:55: error: Argument "authkey" to "QueueManager" has incompatible type "str"; expected "Optional[bytes]"  [arg-type]
-src\codenav\shell_server.py:78: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:78: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:78: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:80: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:81: error: Incompatible default for argument "stop" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:81: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:81: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:128: error: Item "None" of "Optional[IO[str]]" has no attribute "readline"  [union-attr]
-src\codenav\shell_server.py:131: error: Item "None" of "Optional[IO[str]]" has no attribute "close"  [union-attr]
-src\codenav\shell_server.py:182: error: Incompatible types in assignment (expression has type "float", variable has type "int")  [assignment]
-src\codenav\shell_server.py:185: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\shell_server.py:190: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:228: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:254: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:341: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:342: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:379: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
-src\codenav\dash_callbacks.py:646: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:647: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:668: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:674: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:675: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:695: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\codenav.py:13: error: Library stubs not installed for "waitress"  [import]
-src\codenav\codenav.py:13: note: Hint: "python3 -m pip install types-waitress"
-src\codenav\codenav.py:13: note: (or run "mypy --install-types" to install all missing stub packages)
-src\codenav\codenav.py:13: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-Found 40 errors in 6 files (checked 1 source file)
-
-
-11-08-23 21:55:59 cleandoc INFO ooooooooooooooo Checking File (5/10): dash_trees.py oooooooooooooooo
-
-11-08-23 21:56:00 cleandoc INFO ---------------------------- Doq Output ----------------------------
-Traceback (most recent call last):
-  File "C:\Users\jkris\.conda\envs\py39\lib\runpy.py", line 197, in _run_module_as_main
-    return _run_code(code, main_globals, None,
-  File "C:\Users\jkris\.conda\envs\py39\lib\runpy.py", line 87, in _run_code
-    exec(code, run_globals)
-  File "C:\Users\jkris\.conda\envs\py39\Scripts\doq.exe\__main__.py", line 7, in <module>
-  File "C:\Users\jkris\.conda\envs\py39\lib\site-packages\doq\cli.py", line 363, in main
-    ret = run(args)
-  File "C:\Users\jkris\.conda\envs\py39\lib\site-packages\doq\cli.py", line 200, in run
-    targets = get_targets(args)
-  File "C:\Users\jkris\.conda\envs\py39\lib\site-packages\doq\cli.py", line 182, in get_targets
-    lines = get_lines(args.file, args.start, args.end)
-  File "C:\Users\jkris\.conda\envs\py39\lib\site-packages\doq\cli.py", line 37, in get_lines
-    lines = [line.strip('\n') for line in f]
-  File "C:\Users\jkris\.conda\envs\py39\lib\site-packages\doq\cli.py", line 37, in <listcomp>
-    lines = [line.strip('\n') for line in f]
-  File "C:\Users\jkris\.conda\envs\py39\lib\encodings\cp1252.py", line 23, in decode
-    return codecs.charmap_decode(input,self.errors,decoding_table)[0]
-UnicodeDecodeError: 'charmap' codec can't decode byte 0x81 in position 3016: character maps to <undefined>
-
-
-11-08-23 21:56:01 cleandoc INFO -------------------------- Pylint Output ---------------------------
-************* Module codenav.dash_trees
-src\codenav\dash_trees.py:78:14: R1721: Unnecessary use of a comprehension, use dict(item.items()) instead. (unnecessary-comprehension)
-
-------------------------------------------------------------------
-Your code has been rated at 9.81/10 (previous run: 9.81/10, +0.00)
-
-
-
-11-08-23 21:56:01 cleandoc INFO --------------------------- Mypy Output ----------------------------
-src\codenav\dash_trees.py:19: error: Incompatible default for argument "parent_icon" (default has type "None", argument has type "str")  [assignment]
-src\codenav\dash_trees.py:19: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_trees.py:19: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_trees.py:19: error: Incompatible default for argument "child_icon" (default has type "None", argument has type "str")  [assignment]
-src\codenav\file_system_node.py:52: error: "list[Any]" has no attribute "print_nested"  [attr-defined]
-src\codenav\file_system_node.py:65: error: Incompatible default for argument "parent" (default has type "None", argument has type "FileSystemNode")  [assignment]
-src\codenav\file_system_node.py:65: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:65: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:67: error: Incompatible default for argument "ext" (default has type "None", argument has type "list[str]")  [assignment]
-src\codenav\file_system_node.py:67: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:67: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:68: error: Incompatible default for argument "skip" (default has type "None", argument has type "list[str]")  [assignment]
-src\codenav\file_system_node.py:68: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:68: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:81: error: Argument 3 to "FileSystemNode" has incompatible type "None"; expected "FileSystemNode"  [arg-type]
-src\codenav\dash_sweet_components.py:138: error: Incompatible default for argument "splits" (default has type "None", argument has type "list[int]")  [assignment]
-src\codenav\dash_sweet_components.py:138: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:138: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:152: error: Incompatible default for argument "splits" (default has type "None", argument has type "list[int]")  [assignment]
-src\codenav\dash_sweet_components.py:152: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:152: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:217: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:217: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:217: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:376: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:376: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:376: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:459: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:459: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:459: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:27: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:27: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:27: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:27: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:34: error: Argument "authkey" to "QueueManager" has incompatible type "str"; expected "Optional[bytes]"  [arg-type]
-src\codenav\shell_server.py:35: error: Need type annotation for "queue"  [var-annotated]
-src\codenav\shell_server.py:37: error: Need type annotation for "queue_done"  [var-annotated]
-src\codenav\shell_server.py:47: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:47: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:47: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:47: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:55: error: Argument "authkey" to "QueueManager" has incompatible type "str"; expected "Optional[bytes]"  [arg-type]
-src\codenav\shell_server.py:78: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:78: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:78: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:80: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:81: error: Incompatible default for argument "stop" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:81: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:81: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:128: error: Item "None" of "Optional[IO[str]]" has no attribute "readline"  [union-attr]
-src\codenav\shell_server.py:131: error: Item "None" of "Optional[IO[str]]" has no attribute "close"  [union-attr]
-src\codenav\shell_server.py:182: error: Incompatible types in assignment (expression has type "float", variable has type "int")  [assignment]
-src\codenav\shell_server.py:185: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\shell_server.py:190: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:228: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:254: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:341: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:342: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:379: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
-src\codenav\dash_callbacks.py:646: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:647: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:668: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:674: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:675: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:695: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\codenav.py:13: error: Library stubs not installed for "waitress"  [import]
-src\codenav\codenav.py:13: note: Hint: "python3 -m pip install types-waitress"
-src\codenav\codenav.py:13: note: (or run "mypy --install-types" to install all missing stub packages)
-src\codenav\codenav.py:13: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-Found 40 errors in 6 files (checked 1 source file)
-
-
-11-08-23 21:56:01 cleandoc INFO oooooooooooo Checking File (6/10): file_system_node.py ooooooooooooo
-
-11-08-23 21:56:02 cleandoc INFO ---------------------------- Doq Output ----------------------------
-
-                Simple Docstrings Added. Please Complete Them!
-
-
-11-08-23 21:56:03 cleandoc INFO -------------------------- Pylint Output ---------------------------
-************* Module codenav.file_system_node
-src\codenav\file_system_node.py:17:4: R0913: Too many arguments (7/5) (too-many-arguments)
-
-------------------------------------------------------------------
-Your code has been rated at 9.87/10 (previous run: 9.87/10, +0.00)
-
-
-
-11-08-23 21:56:04 cleandoc INFO --------------------------- Mypy Output ----------------------------
-src\codenav\dash_trees.py:19: error: Incompatible default for argument "parent_icon" (default has type "None", argument has type "str")  [assignment]
-src\codenav\dash_trees.py:19: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_trees.py:19: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_trees.py:19: error: Incompatible default for argument "child_icon" (default has type "None", argument has type "str")  [assignment]
-src\codenav\file_system_node.py:69: error: "list[Any]" has no attribute "print_nested"  [attr-defined]
-src\codenav\file_system_node.py:82: error: Incompatible default for argument "parent" (default has type "None", argument has type "FileSystemNode")  [assignment]
-src\codenav\file_system_node.py:82: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:82: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:84: error: Incompatible default for argument "ext" (default has type "None", argument has type "list[str]")  [assignment]
-src\codenav\file_system_node.py:84: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:84: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:85: error: Incompatible default for argument "skip" (default has type "None", argument has type "list[str]")  [assignment]
-src\codenav\file_system_node.py:85: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:85: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:98: error: Argument 3 to "FileSystemNode" has incompatible type "None"; expected "FileSystemNode"  [arg-type]
-src\codenav\dash_sweet_components.py:138: error: Incompatible default for argument "splits" (default has type "None", argument has type "list[int]")  [assignment]
-src\codenav\dash_sweet_components.py:138: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:138: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:152: error: Incompatible default for argument "splits" (default has type "None", argument has type "list[int]")  [assignment]
-src\codenav\dash_sweet_components.py:152: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:152: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:217: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:217: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:217: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:376: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:376: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:376: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:459: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:459: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:459: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:27: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:27: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:27: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:27: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:34: error: Argument "authkey" to "QueueManager" has incompatible type "str"; expected "Optional[bytes]"  [arg-type]
-src\codenav\shell_server.py:35: error: Need type annotation for "queue"  [var-annotated]
-src\codenav\shell_server.py:37: error: Need type annotation for "queue_done"  [var-annotated]
-src\codenav\shell_server.py:47: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:47: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:47: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:47: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:55: error: Argument "authkey" to "QueueManager" has incompatible type "str"; expected "Optional[bytes]"  [arg-type]
-src\codenav\shell_server.py:78: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:78: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:78: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:80: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:81: error: Incompatible default for argument "stop" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:81: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:81: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:128: error: Item "None" of "Optional[IO[str]]" has no attribute "readline"  [union-attr]
-src\codenav\shell_server.py:131: error: Item "None" of "Optional[IO[str]]" has no attribute "close"  [union-attr]
-src\codenav\shell_server.py:182: error: Incompatible types in assignment (expression has type "float", variable has type "int")  [assignment]
-src\codenav\shell_server.py:185: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\shell_server.py:190: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:228: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:254: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:341: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:342: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:379: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
-src\codenav\dash_callbacks.py:646: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:647: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:668: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:674: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:675: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:695: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\codenav.py:13: error: Library stubs not installed for "waitress"  [import]
-src\codenav\codenav.py:13: note: Hint: "python3 -m pip install types-waitress"
-src\codenav\codenav.py:13: note: (or run "mypy --install-types" to install all missing stub packages)
-src\codenav\codenav.py:13: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-Found 40 errors in 6 files (checked 1 source file)
-
-
-11-08-23 21:56:04 cleandoc INFO ooooooooooooooooo Checking File (7/10): helper.py oooooooooooooooooo
-
-11-08-23 21:56:06 cleandoc INFO --------------------------- Mypy Output ----------------------------
-src\codenav\dash_trees.py:19: error: Incompatible default for argument "parent_icon" (default has type "None", argument has type "str")  [assignment]
-src\codenav\dash_trees.py:19: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_trees.py:19: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_trees.py:19: error: Incompatible default for argument "child_icon" (default has type "None", argument has type "str")  [assignment]
-src\codenav\file_system_node.py:69: error: "list[Any]" has no attribute "print_nested"  [attr-defined]
-src\codenav\file_system_node.py:82: error: Incompatible default for argument "parent" (default has type "None", argument has type "FileSystemNode")  [assignment]
-src\codenav\file_system_node.py:82: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:82: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:84: error: Incompatible default for argument "ext" (default has type "None", argument has type "list[str]")  [assignment]
-src\codenav\file_system_node.py:84: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:84: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:85: error: Incompatible default for argument "skip" (default has type "None", argument has type "list[str]")  [assignment]
-src\codenav\file_system_node.py:85: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:85: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:98: error: Argument 3 to "FileSystemNode" has incompatible type "None"; expected "FileSystemNode"  [arg-type]
-src\codenav\dash_sweet_components.py:138: error: Incompatible default for argument "splits" (default has type "None", argument has type "list[int]")  [assignment]
-src\codenav\dash_sweet_components.py:138: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:138: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:152: error: Incompatible default for argument "splits" (default has type "None", argument has type "list[int]")  [assignment]
-src\codenav\dash_sweet_components.py:152: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:152: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:217: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:217: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:217: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:376: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:376: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:376: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:459: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:459: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:459: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:27: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:27: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:27: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:27: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:34: error: Argument "authkey" to "QueueManager" has incompatible type "str"; expected "Optional[bytes]"  [arg-type]
-src\codenav\shell_server.py:35: error: Need type annotation for "queue"  [var-annotated]
-src\codenav\shell_server.py:37: error: Need type annotation for "queue_done"  [var-annotated]
-src\codenav\shell_server.py:47: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:47: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:47: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:47: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:55: error: Argument "authkey" to "QueueManager" has incompatible type "str"; expected "Optional[bytes]"  [arg-type]
-src\codenav\shell_server.py:78: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:78: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:78: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:80: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:81: error: Incompatible default for argument "stop" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:81: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:81: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:128: error: Item "None" of "Optional[IO[str]]" has no attribute "readline"  [union-attr]
-src\codenav\shell_server.py:131: error: Item "None" of "Optional[IO[str]]" has no attribute "close"  [union-attr]
-src\codenav\shell_server.py:182: error: Incompatible types in assignment (expression has type "float", variable has type "int")  [assignment]
-src\codenav\shell_server.py:185: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\shell_server.py:190: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:228: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:254: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:341: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:342: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:379: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
-src\codenav\dash_callbacks.py:646: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:647: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:668: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:674: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:675: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:695: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\codenav.py:13: error: Library stubs not installed for "waitress"  [import]
-src\codenav\codenav.py:13: note: Hint: "python3 -m pip install types-waitress"
-src\codenav\codenav.py:13: note: (or run "mypy --install-types" to install all missing stub packages)
-src\codenav\codenav.py:13: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-Found 40 errors in 6 files (checked 1 source file)
-
-
-11-08-23 21:56:06 cleandoc INFO ooooooooooooooo Checking File (8/10): queue_test.py oooooooooooooooo
-
-11-08-23 21:56:07 cleandoc INFO ---------------------------- Doq Output ----------------------------
-
-                Simple Docstrings Added. Please Complete Them!
-
-
-11-08-23 21:56:07 cleandoc INFO --------------------------- Black Output ---------------------------
-
-reformatted C:\Users\jkris\OneDrive\2022_onward\2023\python\myrepo\dash\codenav\src\codenav\queue_test.py
-
-All done! \u2728 \U0001f370 \u2728
-1 file reformatted.
-
-
-11-08-23 21:56:08 cleandoc INFO -------------------------- Pylint Output ---------------------------
-************* Module codenav.queue_test
-src\codenav\queue_test.py:20:8: W1201: Use lazy % formatting in logging functions (logging-not-lazy)
-src\codenav\queue_test.py:20:20: C0209: Formatting a regular string which could be a f-string (consider-using-f-string)
-src\codenav\queue_test.py:21:4: W1201: Use lazy % formatting in logging functions (logging-not-lazy)
-src\codenav\queue_test.py:21:16: C0209: Formatting a regular string which could be a f-string (consider-using-f-string)
-
-------------------------------------------------------------------
-Your code has been rated at 6.36/10 (previous run: 5.45/10, +0.91)
-
-
-
-11-08-23 21:56:08 cleandoc INFO --------------------------- Mypy Output ----------------------------
-src\codenav\dash_trees.py:19: error: Incompatible default for argument "parent_icon" (default has type "None", argument has type "str")  [assignment]
-src\codenav\dash_trees.py:19: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_trees.py:19: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_trees.py:19: error: Incompatible default for argument "child_icon" (default has type "None", argument has type "str")  [assignment]
-src\codenav\file_system_node.py:69: error: "list[Any]" has no attribute "print_nested"  [attr-defined]
-src\codenav\file_system_node.py:82: error: Incompatible default for argument "parent" (default has type "None", argument has type "FileSystemNode")  [assignment]
-src\codenav\file_system_node.py:82: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:82: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:84: error: Incompatible default for argument "ext" (default has type "None", argument has type "list[str]")  [assignment]
-src\codenav\file_system_node.py:84: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:84: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:85: error: Incompatible default for argument "skip" (default has type "None", argument has type "list[str]")  [assignment]
-src\codenav\file_system_node.py:85: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:85: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:98: error: Argument 3 to "FileSystemNode" has incompatible type "None"; expected "FileSystemNode"  [arg-type]
-src\codenav\dash_sweet_components.py:138: error: Incompatible default for argument "splits" (default has type "None", argument has type "list[int]")  [assignment]
-src\codenav\dash_sweet_components.py:138: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:138: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:152: error: Incompatible default for argument "splits" (default has type "None", argument has type "list[int]")  [assignment]
-src\codenav\dash_sweet_components.py:152: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:152: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:217: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:217: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:217: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:376: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:376: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:376: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:459: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:459: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:459: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:27: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:27: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:27: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:27: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:34: error: Argument "authkey" to "QueueManager" has incompatible type "str"; expected "Optional[bytes]"  [arg-type]
-src\codenav\shell_server.py:35: error: Need type annotation for "queue"  [var-annotated]
-src\codenav\shell_server.py:37: error: Need type annotation for "queue_done"  [var-annotated]
-src\codenav\shell_server.py:47: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:47: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:47: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:47: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:55: error: Argument "authkey" to "QueueManager" has incompatible type "str"; expected "Optional[bytes]"  [arg-type]
-src\codenav\shell_server.py:78: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:78: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:78: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:80: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:81: error: Incompatible default for argument "stop" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:81: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:81: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:128: error: Item "None" of "Optional[IO[str]]" has no attribute "readline"  [union-attr]
-src\codenav\shell_server.py:131: error: Item "None" of "Optional[IO[str]]" has no attribute "close"  [union-attr]
-src\codenav\shell_server.py:182: error: Incompatible types in assignment (expression has type "float", variable has type "int")  [assignment]
-src\codenav\shell_server.py:185: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\shell_server.py:190: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:228: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:254: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:341: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:342: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:379: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
-src\codenav\dash_callbacks.py:646: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:647: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:668: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:674: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:675: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:695: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\codenav.py:13: error: Library stubs not installed for "waitress"  [import]
-src\codenav\codenav.py:13: note: Hint: "python3 -m pip install types-waitress"
-src\codenav\codenav.py:13: note: (or run "mypy --install-types" to install all missing stub packages)
-src\codenav\codenav.py:13: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-Found 40 errors in 6 files (checked 1 source file)
-
-
-11-08-23 21:56:08 cleandoc INFO oooooooooooooo Checking File (9/10): shell_server.py ooooooooooooooo
-
-11-08-23 21:56:11 cleandoc INFO -------------------------- Pylint Output ---------------------------
-************* Module codenav.shell_server
-src\codenav\shell_server.py:161:0: C0301: Line too long (117/100) (line-too-long)
-src\codenav\shell_server.py:162:0: C0301: Line too long (121/100) (line-too-long)
-src\codenav\shell_server.py:75:0: R0913: Too many arguments (6/5) (too-many-arguments)
-src\codenav\shell_server.py:112:0: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
-src\codenav\shell_server.py:119:14: R1732: Consider using 'with' for resource-allocating operations (consider-using-with)
-src\codenav\shell_server.py:170:18: R1732: Consider using 'with' for resource-allocating operations (consider-using-with)
-
-------------------------------------------------------------------
-Your code has been rated at 9.50/10 (previous run: 9.50/10, +0.00)
-
-
-
-11-08-23 21:56:11 cleandoc INFO --------------------------- Mypy Output ----------------------------
-src\codenav\dash_trees.py:19: error: Incompatible default for argument "parent_icon" (default has type "None", argument has type "str")  [assignment]
-src\codenav\dash_trees.py:19: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_trees.py:19: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_trees.py:19: error: Incompatible default for argument "child_icon" (default has type "None", argument has type "str")  [assignment]
-src\codenav\file_system_node.py:69: error: "list[Any]" has no attribute "print_nested"  [attr-defined]
-src\codenav\file_system_node.py:82: error: Incompatible default for argument "parent" (default has type "None", argument has type "FileSystemNode")  [assignment]
-src\codenav\file_system_node.py:82: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:82: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:84: error: Incompatible default for argument "ext" (default has type "None", argument has type "list[str]")  [assignment]
-src\codenav\file_system_node.py:84: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:84: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:85: error: Incompatible default for argument "skip" (default has type "None", argument has type "list[str]")  [assignment]
-src\codenav\file_system_node.py:85: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:85: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:98: error: Argument 3 to "FileSystemNode" has incompatible type "None"; expected "FileSystemNode"  [arg-type]
-src\codenav\dash_sweet_components.py:138: error: Incompatible default for argument "splits" (default has type "None", argument has type "list[int]")  [assignment]
-src\codenav\dash_sweet_components.py:138: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:138: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:152: error: Incompatible default for argument "splits" (default has type "None", argument has type "list[int]")  [assignment]
-src\codenav\dash_sweet_components.py:152: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:152: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:217: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:217: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:217: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:376: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:376: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:376: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:459: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:459: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:459: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:27: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:27: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:27: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:27: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:34: error: Argument "authkey" to "QueueManager" has incompatible type "str"; expected "Optional[bytes]"  [arg-type]
-src\codenav\shell_server.py:35: error: Need type annotation for "queue"  [var-annotated]
-src\codenav\shell_server.py:37: error: Need type annotation for "queue_done"  [var-annotated]
-src\codenav\shell_server.py:47: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:47: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:47: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:47: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:55: error: Argument "authkey" to "QueueManager" has incompatible type "str"; expected "Optional[bytes]"  [arg-type]
-src\codenav\shell_server.py:78: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:78: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:78: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:80: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:81: error: Incompatible default for argument "stop" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:81: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:81: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:128: error: Item "None" of "Optional[IO[str]]" has no attribute "readline"  [union-attr]
-src\codenav\shell_server.py:131: error: Item "None" of "Optional[IO[str]]" has no attribute "close"  [union-attr]
-src\codenav\shell_server.py:182: error: Incompatible types in assignment (expression has type "float", variable has type "int")  [assignment]
-src\codenav\shell_server.py:185: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\shell_server.py:190: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:228: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:254: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:341: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:342: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:379: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
-src\codenav\dash_callbacks.py:646: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:647: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:668: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:674: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:675: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:695: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\codenav.py:13: error: Library stubs not installed for "waitress"  [import]
-src\codenav\codenav.py:13: note: Hint: "python3 -m pip install types-waitress"
-src\codenav\codenav.py:13: note: (or run "mypy --install-types" to install all missing stub packages)
-src\codenav\codenav.py:13: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-Found 40 errors in 6 files (checked 1 source file)
-
-
-11-08-23 21:56:11 cleandoc INFO oooooooooooooooo Checking File (10/10): __init__.py oooooooooooooooo
-
-11-08-23 21:56:15 cleandoc INFO --------------------------- Mypy Output ----------------------------
-src\codenav\dash_trees.py:19: error: Incompatible default for argument "parent_icon" (default has type "None", argument has type "str")  [assignment]
-src\codenav\dash_trees.py:19: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_trees.py:19: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_trees.py:19: error: Incompatible default for argument "child_icon" (default has type "None", argument has type "str")  [assignment]
-src\codenav\file_system_node.py:69: error: "list[Any]" has no attribute "print_nested"  [attr-defined]
-src\codenav\file_system_node.py:82: error: Incompatible default for argument "parent" (default has type "None", argument has type "FileSystemNode")  [assignment]
-src\codenav\file_system_node.py:82: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:82: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:84: error: Incompatible default for argument "ext" (default has type "None", argument has type "list[str]")  [assignment]
-src\codenav\file_system_node.py:84: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:84: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:85: error: Incompatible default for argument "skip" (default has type "None", argument has type "list[str]")  [assignment]
-src\codenav\file_system_node.py:85: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\file_system_node.py:85: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\file_system_node.py:98: error: Argument 3 to "FileSystemNode" has incompatible type "None"; expected "FileSystemNode"  [arg-type]
-src\codenav\dash_sweet_components.py:138: error: Incompatible default for argument "splits" (default has type "None", argument has type "list[int]")  [assignment]
-src\codenav\dash_sweet_components.py:138: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:138: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:152: error: Incompatible default for argument "splits" (default has type "None", argument has type "list[int]")  [assignment]
-src\codenav\dash_sweet_components.py:152: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:152: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:217: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:217: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:217: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:376: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:376: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:376: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\dash_sweet_components.py:459: error: Incompatible default for argument "style" (default has type "None", argument has type "dict[Any, Any]")  [assignment]
-src\codenav\dash_sweet_components.py:459: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\dash_sweet_components.py:459: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:27: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:27: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:27: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:27: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:34: error: Argument "authkey" to "QueueManager" has incompatible type "str"; expected "Optional[bytes]"  [arg-type]
-src\codenav\shell_server.py:35: error: Need type annotation for "queue"  [var-annotated]
-src\codenav\shell_server.py:37: error: Need type annotation for "queue_done"  [var-annotated]
-src\codenav\shell_server.py:47: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:47: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:47: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:47: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:55: error: Argument "authkey" to "QueueManager" has incompatible type "str"; expected "Optional[bytes]"  [arg-type]
-src\codenav\shell_server.py:78: error: Incompatible default for argument "hostname" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:78: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:78: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:80: error: Incompatible default for argument "key" (default has type "bytes", argument has type "str")  [assignment]
-src\codenav\shell_server.py:81: error: Incompatible default for argument "stop" (default has type "None", argument has type "str")  [assignment]
-src\codenav\shell_server.py:81: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
-src\codenav\shell_server.py:81: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
-src\codenav\shell_server.py:128: error: Item "None" of "Optional[IO[str]]" has no attribute "readline"  [union-attr]
-src\codenav\shell_server.py:131: error: Item "None" of "Optional[IO[str]]" has no attribute "close"  [union-attr]
-src\codenav\shell_server.py:182: error: Incompatible types in assignment (expression has type "float", variable has type "int")  [assignment]
-src\codenav\shell_server.py:185: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\shell_server.py:190: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:228: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:254: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:341: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:342: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:379: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
-src\codenav\dash_callbacks.py:646: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:647: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:668: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:674: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:675: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:695: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\codenav.py:13: error: Library stubs not installed for "waitress"  [import]
-src\codenav\codenav.py:13: note: Hint: "python3 -m pip install types-waitress"
-src\codenav\codenav.py:13: note: (or run "mypy --install-types" to install all missing stub packages)
-src\codenav\codenav.py:13: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-Found 40 errors in 6 files (checked 1 source file)
-
-
-11-08-23 21:56:15 cleandoc INFO ooooooooooooooooooooooooo Gen Docs Output oooooooooooooooooooooooooo
-
-11-08-23 21:56:18 cleandoc INFO ------------------------ Sphinx Make Output ------------------------
+11-08-23 23:42:18 cleandoc INFO ------------------------ Sphinx Make Output ------------------------
 Running Sphinx v6.2.1
 loading translations [English]... not available for built-in messages
 building [mo]: targets for 0 po files that are out of date
 writing output... 
-building [html]: targets for 2 source files that are out of date
-updating environment: [new config] 2 added, 0 changed, 0 removed
-reading sources... [ 50%] codenav                                              
+building [html]: targets for 3 source files that are out of date
+updating environment: [new config] 3 added, 0 changed, 0 removed
+reading sources... [ 33%] codenav                                              
+reading sources... [ 66%] codenav.components                                   
 reading sources... [100%] index                                                
 
 looking for now-outdated files... none found
 pickling environment... done
 checking consistency... done
 preparing documents... done
-writing output... [ 50%] codenav                                               
+writing output... [ 33%] codenav                                               
+writing output... [ 66%] codenav.components                                    
 writing output... [100%] index                                                 
 
-generating indices... genindex done
-highlighting module code... 
+generating indices... genindex py-modindex done
+highlighting module code... [ 33%] codenav.app                                 
+highlighting module code... [ 66%] codenav.cli                                 
+highlighting module code... [100%] codenav.queue_test                          
+
 writing additional pages... search done
 copying static files... done
 copying extra files... done
 dumping search index in English (code: en)... done
 dumping object inventory... done
-build succeeded, 10 warnings.
+build succeeded, 7 warnings.
 
 The HTML pages are in build\html.
 
-WARNING: autodoc: failed to import module 'codenav'; the following exception was raised:
-attempted relative import with no known parent package
-WARNING: autodoc: failed to import module 'cli' from module 'codenav'; the following exception was raised:
-attempted relative import with no known parent package
-WARNING: autodoc: failed to import module 'codenav' from module 'codenav'; the following exception was raised:
-attempted relative import with no known parent package
-WARNING: autodoc: failed to import module 'dash_callbacks' from module 'codenav'; the following exception was raised:
-attempted relative import with no known parent package
-WARNING: autodoc: failed to import module 'dash_sweet_components' from module 'codenav'; the following exception was raised:
-attempted relative import with no known parent package
-WARNING: autodoc: failed to import module 'dash_trees' from module 'codenav'; the following exception was raised:
-attempted relative import with no known parent package
-WARNING: autodoc: failed to import module 'file_system_node' from module 'codenav'; the following exception was raised:
-attempted relative import with no known parent package
-WARNING: autodoc: failed to import module 'helper' from module 'codenav'; the following exception was raised:
-attempted relative import with no known parent package
-WARNING: autodoc: failed to import module 'queue_test' from module 'codenav'; the following exception was raised:
-attempted relative import with no known parent package
-WARNING: autodoc: failed to import module 'shell_server' from module 'codenav'; the following exception was raised:
-attempted relative import with no known parent package
+    11-08-23 23:42:14 printlog INFO queue_test_index: 0
+    11-08-23 23:42:14 printlog INFO queue_test_index: 1
+    11-08-23 23:42:14 printlog INFO queue_test_index: 2
+    11-08-23 23:42:14 printlog INFO queue_test_index: 3
+    11-08-23 23:42:14 printlog INFO queue_test_index: 4
+    11-08-23 23:42:14 printlog INFO queue_test_index: 5
+    11-08-23 23:42:14 printlog INFO queue_test_index: 6
+    11-08-23 23:42:14 printlog INFO queue_test_index: 7
+    11-08-23 23:42:14 printlog INFO queue_test_index: 8
+    11-08-23 23:42:14 printlog INFO queue_test_index: 9
+    11-08-23 23:42:14 printlog INFO queue_test_index: 10
+    11-08-23 23:42:14 printlog INFO queue_test_index: 11
+    11-08-23 23:42:14 printlog INFO queue_test_index: 12
+    11-08-23 23:42:14 printlog INFO queue_test_index: 13
+    11-08-23 23:42:14 printlog INFO queue_test_index: 14
+    11-08-23 23:42:14 printlog INFO queue_test_index: 15
+    11-08-23 23:42:14 printlog INFO queue_test_index: 16
+    11-08-23 23:42:14 printlog INFO queue_test_index: 17
+    11-08-23 23:42:14 printlog INFO queue_test_index: 18
+    11-08-23 23:42:14 printlog INFO queue_test_index: 19
+    11-08-23 23:42:14 printlog INFO queue_test_index: 20
+    11-08-23 23:42:15 printlog INFO queue_test_index: 21
+    11-08-23 23:42:15 printlog INFO queue_test_index: 22
+    11-08-23 23:42:15 printlog INFO queue_test_index: 23
+    11-08-23 23:42:15 printlog INFO queue_test_index: 24
+    11-08-23 23:42:15 printlog INFO queue_test_index: 25
+    11-08-23 23:42:15 printlog INFO queue_test_index: 26
+    11-08-23 23:42:15 printlog INFO queue_test_index: 27
+    11-08-23 23:42:15 printlog INFO queue_test_index: 28
+    11-08-23 23:42:15 printlog INFO queue_test_index: 29
+    11-08-23 23:42:15 printlog INFO queue_test_index: 30
+    11-08-23 23:42:15 printlog INFO queue_test_index: 31
+    11-08-23 23:42:15 printlog INFO queue_test_index: 32
+    11-08-23 23:42:15 printlog INFO queue_test_index: 33
+    11-08-23 23:42:15 printlog INFO queue_test_index: 34
+    11-08-23 23:42:15 printlog INFO queue_test_index: 35
+    11-08-23 23:42:15 printlog INFO queue_test_index: 36
+    11-08-23 23:42:15 printlog INFO queue_test_index: 37
+    11-08-23 23:42:15 printlog INFO queue_test_index: 38
+    11-08-23 23:42:15 printlog INFO queue_test_index: 39
+    11-08-23 23:42:15 printlog INFO queue_test_index: 40
+    11-08-23 23:42:15 printlog INFO queue_test_index: 41
+    11-08-23 23:42:15 printlog INFO queue_test_index: 42
+    11-08-23 23:42:15 printlog INFO queue_test_index: 43
+    11-08-23 23:42:15 printlog INFO queue_test_index: 44
+    11-08-23 23:42:15 printlog INFO queue_test_index: 45
+    11-08-23 23:42:15 printlog INFO queue_test_index: 46
+    11-08-23 23:42:15 printlog INFO queue_test_index: 47
+    11-08-23 23:42:15 printlog INFO queue_test_index: 48
+    11-08-23 23:42:15 printlog INFO queue_test_index: 49
+    11-08-23 23:42:15 printlog INFO queue_test_index: 50
+    11-08-23 23:42:15 printlog INFO queue_test_index: 51
+    11-08-23 23:42:16 printlog INFO queue_test_index: 52
+    11-08-23 23:42:16 printlog INFO queue_test_index: 53
+    11-08-23 23:42:16 printlog INFO queue_test_index: 54
+    11-08-23 23:42:16 printlog INFO queue_test_index: 55
+    11-08-23 23:42:16 printlog INFO queue_test_index: 56
+    11-08-23 23:42:16 printlog INFO queue_test_index: 57
+    11-08-23 23:42:16 printlog INFO queue_test_index: 58
+    11-08-23 23:42:16 printlog INFO queue_test_index: 59
+    11-08-23 23:42:16 printlog INFO queue_test_index: 60
+    11-08-23 23:42:16 printlog INFO queue_test_index: 61
+    11-08-23 23:42:16 printlog INFO queue_test_index: 62
+    11-08-23 23:42:16 printlog INFO queue_test_index: 63
+    11-08-23 23:42:16 printlog INFO queue_test_index: 64
+    11-08-23 23:42:16 printlog INFO queue_test_index: 65
+    11-08-23 23:42:16 printlog INFO queue_test_index: 66
+    11-08-23 23:42:16 printlog INFO queue_test_index: 67
+    11-08-23 23:42:16 printlog INFO queue_test_index: 68
+    11-08-23 23:42:16 printlog INFO queue_test_index: 69
+    11-08-23 23:42:16 printlog INFO queue_test_index: 70
+    11-08-23 23:42:16 printlog INFO queue_test_index: 71
+    11-08-23 23:42:16 printlog INFO queue_test_index: 72
+    11-08-23 23:42:16 printlog INFO queue_test_index: 73
+    11-08-23 23:42:16 printlog INFO queue_test_index: 74
+    11-08-23 23:42:16 printlog INFO queue_test_index: 75
+    11-08-23 23:42:16 printlog INFO queue_test_index: 76
+    11-08-23 23:42:16 printlog INFO queue_test_index: 77
+    11-08-23 23:42:16 printlog INFO queue_test_index: 78
+    11-08-23 23:42:16 printlog INFO queue_test_index: 79
+    11-08-23 23:42:16 printlog INFO queue_test_index: 80
+    11-08-23 23:42:16 printlog INFO queue_test_index: 81
+    11-08-23 23:42:16 printlog INFO queue_test_index: 82
+    11-08-23 23:42:16 printlog INFO queue_test_index: 83
+    11-08-23 23:42:17 printlog INFO queue_test_index: 84
+    11-08-23 23:42:17 printlog INFO queue_test_index: 85
+    11-08-23 23:42:17 printlog INFO queue_test_index: 86
+    11-08-23 23:42:17 printlog INFO queue_test_index: 87
+    11-08-23 23:42:17 printlog INFO queue_test_index: 88
+    11-08-23 23:42:17 printlog INFO queue_test_index: 89
+    11-08-23 23:42:17 printlog INFO queue_test_index: 90
+    11-08-23 23:42:17 printlog INFO queue_test_index: 91
+    11-08-23 23:42:17 printlog INFO queue_test_index: 92
+    11-08-23 23:42:17 printlog INFO queue_test_index: 93
+    11-08-23 23:42:17 printlog INFO queue_test_index: 94
+    11-08-23 23:42:17 printlog INFO queue_test_index: 95
+    11-08-23 23:42:17 printlog INFO queue_test_index: 96
+    11-08-23 23:42:17 printlog INFO queue_test_index: 97
+    11-08-23 23:42:17 printlog INFO queue_test_index: 98
+    11-08-23 23:42:17 printlog INFO queue_test_index: 99
+    11-08-23 23:42:17 printlog INFO queue_total_time: 2.0
+WARNING: autodoc: failed to import module 'components' from module 'codenav'; the following exception was raised:
+No module named 'codenav.components'
+WARNING: autodoc: failed to import module 'components.dash_callbacks' from module 'codenav'; the following exception was raised:
+No module named 'codenav.components'
+WARNING: autodoc: failed to import module 'components.dash_sweet_components' from module 'codenav'; the following exception was raised:
+No module named 'codenav.components'
+WARNING: autodoc: failed to import module 'components.dash_trees' from module 'codenav'; the following exception was raised:
+No module named 'codenav.components'
+WARNING: autodoc: failed to import module 'components.file_system_node' from module 'codenav'; the following exception was raised:
+No module named 'codenav.components'
+WARNING: autodoc: failed to import module 'components.helper' from module 'codenav'; the following exception was raised:
+No module named 'codenav.components'
+WARNING: autodoc: failed to import module 'components.shell_server' from module 'codenav'; the following exception was raised:
+No module named 'codenav.components'
 
 
