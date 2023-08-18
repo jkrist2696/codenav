@@ -14,15 +14,18 @@ from waitress import serve
 from dash import Dash, html, dcc, clientside_callback
 from dash.dependencies import Input, Output
 from dash_bootstrap_components import themes
-import cleandoc  # pylint: disable=W0611
-from .components import dash_sweet_components as sweet
-from .components import dash_trees as trees
-from .components import dash_callbacks as call
-from .components.file_system_node import create_fs_nodes
+import cleandoc  # pylint: disable=W0611,E0401
+from . import dash_sweet_components as sweet
+from . import dash_trees as trees
+from . import dash_callbacks as call
+from .file_system_node import create_fs_nodes
 
 
 # CONSTANTS
-CURRENT_ENV = environ["CONDA_DEFAULT_ENV"]
+if "CONDA_DEFAULT_ENV" in environ:
+    CURRENT_ENV = environ["CONDA_DEFAULT_ENV"]
+else:
+    CURRENT_ENV = "base"
 CONDA_PATH = "C:/ProgramData/Anaconda3/Scripts/activate.bat"
 ACTIVATE_CMD = f"{CONDA_PATH} && conda activate {CURRENT_ENV}"
 SERVER_CMD = f'{ACTIVATE_CMD} && python "{call.SHELL_SERVER_PATH}" "dash_testing" "'
@@ -52,14 +55,6 @@ TAG_SEARCH_ID = "tagsearch"
 LOAD_SEARCH_ID = "searchloader"
 RESULT_ID = "searchresults"
 NOTIFY_ID = "notifydiv"
-PORT = 8050
-DEBUG = False
-LOCAL = True
-if LOCAL:
-    HOST = "localhost"
-else:
-    # host = "pycodenav"
-    HOST = socket.gethostbyname(socket.gethostname())
 
 
 def codenav_app():
@@ -213,19 +208,25 @@ def open_app():
     webbrowser.open(f"http://{HOST}:{PORT}")
 
 
-def serve_app():
+def serve_app(port, remote, debug):
     """
     serve codenav app
     """
-    app = codenav_app()
-    if DEBUG:
-        app.run_server(debug=True, port=PORT)
-    if LOCAL:
-        Timer(1, open_app).start()
-        serve(app.server, host=HOST, port=PORT, threads=10)
+    global HOST, PORT
+    PORT = port
+    if remote:
+        # host = "pycodenav"
+        HOST = socket.gethostbyname(socket.gethostname())
     else:
+        HOST = "localhost"
+    app = codenav_app()
+    if debug:
+        app.run_server(debug=True, port=PORT)
+    else:
+        Timer(1, open_app).start()
+        print(f"    Hosting CodéNav App at http://{HOST}:{PORT}")
         serve(app.server, host=HOST, port=PORT, threads=10)
 
 
 if __name__ == "__main__":
-    serve_app()
+    serve_app(8050, False, False)

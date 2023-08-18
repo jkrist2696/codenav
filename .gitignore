@@ -3,10 +3,11 @@
 build/
 codenav.egg-info/
 dist/
+docs/conf.txt
 src/codenav/__pycache__/
 src/codenav/.mypy_cache
-test/_cleandoc_test.py_working_docs/
 test/.mypy_cache/
 test/cleandoc_log.txt
-docs/conf.txt
+run_setup.cmd
+cleandoc_log.txt
 _old/

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Overview: module code &mdash; codenav 0.0.3 documentation</title>
+  <title>codenav &mdash; codenav 0.0.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -62,7 +62,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Overview: module code</li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">codenav</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -71,17 +72,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>All modules for which code is available</h1>
-<ul><li><a href="codenav.html">codenav</a></li>
-<ul><li><a href="codenav/app.html">codenav.app</a></li>
-<li><a href="codenav/cli.html">codenav.cli</a></li>
-<li><a href="codenav/dash_callbacks.html">codenav.dash_callbacks</a></li>
-<li><a href="codenav/dash_sweet_components.html">codenav.dash_sweet_components</a></li>
-<li><a href="codenav/dash_trees.html">codenav.dash_trees</a></li>
-<li><a href="codenav/file_system_node.html">codenav.file_system_node</a></li>
-<li><a href="codenav/helper.html">codenav.helper</a></li>
-<li><a href="codenav/shell_server.html">codenav.shell_server</a></li>
-</ul></ul>
+  <h1>Source code for codenav</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Web App for cleaning, searching, editing, and navigating Python code.</span>
+
+<span class="sd">Created on Fri Jul 14 23:39:06 2023</span>
+
+<span class="sd">@author: jkris</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">cli</span>
+<span class="kn">from</span> <span class="nn">.app</span> <span class="kn">import</span> <span class="n">serve_app</span>
+
+
+<div class="viewcode-block" id="cli_main"><a class="viewcode-back" href="../codenav.html#codenav.cli_main">[docs]</a><span class="k">def</span> <span class="nf">cli_main</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;run cli&quot;&quot;&quot;</span>
+    <span class="n">port</span><span class="p">,</span> <span class="n">remote</span><span class="p">,</span> <span class="n">debug</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">parse</span><span class="p">()</span>
+    <span class="n">serve_app</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">remote</span><span class="p">,</span> <span class="n">debug</span><span class="p">)</span></div>
+</pre></div>
 
            </div>
           </div>

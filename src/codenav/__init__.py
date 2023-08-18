@@ -6,8 +6,11 @@ Created on Fri Jul 14 23:39:06 2023
 
 @author: jkris
 """
-from . import components
-from .components import dash_callbacks as call
-from .components import dash_trees as trees
-from .components import dash_sweet_components as sweet
+from . import cli
 from .app import serve_app
+
+
+def cli_main():
+    """run cli"""
+    port, remote, debug = cli.parse()
+    serve_app(port, remote, debug)

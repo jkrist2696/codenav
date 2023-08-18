@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>codenav.app &mdash; codenav 0.0.1 documentation</title>
+  <title>codenav.app &mdash; codenav 0.0.3 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -32,7 +32,7 @@
             codenav
           </a>
               <div class="version">
-                0.0.1
+                0.0.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -44,6 +44,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">README</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../codenav.html">codenav package</a></li>
 </ul>
 
@@ -62,6 +63,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../codenav.html">codenav</a></li>
       <li class="breadcrumb-item active">codenav.app</li>
       <li class="wy-breadcrumbs-aside">
       </li>
@@ -88,15 +90,18 @@
 <span class="kn">from</span> <span class="nn">dash</span> <span class="kn">import</span> <span class="n">Dash</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">dcc</span><span class="p">,</span> <span class="n">clientside_callback</span>
 <span class="kn">from</span> <span class="nn">dash.dependencies</span> <span class="kn">import</span> <span class="n">Input</span><span class="p">,</span> <span class="n">Output</span>
 <span class="kn">from</span> <span class="nn">dash_bootstrap_components</span> <span class="kn">import</span> <span class="n">themes</span>
-<span class="kn">import</span> <span class="nn">cleandoc</span>  <span class="c1"># pylint: disable=W0611</span>
-<span class="kn">from</span> <span class="nn">.dash</span> <span class="kn">import</span> <span class="n">dash_sweet_components</span> <span class="k">as</span> <span class="n">sweet</span>
-<span class="kn">from</span> <span class="nn">.dash</span> <span class="kn">import</span> <span class="n">dash_trees</span> <span class="k">as</span> <span class="n">trees</span>
-<span class="kn">from</span> <span class="nn">.dash</span> <span class="kn">import</span> <span class="n">dash_callbacks</span> <span class="k">as</span> <span class="n">call</span>
-<span class="kn">from</span> <span class="nn">.dash.file_system_node</span> <span class="kn">import</span> <span class="n">create_fs_nodes</span>
+<span class="kn">import</span> <span class="nn">cleandoc</span>  <span class="c1"># pylint: disable=W0611,E0401</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">dash_sweet_components</span> <span class="k">as</span> <span class="n">sweet</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">dash_trees</span> <span class="k">as</span> <span class="n">trees</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">dash_callbacks</span> <span class="k">as</span> <span class="n">call</span>
+<span class="kn">from</span> <span class="nn">.file_system_node</span> <span class="kn">import</span> <span class="n">create_fs_nodes</span>
 
 
 <span class="c1"># CONSTANTS</span>
-<span class="n">CURRENT_ENV</span> <span class="o">=</span> <span class="n">environ</span><span class="p">[</span><span class="s2">&quot;CONDA_DEFAULT_ENV&quot;</span><span class="p">]</span>
+<span class="k">if</span> <span class="s2">&quot;CONDA_DEFAULT_ENV&quot;</span> <span class="ow">in</span> <span class="n">environ</span><span class="p">:</span>
+    <span class="n">CURRENT_ENV</span> <span class="o">=</span> <span class="n">environ</span><span class="p">[</span><span class="s2">&quot;CONDA_DEFAULT_ENV&quot;</span><span class="p">]</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">CURRENT_ENV</span> <span class="o">=</span> <span class="s2">&quot;base&quot;</span>
 <span class="n">CONDA_PATH</span> <span class="o">=</span> <span class="s2">&quot;C:/ProgramData/Anaconda3/Scripts/activate.bat&quot;</span>
 <span class="n">ACTIVATE_CMD</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">CONDA_PATH</span><span class="si">}</span><span class="s2"> &amp;&amp; conda activate </span><span class="si">{</span><span class="n">CURRENT_ENV</span><span class="si">}</span><span class="s2">&quot;</span>
 <span class="n">SERVER_CMD</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ACTIVATE_CMD</span><span class="si">}</span><span class="s1"> &amp;&amp; python &quot;</span><span class="si">{</span><span class="n">call</span><span class="o">.</span><span class="n">SHELL_SERVER_PATH</span><span class="si">}</span><span class="s1">&quot; &quot;dash_testing&quot; &quot;&#39;</span>
@@ -126,14 +131,6 @@
 <span class="n">LOAD_SEARCH_ID</span> <span class="o">=</span> <span class="s2">&quot;searchloader&quot;</span>
 <span class="n">RESULT_ID</span> <span class="o">=</span> <span class="s2">&quot;searchresults&quot;</span>
 <span class="n">NOTIFY_ID</span> <span class="o">=</span> <span class="s2">&quot;notifydiv&quot;</span>
-<span class="n">PORT</span> <span class="o">=</span> <span class="mi">8050</span>
-<span class="n">DEBUG</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="n">LOCAL</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="k">if</span> <span class="n">LOCAL</span><span class="p">:</span>
-    <span class="n">HOST</span> <span class="o">=</span> <span class="s2">&quot;localhost&quot;</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="c1"># host = &quot;pycodenav&quot;</span>
-    <span class="n">HOST</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostbyname</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">gethostname</span><span class="p">())</span>
 
 
 <div class="viewcode-block" id="codenav_app"><a class="viewcode-back" href="../../codenav.html#codenav.app.codenav_app">[docs]</a><span class="k">def</span> <span class="nf">codenav_app</span><span class="p">():</span>
@@ -287,22 +284,28 @@
     <span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;http://</span><span class="si">{</span><span class="n">HOST</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">PORT</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="serve_app"><a class="viewcode-back" href="../../codenav.html#codenav.app.serve_app">[docs]</a><span class="k">def</span> <span class="nf">serve_app</span><span class="p">():</span>
+<div class="viewcode-block" id="serve_app"><a class="viewcode-back" href="../../codenav.html#codenav.app.serve_app">[docs]</a><span class="k">def</span> <span class="nf">serve_app</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">remote</span><span class="p">,</span> <span class="n">debug</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    serve codenav app</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">app</span> <span class="o">=</span> <span class="n">codenav_app</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">DEBUG</span><span class="p">:</span>
-        <span class="n">app</span><span class="o">.</span><span class="n">run_server</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">PORT</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">LOCAL</span><span class="p">:</span>
-        <span class="n">Timer</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">open_app</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-        <span class="n">serve</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">server</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="n">HOST</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">PORT</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="k">global</span> <span class="n">HOST</span><span class="p">,</span> <span class="n">PORT</span>
+    <span class="n">PORT</span> <span class="o">=</span> <span class="n">port</span>
+    <span class="k">if</span> <span class="n">remote</span><span class="p">:</span>
+        <span class="c1"># host = &quot;pycodenav&quot;</span>
+        <span class="n">HOST</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostbyname</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">gethostname</span><span class="p">())</span>
     <span class="k">else</span><span class="p">:</span>
+        <span class="n">HOST</span> <span class="o">=</span> <span class="s2">&quot;localhost&quot;</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">codenav_app</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">run_server</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">PORT</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">Timer</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">open_app</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Hosting CodéNav App at http://</span><span class="si">{</span><span class="n">HOST</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">PORT</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">serve</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">server</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="n">HOST</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">PORT</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">serve_app</span><span class="p">()</span>
+    <span class="n">serve_app</span><span class="p">(</span><span class="mi">8050</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
            </div>

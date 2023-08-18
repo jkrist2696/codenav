@@ -6,14 +6,6 @@ codenav package
    :undoc-members:
    :show-inheritance:
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   codenav.components
-
 Submodules
 ----------
 
@@ -33,10 +25,50 @@ codenav.cli module
    :undoc-members:
    :show-inheritance:
 
-codenav.queue\_test module
+codenav.dash\_callbacks module
+------------------------------
+
+.. automodule:: codenav.dash_callbacks
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+codenav.dash\_sweet\_components module
+--------------------------------------
+
+.. automodule:: codenav.dash_sweet_components
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+codenav.dash\_trees module
 --------------------------
 
-.. automodule:: codenav.queue_test
+.. automodule:: codenav.dash_trees
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+codenav.file\_system\_node module
+---------------------------------
+
+.. automodule:: codenav.file_system_node
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+codenav.helper module
+---------------------
+
+.. automodule:: codenav.helper
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+codenav.shell\_server module
+----------------------------
+
+.. automodule:: codenav.shell_server
    :members:
    :undoc-members:
    :show-inheritance:

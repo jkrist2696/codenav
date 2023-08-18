@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>codenav.cli &mdash; codenav 0.0.1 documentation</title>
+  <title>codenav.cli &mdash; codenav 0.0.3 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -32,7 +32,7 @@
             codenav
           </a>
               <div class="version">
-                0.0.1
+                0.0.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -44,6 +44,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">README</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../codenav.html">codenav package</a></li>
 </ul>
 
@@ -62,6 +63,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../codenav.html">codenav</a></li>
       <li class="breadcrumb-item active">codenav.cli</li>
       <li class="wy-breadcrumbs-aside">
       </li>
@@ -79,22 +81,24 @@
 <span class="sd">@author: jkris</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="c1"># from argparse import ArgumentParser</span>
-<span class="kn">from</span> <span class="nn">codenav</span> <span class="kn">import</span> <span class="n">serve_app</span>
+<span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span>
 
 
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../codenav.html#codenav.cli.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run full command line process&quot;&quot;&quot;</span>
-    <span class="c1"># desc = &quot;Web App for cleaning, searching, editing, and navigating Python code.&quot;</span>
-    <span class="c1"># parser = ArgumentParser(prog=&quot;codenav&quot;, description=desc)</span>
-    <span class="c1"># args = vars(parser.parse_args())</span>
-    <span class="c1"># print(f&quot;\nCommand Line Args:\n{args}\n&quot;)</span>
-    <span class="c1"># args = [args[key] for key in args.keys()]</span>
-    <span class="n">serve_app</span><span class="p">()</span></div>
-
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">main</span><span class="p">()</span>
+<div class="viewcode-block" id="parse"><a class="viewcode-back" href="../../codenav.html#codenav.cli.parse">[docs]</a><span class="k">def</span> <span class="nf">parse</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run command line parsing&quot;&quot;&quot;</span>
+    <span class="n">desc</span> <span class="o">=</span> <span class="s2">&quot;Web App for cleaning, searching, editing, and navigating Python code.&quot;</span>
+    <span class="n">porth</span> <span class="o">=</span> <span class="s2">&quot;Port number to host web app from&quot;</span>
+    <span class="n">remoteh</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;Flag to host web app remotely across entire network instead (default is local)&quot;</span>
+    <span class="p">)</span>
+    <span class="n">debugh</span> <span class="o">=</span> <span class="s2">&quot;Flag to turn on debug mode for web app&quot;</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">(</span><span class="n">prog</span><span class="o">=</span><span class="s2">&quot;codenav&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">desc</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-port&quot;</span><span class="p">,</span> <span class="s2">&quot;-p&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">8050</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="n">porth</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-remote&quot;</span><span class="p">,</span> <span class="s2">&quot;-r&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="n">remoteh</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-debug&quot;</span><span class="p">,</span> <span class="s2">&quot;-d&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="n">debugh</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Command Line Args:</span><span class="se">\n</span><span class="si">{</span><span class="n">args</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">args</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">args</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span></div>
 </pre></div>
 
            </div>
