@@ -1,6 +1,6 @@
-18-08-23 04:27:18 cleandoc INFO ooooooooooooooooooo Checking File (1/9): app.py oooooooooooooooooooo
+18-08-23 06:07:46 cleandoc INFO ooooooooooooooooooo Checking File (1/9): app.py oooooooooooooooooooo
 
-18-08-23 04:27:19 cleandoc INFO ---------------------------- Doq Output ----------------------------
+18-08-23 06:07:46 cleandoc INFO ---------------------------- Doq Output ----------------------------
 Traceback (most recent call last):
   File "C:\Users\jkris\.conda\envs\py39\lib\runpy.py", line 197, in _run_module_as_main
     return _run_code(code, main_globals, None,
@@ -19,22 +19,20 @@ Traceback (most recent call last):
     lines = [line.strip('\n') for line in f]
   File "C:\Users\jkris\.conda\envs\py39\lib\encodings\cp1252.py", line 23, in decode
     return codecs.charmap_decode(input,self.errors,decoding_table)[0]
-UnicodeDecodeError: 'charmap' codec can't decode byte 0x81 in position 2870: character maps to <undefined>
+UnicodeDecodeError: 'charmap' codec can't decode byte 0x81 in position 2575: character maps to <undefined>
 
 
-18-08-23 04:27:23 cleandoc INFO -------------------------- Pylint Output ---------------------------
+18-08-23 06:07:51 cleandoc INFO -------------------------- Pylint Output ---------------------------
 ************* Module codenav.app
-src\codenav\app.py:60:0: R0914: Too many local variables (33/15) (too-many-locals)
-src\codenav\app.py:60:0: R0915: Too many statements (54/50) (too-many-statements)
-src\codenav\app.py:215:4: W0601: Global variable 'HOST' undefined at the module level (global-variable-undefined)
-src\codenav\app.py:215:4: W0601: Global variable 'PORT' undefined at the module level (global-variable-undefined)
+src\codenav\app.py:55:0: R0914: Too many local variables (35/15) (too-many-locals)
+src\codenav\app.py:55:0: R0915: Too many statements (57/50) (too-many-statements)
 
 ------------------------------------------------------------------
-Your code has been rated at 9.66/10 (previous run: 9.66/10, +0.00)
+Your code has been rated at 9.83/10 (previous run: 9.83/10, +0.00)
 
 
 
-18-08-23 04:27:24 cleandoc INFO --------------------------- Mypy Output ----------------------------
+18-08-23 06:07:51 cleandoc INFO --------------------------- Mypy Output ----------------------------
 src\codenav\dash_trees.py:19: error: Incompatible default for argument "parent_icon" (default has type "None", argument has type "str")  [assignment]
 src\codenav\dash_trees.py:19: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
 src\codenav\dash_trees.py:19: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
@@ -89,37 +87,36 @@ src\codenav\shell_server.py:131: error: Item "None" of "Optional[IO[str]]" has n
 src\codenav\shell_server.py:182: error: Incompatible types in assignment (expression has type "float", variable has type "int")  [assignment]
 src\codenav\shell_server.py:185: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
 src\codenav\shell_server.py:190: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:228: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:254: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:341: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:342: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:379: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
-src\codenav\dash_callbacks.py:646: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:647: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:668: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:674: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:675: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:695: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:160: error: Argument 1 to "run_capture_out" has incompatible type "str"; expected "list[str]"  [arg-type]
+src\codenav\dash_callbacks.py:288: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:314: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:401: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:402: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:439: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
+src\codenav\dash_callbacks.py:718: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:719: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
+src\codenav\dash_callbacks.py:740: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:746: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:747: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
+src\codenav\dash_callbacks.py:767: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
 src\codenav\app.py:13: error: Library stubs not installed for "waitress"  [import]
 src\codenav\app.py:13: note: Hint: "python3 -m pip install types-waitress"
 src\codenav\app.py:13: note: (or run "mypy --install-types" to install all missing stub packages)
 src\codenav\app.py:13: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-src\codenav\app.py:208: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:208: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:216: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:219: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:221: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:224: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:227: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:227: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:228: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:228: error: Name "PORT" is not defined  [name-defined]
-Found 50 errors in 6 files (checked 1 source file)
+src\codenav\app.py:221: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:224: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:226: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:229: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:232: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:232: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:233: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:233: error: Name "PORT" is not defined  [name-defined]
+Found 49 errors in 6 files (checked 1 source file)
 
 
-18-08-23 04:27:24 cleandoc INFO ooooooooooooooooooo Checking File (2/9): cli.py oooooooooooooooooooo
+18-08-23 06:07:51 cleandoc INFO ooooooooooooooooooo Checking File (2/9): cli.py oooooooooooooooooooo
 
-18-08-23 04:27:26 cleandoc INFO --------------------------- Mypy Output ----------------------------
+18-08-23 06:07:54 cleandoc INFO --------------------------- Mypy Output ----------------------------
 src\codenav\dash_trees.py:19: error: Incompatible default for argument "parent_icon" (default has type "None", argument has type "str")  [assignment]
 src\codenav\dash_trees.py:19: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
 src\codenav\dash_trees.py:19: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
@@ -174,37 +171,36 @@ src\codenav\shell_server.py:131: error: Item "None" of "Optional[IO[str]]" has n
 src\codenav\shell_server.py:182: error: Incompatible types in assignment (expression has type "float", variable has type "int")  [assignment]
 src\codenav\shell_server.py:185: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
 src\codenav\shell_server.py:190: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:228: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:254: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:341: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:342: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:379: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
-src\codenav\dash_callbacks.py:646: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:647: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:668: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:674: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:675: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:695: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:160: error: Argument 1 to "run_capture_out" has incompatible type "str"; expected "list[str]"  [arg-type]
+src\codenav\dash_callbacks.py:288: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:314: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:401: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:402: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:439: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
+src\codenav\dash_callbacks.py:718: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:719: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
+src\codenav\dash_callbacks.py:740: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:746: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:747: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
+src\codenav\dash_callbacks.py:767: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
 src\codenav\app.py:13: error: Library stubs not installed for "waitress"  [import]
 src\codenav\app.py:13: note: Hint: "python3 -m pip install types-waitress"
 src\codenav\app.py:13: note: (or run "mypy --install-types" to install all missing stub packages)
 src\codenav\app.py:13: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-src\codenav\app.py:208: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:208: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:216: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:219: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:221: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:224: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:227: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:227: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:228: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:228: error: Name "PORT" is not defined  [name-defined]
-Found 50 errors in 6 files (checked 1 source file)
+src\codenav\app.py:221: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:224: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:226: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:229: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:232: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:232: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:233: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:233: error: Name "PORT" is not defined  [name-defined]
+Found 49 errors in 6 files (checked 1 source file)
 
 
-18-08-23 04:27:26 cleandoc INFO oooooooooooooo Checking File (3/9): dash_callbacks.py oooooooooooooo
+18-08-23 06:07:54 cleandoc INFO oooooooooooooo Checking File (3/9): dash_callbacks.py oooooooooooooo
 
-18-08-23 04:27:26 cleandoc INFO ---------------------- Check Docstring Output ----------------------
+18-08-23 06:07:54 cleandoc INFO ---------------------- Check Docstring Output ----------------------
 
         Complete the following auto-generated docstrings!
 
@@ -225,6 +221,15 @@ Found 50 errors in 6 files (checked 1 source file)
             dirpath
         storepath :
             storepath
+        """
+"""update_envcmd_.
+
+        Parameters
+        ----------
+        envcmd :
+            envcmd
+        storeenv :
+            storeenv
         """
 """create_tree.
 
@@ -468,17 +473,21 @@ Found 50 errors in 6 files (checked 1 source file)
         storeitem
     """
 
-18-08-23 04:27:31 cleandoc INFO -------------------------- Pylint Output ---------------------------
+18-08-23 06:07:59 cleandoc INFO -------------------------- Pylint Output ---------------------------
 ************* Module codenav.dash_callbacks
-src\codenav\dash_callbacks.py:401:0: R0913: Too many arguments (9/5) (too-many-arguments)
-src\codenav\dash_callbacks.py:443:26: R1732: Consider using 'with' for resource-allocating operations (consider-using-with)
+src\codenav\dash_callbacks.py:1:0: C0302: Too many lines in module (1002/1000) (too-many-lines)
+src\codenav\dash_callbacks.py:461:0: R0913: Too many arguments (10/5) (too-many-arguments)
+src\codenav\dash_callbacks.py:461:0: R0914: Too many local variables (16/15) (too-many-locals)
+src\codenav\dash_callbacks.py:485:4: R0914: Too many local variables (16/15) (too-many-locals)
+src\codenav\dash_callbacks.py:515:26: R1732: Consider using 'with' for resource-allocating operations (consider-using-with)
+src\codenav\dash_callbacks.py:14:0: W0611: Unused check_output imported from subprocess (unused-import)
 
 ------------------------------------------------------------------
-Your code has been rated at 9.95/10 (previous run: 9.95/10, +0.00)
+Your code has been rated at 9.87/10 (previous run: 9.87/10, +0.00)
 
 
 
-18-08-23 04:27:32 cleandoc INFO --------------------------- Mypy Output ----------------------------
+18-08-23 06:07:59 cleandoc INFO --------------------------- Mypy Output ----------------------------
 src\codenav\dash_trees.py:19: error: Incompatible default for argument "parent_icon" (default has type "None", argument has type "str")  [assignment]
 src\codenav\dash_trees.py:19: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
 src\codenav\dash_trees.py:19: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
@@ -533,37 +542,36 @@ src\codenav\shell_server.py:131: error: Item "None" of "Optional[IO[str]]" has n
 src\codenav\shell_server.py:182: error: Incompatible types in assignment (expression has type "float", variable has type "int")  [assignment]
 src\codenav\shell_server.py:185: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
 src\codenav\shell_server.py:190: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:228: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:254: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:341: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:342: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:379: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
-src\codenav\dash_callbacks.py:646: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:647: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:668: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:674: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:675: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:695: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:160: error: Argument 1 to "run_capture_out" has incompatible type "str"; expected "list[str]"  [arg-type]
+src\codenav\dash_callbacks.py:288: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:314: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:401: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:402: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:439: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
+src\codenav\dash_callbacks.py:718: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:719: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
+src\codenav\dash_callbacks.py:740: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:746: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:747: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
+src\codenav\dash_callbacks.py:767: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
 src\codenav\app.py:13: error: Library stubs not installed for "waitress"  [import]
 src\codenav\app.py:13: note: Hint: "python3 -m pip install types-waitress"
 src\codenav\app.py:13: note: (or run "mypy --install-types" to install all missing stub packages)
 src\codenav\app.py:13: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-src\codenav\app.py:208: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:208: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:216: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:219: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:221: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:224: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:227: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:227: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:228: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:228: error: Name "PORT" is not defined  [name-defined]
-Found 50 errors in 6 files (checked 1 source file)
+src\codenav\app.py:221: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:224: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:226: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:229: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:232: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:232: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:233: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:233: error: Name "PORT" is not defined  [name-defined]
+Found 49 errors in 6 files (checked 1 source file)
 
 
-18-08-23 04:27:32 cleandoc INFO oooooooooo Checking File (4/9): dash_sweet_components.py ooooooooooo
+18-08-23 06:07:59 cleandoc INFO oooooooooo Checking File (4/9): dash_sweet_components.py ooooooooooo
 
-18-08-23 04:27:34 cleandoc INFO -------------------------- Pylint Output ---------------------------
+18-08-23 06:08:02 cleandoc INFO -------------------------- Pylint Output ---------------------------
 ************* Module codenav.dash_sweet_components
 src\codenav\dash_sweet_components.py:319:0: R0913: Too many arguments (6/5) (too-many-arguments)
 src\codenav\dash_sweet_components.py:367:4: R1715: Consider using dict.get for getting values from a dict if a key is present or a default if not (consider-using-get)
@@ -574,7 +582,7 @@ Your code has been rated at 9.85/10 (previous run: 9.85/10, +0.00)
 
 
 
-18-08-23 04:27:35 cleandoc INFO --------------------------- Mypy Output ----------------------------
+18-08-23 06:08:02 cleandoc INFO --------------------------- Mypy Output ----------------------------
 src\codenav\dash_trees.py:19: error: Incompatible default for argument "parent_icon" (default has type "None", argument has type "str")  [assignment]
 src\codenav\dash_trees.py:19: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
 src\codenav\dash_trees.py:19: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
@@ -629,37 +637,36 @@ src\codenav\shell_server.py:131: error: Item "None" of "Optional[IO[str]]" has n
 src\codenav\shell_server.py:182: error: Incompatible types in assignment (expression has type "float", variable has type "int")  [assignment]
 src\codenav\shell_server.py:185: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
 src\codenav\shell_server.py:190: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:228: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:254: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:341: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:342: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:379: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
-src\codenav\dash_callbacks.py:646: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:647: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:668: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:674: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:675: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:695: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:160: error: Argument 1 to "run_capture_out" has incompatible type "str"; expected "list[str]"  [arg-type]
+src\codenav\dash_callbacks.py:288: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:314: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:401: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:402: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:439: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
+src\codenav\dash_callbacks.py:718: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:719: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
+src\codenav\dash_callbacks.py:740: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:746: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:747: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
+src\codenav\dash_callbacks.py:767: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
 src\codenav\app.py:13: error: Library stubs not installed for "waitress"  [import]
 src\codenav\app.py:13: note: Hint: "python3 -m pip install types-waitress"
 src\codenav\app.py:13: note: (or run "mypy --install-types" to install all missing stub packages)
 src\codenav\app.py:13: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-src\codenav\app.py:208: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:208: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:216: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:219: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:221: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:224: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:227: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:227: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:228: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:228: error: Name "PORT" is not defined  [name-defined]
-Found 50 errors in 6 files (checked 1 source file)
+src\codenav\app.py:221: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:224: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:226: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:229: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:232: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:232: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:233: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:233: error: Name "PORT" is not defined  [name-defined]
+Found 49 errors in 6 files (checked 1 source file)
 
 
-18-08-23 04:27:35 cleandoc INFO oooooooooooooooo Checking File (5/9): dash_trees.py oooooooooooooooo
+18-08-23 06:08:02 cleandoc INFO oooooooooooooooo Checking File (5/9): dash_trees.py oooooooooooooooo
 
-18-08-23 04:27:35 cleandoc INFO ---------------------------- Doq Output ----------------------------
+18-08-23 06:08:03 cleandoc INFO ---------------------------- Doq Output ----------------------------
 Traceback (most recent call last):
   File "C:\Users\jkris\.conda\envs\py39\lib\runpy.py", line 197, in _run_module_as_main
     return _run_code(code, main_globals, None,
@@ -681,7 +688,7 @@ Traceback (most recent call last):
 UnicodeDecodeError: 'charmap' codec can't decode byte 0x81 in position 3016: character maps to <undefined>
 
 
-18-08-23 04:27:37 cleandoc INFO -------------------------- Pylint Output ---------------------------
+18-08-23 06:08:04 cleandoc INFO -------------------------- Pylint Output ---------------------------
 ************* Module codenav.dash_trees
 src\codenav\dash_trees.py:78:14: R1721: Unnecessary use of a comprehension, use dict(item.items()) instead. (unnecessary-comprehension)
 
@@ -690,7 +697,7 @@ Your code has been rated at 9.81/10 (previous run: 9.81/10, +0.00)
 
 
 
-18-08-23 04:27:38 cleandoc INFO --------------------------- Mypy Output ----------------------------
+18-08-23 06:08:05 cleandoc INFO --------------------------- Mypy Output ----------------------------
 src\codenav\dash_trees.py:19: error: Incompatible default for argument "parent_icon" (default has type "None", argument has type "str")  [assignment]
 src\codenav\dash_trees.py:19: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
 src\codenav\dash_trees.py:19: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
@@ -745,37 +752,36 @@ src\codenav\shell_server.py:131: error: Item "None" of "Optional[IO[str]]" has n
 src\codenav\shell_server.py:182: error: Incompatible types in assignment (expression has type "float", variable has type "int")  [assignment]
 src\codenav\shell_server.py:185: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
 src\codenav\shell_server.py:190: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:228: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:254: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:341: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:342: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:379: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
-src\codenav\dash_callbacks.py:646: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:647: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:668: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:674: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:675: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:695: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:160: error: Argument 1 to "run_capture_out" has incompatible type "str"; expected "list[str]"  [arg-type]
+src\codenav\dash_callbacks.py:288: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:314: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:401: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:402: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:439: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
+src\codenav\dash_callbacks.py:718: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:719: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
+src\codenav\dash_callbacks.py:740: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:746: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:747: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
+src\codenav\dash_callbacks.py:767: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
 src\codenav\app.py:13: error: Library stubs not installed for "waitress"  [import]
 src\codenav\app.py:13: note: Hint: "python3 -m pip install types-waitress"
 src\codenav\app.py:13: note: (or run "mypy --install-types" to install all missing stub packages)
 src\codenav\app.py:13: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-src\codenav\app.py:208: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:208: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:216: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:219: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:221: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:224: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:227: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:227: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:228: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:228: error: Name "PORT" is not defined  [name-defined]
-Found 50 errors in 6 files (checked 1 source file)
+src\codenav\app.py:221: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:224: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:226: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:229: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:232: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:232: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:233: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:233: error: Name "PORT" is not defined  [name-defined]
+Found 49 errors in 6 files (checked 1 source file)
 
 
-18-08-23 04:27:38 cleandoc INFO ooooooooooooo Checking File (6/9): file_system_node.py ooooooooooooo
+18-08-23 06:08:05 cleandoc INFO ooooooooooooo Checking File (6/9): file_system_node.py ooooooooooooo
 
-18-08-23 04:27:40 cleandoc INFO -------------------------- Pylint Output ---------------------------
+18-08-23 06:08:07 cleandoc INFO -------------------------- Pylint Output ---------------------------
 ************* Module codenav.file_system_node
 src\codenav\file_system_node.py:17:4: R0913: Too many arguments (7/5) (too-many-arguments)
 
@@ -784,7 +790,7 @@ Your code has been rated at 9.87/10 (previous run: 9.87/10, +0.00)
 
 
 
-18-08-23 04:27:40 cleandoc INFO --------------------------- Mypy Output ----------------------------
+18-08-23 06:08:08 cleandoc INFO --------------------------- Mypy Output ----------------------------
 src\codenav\dash_trees.py:19: error: Incompatible default for argument "parent_icon" (default has type "None", argument has type "str")  [assignment]
 src\codenav\dash_trees.py:19: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
 src\codenav\dash_trees.py:19: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
@@ -839,37 +845,36 @@ src\codenav\shell_server.py:131: error: Item "None" of "Optional[IO[str]]" has n
 src\codenav\shell_server.py:182: error: Incompatible types in assignment (expression has type "float", variable has type "int")  [assignment]
 src\codenav\shell_server.py:185: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
 src\codenav\shell_server.py:190: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:228: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:254: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:341: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:342: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:379: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
-src\codenav\dash_callbacks.py:646: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:647: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:668: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:674: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:675: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:695: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:160: error: Argument 1 to "run_capture_out" has incompatible type "str"; expected "list[str]"  [arg-type]
+src\codenav\dash_callbacks.py:288: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:314: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:401: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:402: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:439: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
+src\codenav\dash_callbacks.py:718: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:719: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
+src\codenav\dash_callbacks.py:740: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:746: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:747: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
+src\codenav\dash_callbacks.py:767: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
 src\codenav\app.py:13: error: Library stubs not installed for "waitress"  [import]
 src\codenav\app.py:13: note: Hint: "python3 -m pip install types-waitress"
 src\codenav\app.py:13: note: (or run "mypy --install-types" to install all missing stub packages)
 src\codenav\app.py:13: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-src\codenav\app.py:208: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:208: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:216: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:219: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:221: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:224: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:227: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:227: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:228: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:228: error: Name "PORT" is not defined  [name-defined]
-Found 50 errors in 6 files (checked 1 source file)
+src\codenav\app.py:221: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:224: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:226: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:229: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:232: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:232: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:233: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:233: error: Name "PORT" is not defined  [name-defined]
+Found 49 errors in 6 files (checked 1 source file)
 
 
-18-08-23 04:27:40 cleandoc INFO oooooooooooooooooo Checking File (7/9): helper.py oooooooooooooooooo
+18-08-23 06:08:08 cleandoc INFO oooooooooooooooooo Checking File (7/9): helper.py oooooooooooooooooo
 
-18-08-23 04:27:43 cleandoc INFO --------------------------- Mypy Output ----------------------------
+18-08-23 06:08:10 cleandoc INFO --------------------------- Mypy Output ----------------------------
 src\codenav\dash_trees.py:19: error: Incompatible default for argument "parent_icon" (default has type "None", argument has type "str")  [assignment]
 src\codenav\dash_trees.py:19: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
 src\codenav\dash_trees.py:19: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
@@ -924,37 +929,36 @@ src\codenav\shell_server.py:131: error: Item "None" of "Optional[IO[str]]" has n
 src\codenav\shell_server.py:182: error: Incompatible types in assignment (expression has type "float", variable has type "int")  [assignment]
 src\codenav\shell_server.py:185: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
 src\codenav\shell_server.py:190: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:228: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:254: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:341: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:342: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:379: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
-src\codenav\dash_callbacks.py:646: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:647: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:668: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:674: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:675: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:695: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:160: error: Argument 1 to "run_capture_out" has incompatible type "str"; expected "list[str]"  [arg-type]
+src\codenav\dash_callbacks.py:288: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:314: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:401: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:402: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:439: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
+src\codenav\dash_callbacks.py:718: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:719: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
+src\codenav\dash_callbacks.py:740: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:746: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:747: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
+src\codenav\dash_callbacks.py:767: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
 src\codenav\app.py:13: error: Library stubs not installed for "waitress"  [import]
 src\codenav\app.py:13: note: Hint: "python3 -m pip install types-waitress"
 src\codenav\app.py:13: note: (or run "mypy --install-types" to install all missing stub packages)
 src\codenav\app.py:13: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-src\codenav\app.py:208: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:208: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:216: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:219: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:221: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:224: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:227: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:227: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:228: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:228: error: Name "PORT" is not defined  [name-defined]
-Found 50 errors in 6 files (checked 1 source file)
+src\codenav\app.py:221: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:224: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:226: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:229: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:232: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:232: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:233: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:233: error: Name "PORT" is not defined  [name-defined]
+Found 49 errors in 6 files (checked 1 source file)
 
 
-18-08-23 04:27:43 cleandoc INFO ooooooooooooooo Checking File (8/9): shell_server.py ooooooooooooooo
+18-08-23 06:08:10 cleandoc INFO ooooooooooooooo Checking File (8/9): shell_server.py ooooooooooooooo
 
-18-08-23 04:27:46 cleandoc INFO -------------------------- Pylint Output ---------------------------
+18-08-23 06:08:14 cleandoc INFO -------------------------- Pylint Output ---------------------------
 ************* Module codenav.shell_server
 src\codenav\shell_server.py:161:0: C0301: Line too long (117/100) (line-too-long)
 src\codenav\shell_server.py:162:0: C0301: Line too long (121/100) (line-too-long)
@@ -968,7 +972,7 @@ Your code has been rated at 9.50/10 (previous run: 9.50/10, +0.00)
 
 
 
-18-08-23 04:27:47 cleandoc INFO --------------------------- Mypy Output ----------------------------
+18-08-23 06:08:14 cleandoc INFO --------------------------- Mypy Output ----------------------------
 src\codenav\dash_trees.py:19: error: Incompatible default for argument "parent_icon" (default has type "None", argument has type "str")  [assignment]
 src\codenav\dash_trees.py:19: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
 src\codenav\dash_trees.py:19: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
@@ -1023,37 +1027,36 @@ src\codenav\shell_server.py:131: error: Item "None" of "Optional[IO[str]]" has n
 src\codenav\shell_server.py:182: error: Incompatible types in assignment (expression has type "float", variable has type "int")  [assignment]
 src\codenav\shell_server.py:185: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
 src\codenav\shell_server.py:190: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:228: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:254: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:341: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:342: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:379: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
-src\codenav\dash_callbacks.py:646: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:647: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:668: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:674: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:675: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:695: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:160: error: Argument 1 to "run_capture_out" has incompatible type "str"; expected "list[str]"  [arg-type]
+src\codenav\dash_callbacks.py:288: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:314: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:401: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:402: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:439: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
+src\codenav\dash_callbacks.py:718: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:719: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
+src\codenav\dash_callbacks.py:740: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:746: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:747: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
+src\codenav\dash_callbacks.py:767: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
 src\codenav\app.py:13: error: Library stubs not installed for "waitress"  [import]
 src\codenav\app.py:13: note: Hint: "python3 -m pip install types-waitress"
 src\codenav\app.py:13: note: (or run "mypy --install-types" to install all missing stub packages)
 src\codenav\app.py:13: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-src\codenav\app.py:208: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:208: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:216: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:219: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:221: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:224: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:227: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:227: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:228: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:228: error: Name "PORT" is not defined  [name-defined]
-Found 50 errors in 6 files (checked 1 source file)
+src\codenav\app.py:221: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:224: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:226: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:229: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:232: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:232: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:233: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:233: error: Name "PORT" is not defined  [name-defined]
+Found 49 errors in 6 files (checked 1 source file)
 
 
-18-08-23 04:27:47 cleandoc INFO ooooooooooooooooo Checking File (9/9): __init__.py ooooooooooooooooo
+18-08-23 06:08:14 cleandoc INFO ooooooooooooooooo Checking File (9/9): __init__.py ooooooooooooooooo
 
-18-08-23 04:27:52 cleandoc INFO --------------------------- Mypy Output ----------------------------
+18-08-23 06:08:19 cleandoc INFO --------------------------- Mypy Output ----------------------------
 src\codenav\dash_trees.py:19: error: Incompatible default for argument "parent_icon" (default has type "None", argument has type "str")  [assignment]
 src\codenav\dash_trees.py:19: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
 src\codenav\dash_trees.py:19: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
@@ -1108,66 +1111,65 @@ src\codenav\shell_server.py:131: error: Item "None" of "Optional[IO[str]]" has n
 src\codenav\shell_server.py:182: error: Incompatible types in assignment (expression has type "float", variable has type "int")  [assignment]
 src\codenav\shell_server.py:185: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
 src\codenav\shell_server.py:190: error: Argument "stop" to "get_from_queue" has incompatible type "bool"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:228: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:254: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:341: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:342: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:379: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
-src\codenav\dash_callbacks.py:646: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:647: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:668: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
-src\codenav\dash_callbacks.py:674: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
-src\codenav\dash_callbacks.py:675: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
-src\codenav\dash_callbacks.py:695: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:160: error: Argument 1 to "run_capture_out" has incompatible type "str"; expected "list[str]"  [arg-type]
+src\codenav\dash_callbacks.py:288: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:314: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:401: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:402: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:439: error: Incompatible types in assignment (expression has type "None", variable has type "str")  [assignment]
+src\codenav\dash_callbacks.py:718: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:719: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
+src\codenav\dash_callbacks.py:740: error: Argument 3 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
+src\codenav\dash_callbacks.py:746: error: Argument 2 to "_puts" has incompatible type "dict[str, Any]"; expected "Union[list[str], str]"  [arg-type]
+src\codenav\dash_callbacks.py:747: error: List item 1 has incompatible type "dict[str, Any]"; expected "str"  [list-item]
+src\codenav\dash_callbacks.py:767: error: Argument 2 to "_storetabs_append" has incompatible type "None"; expected "str"  [arg-type]
 src\codenav\app.py:13: error: Library stubs not installed for "waitress"  [import]
 src\codenav\app.py:13: note: Hint: "python3 -m pip install types-waitress"
 src\codenav\app.py:13: note: (or run "mypy --install-types" to install all missing stub packages)
 src\codenav\app.py:13: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-src\codenav\app.py:208: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:208: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:216: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:219: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:221: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:224: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:227: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:227: error: Name "PORT" is not defined  [name-defined]
-src\codenav\app.py:228: error: Name "HOST" is not defined  [name-defined]
-src\codenav\app.py:228: error: Name "PORT" is not defined  [name-defined]
-Found 50 errors in 6 files (checked 1 source file)
+src\codenav\app.py:221: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:224: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:226: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:229: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:232: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:232: error: Name "PORT" is not defined  [name-defined]
+src\codenav\app.py:233: error: Name "HOST" is not defined  [name-defined]
+src\codenav\app.py:233: error: Name "PORT" is not defined  [name-defined]
+Found 49 errors in 6 files (checked 1 source file)
 
 
-18-08-23 04:27:52 cleandoc INFO ooooooooooooooooooooooooo Gen Docs Output oooooooooooooooooooooooooo
+18-08-23 06:08:19 cleandoc INFO ooooooooooooooooooooooooo Gen Docs Output oooooooooooooooooooooooooo
 
-18-08-23 04:27:58 cleandoc INFO Docs Location: C:\Users\jkris\OneDrive\2022_onward\2023\python\myrepo\dash\codenav\docs
+18-08-23 06:08:26 cleandoc INFO Docs Location: C:\Users\jkris\OneDrive\2022_onward\2023\python\myrepo\dash\codenav\docs
 
-18-08-23 04:28:03 wheel INFO installing to build\bdist.win-amd64\wheel
-18-08-23 04:28:03 wheel INFO creating build\bdist.win-amd64\wheel\codenav-0.0.3.dist-info\WHEEL
-18-08-23 04:28:03 wheel INFO creating 'C:\Users\jkris\AppData\Local\Temp\pip-wheel-_3vy7idv\codenav-0.0.3-py3-none-any.whl' and adding 'build\bdist.win-amd64\wheel' to it
-18-08-23 04:28:03 wheel INFO adding 'codenav/__init__.py'
-18-08-23 04:28:03 wheel INFO adding 'codenav/app.py'
-18-08-23 04:28:03 wheel INFO adding 'codenav/cli.py'
-18-08-23 04:28:03 wheel INFO adding 'codenav/dash_callbacks.py'
-18-08-23 04:28:03 wheel INFO adding 'codenav/dash_sweet_components.py'
-18-08-23 04:28:03 wheel INFO adding 'codenav/dash_trees.py'
-18-08-23 04:28:03 wheel INFO adding 'codenav/file_system_node.py'
-18-08-23 04:28:03 wheel INFO adding 'codenav/helper.py'
-18-08-23 04:28:03 wheel INFO adding 'codenav/queue_test.py'
-18-08-23 04:28:03 wheel INFO adding 'codenav/shell_server.py'
-18-08-23 04:28:03 wheel INFO adding 'codenav/assets/ezgif-2-c7fd154a6c.png'
-18-08-23 04:28:03 wheel INFO adding 'codenav/assets/minecraft-video-game-pc-rectangle-compass.jpg'
-18-08-23 04:28:03 wheel INFO adding 'codenav/assets/png-transparent-pokemon-go-computer-icons-compass-android-pokemon-go-compass-rim-android.png'
-18-08-23 04:28:03 wheel INFO adding 'codenav/assets/token_operator.css'
-18-08-23 04:28:03 wheel INFO adding 'codenav/dash/__init__.py'
-18-08-23 04:28:03 wheel INFO adding 'codenav/dash/dash_callbacks.py'
-18-08-23 04:28:03 wheel INFO adding 'codenav/dash/dash_sweet_components.py'
-18-08-23 04:28:03 wheel INFO adding 'codenav/dash/dash_trees.py'
-18-08-23 04:28:03 wheel INFO adding 'codenav/dash/file_system_node.py'
-18-08-23 04:28:03 wheel INFO adding 'codenav/dash/helper.py'
-18-08-23 04:28:03 wheel INFO adding 'codenav/dash/shell_server.py'
-18-08-23 04:28:03 wheel INFO adding 'codenav-0.0.3.dist-info/LICENSE.txt'
-18-08-23 04:28:03 wheel INFO adding 'codenav-0.0.3.dist-info/METADATA'
-18-08-23 04:28:03 wheel INFO adding 'codenav-0.0.3.dist-info/WHEEL'
-18-08-23 04:28:03 wheel INFO adding 'codenav-0.0.3.dist-info/entry_points.txt'
-18-08-23 04:28:03 wheel INFO adding 'codenav-0.0.3.dist-info/top_level.txt'
-18-08-23 04:28:03 wheel INFO adding 'codenav-0.0.3.dist-info/RECORD'
-18-08-23 04:28:03 wheel INFO removing build\bdist.win-amd64\wheel
+18-08-23 06:08:30 wheel INFO installing to build\bdist.win-amd64\wheel
+18-08-23 06:08:31 wheel INFO creating build\bdist.win-amd64\wheel\codenav-0.0.3.dist-info\WHEEL
+18-08-23 06:08:31 wheel INFO creating 'C:\Users\jkris\AppData\Local\Temp\pip-wheel-3d1i_0no\codenav-0.0.3-py3-none-any.whl' and adding 'build\bdist.win-amd64\wheel' to it
+18-08-23 06:08:31 wheel INFO adding 'codenav/__init__.py'
+18-08-23 06:08:31 wheel INFO adding 'codenav/app.py'
+18-08-23 06:08:31 wheel INFO adding 'codenav/cli.py'
+18-08-23 06:08:31 wheel INFO adding 'codenav/dash_callbacks.py'
+18-08-23 06:08:31 wheel INFO adding 'codenav/dash_sweet_components.py'
+18-08-23 06:08:31 wheel INFO adding 'codenav/dash_trees.py'
+18-08-23 06:08:31 wheel INFO adding 'codenav/file_system_node.py'
+18-08-23 06:08:31 wheel INFO adding 'codenav/helper.py'
+18-08-23 06:08:31 wheel INFO adding 'codenav/queue_test.py'
+18-08-23 06:08:31 wheel INFO adding 'codenav/shell_server.py'
+18-08-23 06:08:31 wheel INFO adding 'codenav/assets/ezgif-2-c7fd154a6c.png'
+18-08-23 06:08:31 wheel INFO adding 'codenav/assets/minecraft-video-game-pc-rectangle-compass.jpg'
+18-08-23 06:08:31 wheel INFO adding 'codenav/assets/png-transparent-pokemon-go-computer-icons-compass-android-pokemon-go-compass-rim-android.png'
+18-08-23 06:08:31 wheel INFO adding 'codenav/assets/token_operator.css'
+18-08-23 06:08:31 wheel INFO adding 'codenav/dash/__init__.py'
+18-08-23 06:08:31 wheel INFO adding 'codenav/dash/dash_callbacks.py'
+18-08-23 06:08:31 wheel INFO adding 'codenav/dash/dash_sweet_components.py'
+18-08-23 06:08:31 wheel INFO adding 'codenav/dash/dash_trees.py'
+18-08-23 06:08:31 wheel INFO adding 'codenav/dash/file_system_node.py'
+18-08-23 06:08:31 wheel INFO adding 'codenav/dash/helper.py'
+18-08-23 06:08:31 wheel INFO adding 'codenav/dash/shell_server.py'
+18-08-23 06:08:31 wheel INFO adding 'codenav-0.0.3.dist-info/LICENSE.txt'
+18-08-23 06:08:31 wheel INFO adding 'codenav-0.0.3.dist-info/METADATA'
+18-08-23 06:08:31 wheel INFO adding 'codenav-0.0.3.dist-info/WHEEL'
+18-08-23 06:08:31 wheel INFO adding 'codenav-0.0.3.dist-info/entry_points.txt'
+18-08-23 06:08:31 wheel INFO adding 'codenav-0.0.3.dist-info/top_level.txt'
+18-08-23 06:08:31 wheel INFO adding 'codenav-0.0.3.dist-info/RECORD'
+18-08-23 06:08:31 wheel INFO removing build\bdist.win-amd64\wheel

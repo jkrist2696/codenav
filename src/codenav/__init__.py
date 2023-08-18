@@ -14,3 +14,7 @@ def cli_main():
     """run cli"""
     port, remote, debug = cli.parse()
     serve_app(port, remote, debug)
+
+
+if __name__ == "__main__":
+    serve_app(8050, False, False)

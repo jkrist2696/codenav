@@ -10,6 +10,7 @@ pip install codenav
 
 1. "cd" to directory containing Python code
 2. "codenav" command in terminal
+3. App will open automatically in current browser
 
 #### 1. Click on folder name to expand or contract the tree
 ![Step 1 screenshot](https://images.tango.us/workflows/2105e078-1d91-4fed-9527-b77787d623b8/steps/86286af6-8be6-4eec-839c-9c4f5d989c8e/fa5c073a-1e63-4a3e-91b1-940d967d73b7.png?crop=focalpoint&fit=crop&fp-x=0.1522&fp-y=0.2098&fp-z=1.6719&w=1200&border=2%2CF4F2F7&border-radius=8%2C8%2C8%2C8&border-radius-inner=8%2C8%2C8%2C8&blend-align=bottom&blend-mode=normal&blend-x=0&blend-w=1200&blend64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmstdjIucG5n&mark-x=6&mark-y=185&m64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL2JsYW5rLnBuZz9tYXNrPWNvcm5lcnMmYm9yZGVyPTYlMkNGRjc0NDImdz01OTgmaD0yMzImZml0PWNyb3AmY29ybmVyLXJhZGl1cz0xMA%3D%3D)

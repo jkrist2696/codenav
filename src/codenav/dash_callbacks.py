@@ -7,10 +7,11 @@ Created on Fri Jul 14 23:39:06 2023
 
 # from psutil import pid_exists
 
-from os import path, access, W_OK, getcwd
+from os import path, access, W_OK, getcwd, environ
+from sys import platform
 from typing import Union
 from textwrap import wrap
-from subprocess import Popen
+from subprocess import Popen, check_output
 from datetime import datetime
 import psutil
 from dash import ctx, html, ALL
@@ -21,16 +22,26 @@ from . import dash_sweet_components as sweet
 from .file_system_node import create_fs_nodes
 from .dash_trees import file_sys_tree
 from .shell_server import get_from_queue
+from .helper import run_capture_out
 
 
 # CONSTANTS
-scriptdir = path.split(path.realpath(__file__))[0]
-QUEUE_NAME = "dash_testing"
-ACTIVATE_CMD = "C:/ProgramData/Anaconda3/Scripts/activate.bat && conda activate py39"
-SHELL_SERVER_PATH = path.join(scriptdir, "shell_server.py")
-SERVER_CMD = f'{ACTIVATE_CMD} && python "{SHELL_SERVER_PATH}" "{QUEUE_NAME}" "'
+QUEUE_NAME = "codenav_shell_beta"
 READY_STR = "#%# Command Window Ready #%#"
-# PORT = 1000
+SHELL_SERVER_PATH = path.join(path.split(path.realpath(__file__))[0], "shell_server.py")
+# ACTIVATE_CMD = "C:/ProgramData/Anaconda3/Scripts/activate.bat && conda activate py39"
+if "CONDA_DEFAULT_ENV" in environ:
+    CURRENT_ENV = environ["CONDA_DEFAULT_ENV"]
+else:
+    CURRENT_ENV = "base"
+CONDA_PATH = ""
+PYTHON = "python3"
+if "win" in platform:
+    CONDA_PATH = "C:/ProgramData/Anaconda3/Scripts/activate.bat && "
+    PYTHON = "python"
+ACTIVATE_CMD = f"{CONDA_PATH}conda activate {CURRENT_ENV}"
+PYTHON_CMD = f"{ACTIVATE_CMD} && {PYTHON}"
+
 
 SCROLLDOWN = """
     function(prismchildren) {
@@ -42,11 +53,19 @@ SCROLLDOWN = """
         if (typeof child1 === "undefined") {
             return "placeholder"
         }
-        child2 = child1.children[1];
+        child2= child1.children[1];
         if (typeof child2 === "undefined") {
             return "placeholder"
         }
-        viewport = child2.children[1];
+        child3 = child2.children[0];
+        if (typeof child3 === "undefined") {
+            return "placeholder"
+        }
+        child4 = child3.children[1];
+        if (typeof child2 === "undefined") {
+            return "placeholder"
+        }
+        viewport = child4.children[1];
         if (typeof viewport === "undefined") {
             return "placeholder"
         }
@@ -108,6 +127,47 @@ def dirpath_store(app, storepath_id: str, dirpath_id: str):
         if _not_none_haslen(storepath):
             return storepath, storepath
         return getcwd(), getcwd()
+
+
+def envcmd_store(app, storeenv_id: str, envcmd_id: str, nodify_id: str):
+    """
+    dirpath_update
+    """
+    outputs = _puts(
+        "o", [envcmd_id, storeenv_id, nodify_id], ["value", "data", "children"]
+    )
+    inputs = _puts("i", envcmd_id, ["value"])
+    states = _puts("s", storeenv_id, ["data"])
+
+    @app.callback(outputs, inputs, states)  #
+    def update_envcmd_(envcmd, storeenv):
+        """update_envcmd_.
+
+        Parameters
+        ----------
+        envcmd :
+            envcmd
+        storeenv :
+            storeenv
+        """
+        # print(f"\ndirpath: {envcmd}\nstorepath: {storeenv}")
+        retval = PYTHON_CMD
+        if envcmd is not None:
+            retval = envcmd
+        elif _not_none_haslen(storeenv):
+            retval = storeenv
+        try:
+            _stdout, stderr = run_capture_out(retval + " --version")
+        except (OSError, FileNotFoundError) as err:
+            stderr = str(err)
+        if len(stderr) == 0:
+            title = "Python Environment is Valid"
+            message = f"{_stdout}"
+            notify = sweet.notify(title, message, "gg:check-o", "green")
+            return retval, retval, notify
+        title = "Python Environment Error"
+        notify = sweet.notify(title, stderr, "clarity:error-solid", "red")
+        return envcmd, storeenv, notify
 
 
 def tree_create(app, tree_loader_id: str, dirpath_id: str, tree_id: str):
@@ -333,7 +393,7 @@ def tab_save(app, storetabs_id: str, savetab_id: str, notify_id: str):
     """
     tab_save
     """
-    outputs = _puts(["o", "d"], [notify_id, storetabs_id], ["children", "data"])
+    outputs = _puts(["d", "d"], [notify_id, storetabs_id], ["children", "data"])
     inputs = _puts("i", savetab_id, ["n_clicks"])
     states1 = _puts("s", [storetabs_id], ["data"])
     tabinput_id = {"type": "tabinput", "index": ALL}
@@ -401,6 +461,7 @@ def tab_save(app, storetabs_id: str, savetab_id: str, notify_id: str):
 def button_start_cmd(
     app,
     command: str,
+    storeenv_id: str,
     stdstore_id: str,
     storeval_id: str,
     state_fxn,
@@ -416,10 +477,12 @@ def button_start_cmd(
     if first:
         outputs = _puts("o", stdstore_id, ["data"])
     inputs = _puts("i", button_id, ["n_clicks"])
-    states = _puts("s", [stdstore_id, storeval_id], ["data", "data"])
+    states = _puts(
+        "s", [stdstore_id, storeval_id, storeenv_id], ["data", "data", "data"]
+    )
 
     @app.callback(outputs, inputs, states, prevent_initial_call=True)
-    def start_command(_nclicks, stdstore, storeval):
+    def start_command(_nclicks, stdstore, storeval, envcmd):
         """start_command.
 
         Parameters
@@ -439,7 +502,16 @@ def button_start_cmd(
         nowstr = now.strftime("%d-%m-%y %H:%M:%S")
         if READY_STR in text_in:
             scriptpath = state_fxn(storeval)
-            runcmd = SERVER_CMD + command + '""' + scriptpath + '"""'
+            # Get server and activate cmd from storeenv
+            runcmd = (
+                envcmd
+                + f' "{SHELL_SERVER_PATH}" "{QUEUE_NAME}" "'
+                + f"{ACTIVATE_CMD} && "
+                + command
+                + '""'
+                + scriptpath
+                + '"""'
+            )
             parent_proc = Popen(runcmd)  # , shell=True
             runtext = "\n".join(wrap(runcmd, 150))
             text_out = (

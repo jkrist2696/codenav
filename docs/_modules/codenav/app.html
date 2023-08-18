@@ -82,7 +82,7 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">getcwd</span><span class="p">,</span> <span class="n">environ</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">getcwd</span>
 <span class="kn">import</span> <span class="nn">webbrowser</span>
 <span class="kn">import</span> <span class="nn">socket</span>
 <span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Timer</span>
@@ -98,25 +98,20 @@
 
 
 <span class="c1"># CONSTANTS</span>
-<span class="k">if</span> <span class="s2">&quot;CONDA_DEFAULT_ENV&quot;</span> <span class="ow">in</span> <span class="n">environ</span><span class="p">:</span>
-    <span class="n">CURRENT_ENV</span> <span class="o">=</span> <span class="n">environ</span><span class="p">[</span><span class="s2">&quot;CONDA_DEFAULT_ENV&quot;</span><span class="p">]</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">CURRENT_ENV</span> <span class="o">=</span> <span class="s2">&quot;base&quot;</span>
-<span class="n">CONDA_PATH</span> <span class="o">=</span> <span class="s2">&quot;C:/ProgramData/Anaconda3/Scripts/activate.bat&quot;</span>
-<span class="n">ACTIVATE_CMD</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">CONDA_PATH</span><span class="si">}</span><span class="s2"> &amp;&amp; conda activate </span><span class="si">{</span><span class="n">CURRENT_ENV</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="n">SERVER_CMD</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ACTIVATE_CMD</span><span class="si">}</span><span class="s1"> &amp;&amp; python &quot;</span><span class="si">{</span><span class="n">call</span><span class="o">.</span><span class="n">SHELL_SERVER_PATH</span><span class="si">}</span><span class="s1">&quot; &quot;dash_testing&quot; &quot;&#39;</span>
 <span class="n">PERSIST</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="n">TREE_ID</span> <span class="o">=</span> <span class="s2">&quot;tree&quot;</span>
 <span class="n">TREE_LOADER_ID</span> <span class="o">=</span> <span class="s2">&quot;treeloader&quot;</span>
 <span class="n">PATH_INPUT_ID</span> <span class="o">=</span> <span class="s2">&quot;pathinput&quot;</span>
+<span class="n">ENV_CMD_ID</span> <span class="o">=</span> <span class="s2">&quot;envcmd&quot;</span>
 <span class="n">FILE_TABS_ID</span> <span class="o">=</span> <span class="s2">&quot;filetabs&quot;</span>
 <span class="n">STORE_PATH_ID</span> <span class="o">=</span> <span class="s2">&quot;storepath&quot;</span>
 <span class="n">STORE_ITEMS_ID</span> <span class="o">=</span> <span class="s2">&quot;storeitems&quot;</span>
+<span class="n">STORE_ENV_ID</span> <span class="o">=</span> <span class="s2">&quot;storeenv&quot;</span>
 <span class="n">STORE_CMD_ID</span> <span class="o">=</span> <span class="s2">&quot;storestdout&quot;</span>
 <span class="n">NEW_TAB_ID</span> <span class="o">=</span> <span class="s2">&quot;newtab&quot;</span>
 <span class="n">EDIT_TAB_ID</span> <span class="o">=</span> <span class="s2">&quot;edittab&quot;</span>
 <span class="n">RUN_TAB_ID</span> <span class="o">=</span> <span class="s2">&quot;runtab&quot;</span>
-<span class="n">RUN_TAB_CMD</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ACTIVATE_CMD</span><span class="si">}</span><span class="s2"> &amp;&amp; python &quot;</span>
+<span class="n">RUN_TAB_CMD</span> <span class="o">=</span> <span class="s2">&quot;python &quot;</span>
 <span class="n">SAVE_TAB_ID</span> <span class="o">=</span> <span class="s2">&quot;savefile&quot;</span>
 <span class="n">UP_BUTTON_ID</span> <span class="o">=</span> <span class="s2">&quot;updir&quot;</span>
 <span class="n">STDOUT_ID</span> <span class="o">=</span> <span class="s2">&quot;stdout_text&quot;</span>
@@ -124,9 +119,9 @@
 <span class="n">CLEAN_FILE_ID</span> <span class="o">=</span> <span class="s2">&quot;File&quot;</span>
 <span class="n">CLEAN_ALL_ID</span> <span class="o">=</span> <span class="s2">&quot;All&quot;</span>
 <span class="n">CLEAN_DOC_ID</span> <span class="o">=</span> <span class="s2">&quot;Doc&quot;</span>
-<span class="n">CLEAN_FILE_CMD</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ACTIVATE_CMD</span><span class="si">}</span><span class="s2"> &amp;&amp; cleandoc -f &quot;</span>  <span class="c1">#  -w</span>
-<span class="n">CLEAN_ALL_CMD</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ACTIVATE_CMD</span><span class="si">}</span><span class="s2"> &amp;&amp; cleandoc -nodoc -d &quot;</span>  <span class="c1">#  -w</span>
-<span class="n">CLEAN_DOC_CMD</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ACTIVATE_CMD</span><span class="si">}</span><span class="s2"> &amp;&amp; cleandoc -d &quot;</span>
+<span class="n">CLEAN_FILE_CMD</span> <span class="o">=</span> <span class="s2">&quot;cleandoc -f &quot;</span>  <span class="c1">#  -w</span>
+<span class="n">CLEAN_ALL_CMD</span> <span class="o">=</span> <span class="s2">&quot;cleandoc -nodoc -d &quot;</span>  <span class="c1">#  -w</span>
+<span class="n">CLEAN_DOC_CMD</span> <span class="o">=</span> <span class="s2">&quot;cleandoc -d &quot;</span>
 <span class="n">TAG_SEARCH_ID</span> <span class="o">=</span> <span class="s2">&quot;tagsearch&quot;</span>
 <span class="n">LOAD_SEARCH_ID</span> <span class="o">=</span> <span class="s2">&quot;searchloader&quot;</span>
 <span class="n">RESULT_ID</span> <span class="o">=</span> <span class="s2">&quot;searchresults&quot;</span>
@@ -137,9 +132,11 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    create the dash app object</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="c1"># Stores</span>
     <span class="n">storepath</span> <span class="o">=</span> <span class="n">dcc</span><span class="o">.</span><span class="n">Store</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">STORE_PATH_ID</span><span class="p">,</span> <span class="n">storage_type</span><span class="o">=</span><span class="s2">&quot;session&quot;</span><span class="p">)</span>
     <span class="n">storeitems</span> <span class="o">=</span> <span class="n">dcc</span><span class="o">.</span><span class="n">Store</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">STORE_ITEMS_ID</span><span class="p">,</span> <span class="n">storage_type</span><span class="o">=</span><span class="s2">&quot;session&quot;</span><span class="p">)</span>
+    <span class="n">storeenv</span> <span class="o">=</span> <span class="n">dcc</span><span class="o">.</span><span class="n">Store</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">STORE_ENV_ID</span><span class="p">,</span> <span class="n">storage_type</span><span class="o">=</span><span class="s2">&quot;session&quot;</span><span class="p">)</span>
     <span class="n">storecmd</span> <span class="o">=</span> <span class="n">dcc</span><span class="o">.</span><span class="n">Store</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">STORE_CMD_ID</span><span class="p">,</span> <span class="n">storage_type</span><span class="o">=</span><span class="s2">&quot;local&quot;</span><span class="p">)</span>
 
     <span class="c1"># Cleandoc Buttons Group</span>
@@ -188,7 +185,9 @@
     <span class="p">]</span>  <span class="c1">#  persistence=False</span>
     <span class="n">interval</span> <span class="o">=</span> <span class="n">dcc</span><span class="o">.</span><span class="n">Interval</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">INTERVAL_ID</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
     <span class="n">prismdiv</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">pyprism</span><span class="p">(</span><span class="s2">&quot;Loading...&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">STDOUT_ID</span><span class="p">,</span> <span class="n">linenums</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">botright</span> <span class="o">=</span> <span class="p">[</span><span class="n">interval</span><span class="p">,</span> <span class="n">prismdiv</span><span class="p">]</span>
+    <span class="n">headerdiv</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">ant_input</span><span class="p">(</span><span class="s2">&quot;Conda Activate and Python Command Here&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">ENV_CMD_ID</span><span class="p">)</span>
+    <span class="n">botright</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">add_header_div</span><span class="p">(</span><span class="n">headerdiv</span><span class="p">,</span> <span class="p">[</span><span class="n">interval</span><span class="p">,</span> <span class="n">prismdiv</span><span class="p">])</span>
+
     <span class="n">quadlayout</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">quad_layout</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">middle</span><span class="p">,</span> <span class="n">topright</span><span class="p">,</span> <span class="n">botright</span><span class="p">,</span> <span class="n">splits</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">60</span><span class="p">])</span>
     <span class="n">run_icon</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">iconify</span><span class="p">(</span><span class="s2">&quot;ph:play-fill&quot;</span><span class="p">,</span> <span class="s2">&quot;#2AB047&quot;</span><span class="p">)</span>
 
@@ -204,6 +203,7 @@
         <span class="p">[</span>
             <span class="n">storepath</span><span class="p">,</span>
             <span class="n">storeitems</span><span class="p">,</span>
+            <span class="n">storeenv</span><span class="p">,</span>
             <span class="n">storecmd</span><span class="p">,</span>
             <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span><span class="n">children</span><span class="o">=</span><span class="p">[],</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;hiddendiv&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;display&quot;</span><span class="p">:</span> <span class="s2">&quot;none&quot;</span><span class="p">}),</span>
             <span class="n">sweet</span><span class="o">.</span><span class="n">notify_container</span><span class="p">([</span><span class="n">quadlayout</span><span class="p">,</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">NOTIFY_ID</span><span class="p">)]),</span>
@@ -211,6 +211,7 @@
     <span class="p">)</span>
 
     <span class="c1"># Callbacks</span>
+    <span class="n">call</span><span class="o">.</span><span class="n">envcmd_store</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">STORE_ENV_ID</span><span class="p">,</span> <span class="n">ENV_CMD_ID</span><span class="p">,</span> <span class="n">NOTIFY_ID</span><span class="p">)</span>
     <span class="n">call</span><span class="o">.</span><span class="n">dirpath_store</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">STORE_PATH_ID</span><span class="p">,</span> <span class="n">PATH_INPUT_ID</span><span class="p">)</span>
     <span class="n">call</span><span class="o">.</span><span class="n">dirpath_up</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">PATH_INPUT_ID</span><span class="p">,</span> <span class="n">UP_BUTTON_ID</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">)</span>
     <span class="n">call</span><span class="o">.</span><span class="n">tree_expand</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">TREE_ID</span><span class="p">)</span>
@@ -224,6 +225,7 @@
     <span class="n">call</span><span class="o">.</span><span class="n">button_start_cmd</span><span class="p">(</span>
         <span class="n">app</span><span class="p">,</span>
         <span class="n">RUN_TAB_CMD</span><span class="p">,</span>
+        <span class="n">STORE_ENV_ID</span><span class="p">,</span>
         <span class="n">STORE_CMD_ID</span><span class="p">,</span>
         <span class="n">STORE_ITEMS_ID</span><span class="p">,</span>
         <span class="n">call</span><span class="o">.</span><span class="n">read_storetabs_file</span><span class="p">,</span>
@@ -235,6 +237,7 @@
     <span class="n">call</span><span class="o">.</span><span class="n">button_start_cmd</span><span class="p">(</span>
         <span class="n">app</span><span class="p">,</span>
         <span class="n">CLEAN_FILE_CMD</span><span class="p">,</span>
+        <span class="n">STORE_ENV_ID</span><span class="p">,</span>
         <span class="n">STORE_CMD_ID</span><span class="p">,</span>
         <span class="n">STORE_ITEMS_ID</span><span class="p">,</span>
         <span class="n">call</span><span class="o">.</span><span class="n">read_storetabs_file</span><span class="p">,</span>
@@ -245,6 +248,7 @@
     <span class="n">call</span><span class="o">.</span><span class="n">button_start_cmd</span><span class="p">(</span>
         <span class="n">app</span><span class="p">,</span>
         <span class="n">CLEAN_ALL_CMD</span><span class="p">,</span>
+        <span class="n">STORE_ENV_ID</span><span class="p">,</span>
         <span class="n">STORE_CMD_ID</span><span class="p">,</span>
         <span class="n">STORE_PATH_ID</span><span class="p">,</span>
         <span class="n">call</span><span class="o">.</span><span class="n">read_storepath</span><span class="p">,</span>
@@ -255,6 +259,7 @@
     <span class="n">call</span><span class="o">.</span><span class="n">button_start_cmd</span><span class="p">(</span>
         <span class="n">app</span><span class="p">,</span>
         <span class="n">CLEAN_DOC_CMD</span><span class="p">,</span>
+        <span class="n">STORE_ENV_ID</span><span class="p">,</span>
         <span class="n">STORE_CMD_ID</span><span class="p">,</span>
         <span class="n">STORE_PATH_ID</span><span class="p">,</span>
         <span class="n">call</span><span class="o">.</span><span class="n">read_storepath</span><span class="p">,</span>
@@ -281,14 +286,14 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Open dash app upon running script</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;http://</span><span class="si">{</span><span class="n">HOST</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">PORT</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+    <span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;http://</span><span class="si">{</span><span class="n">HOST</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">PORT</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># type: ignore</span></div>
 
 
 <div class="viewcode-block" id="serve_app"><a class="viewcode-back" href="../../codenav.html#codenav.app.serve_app">[docs]</a><span class="k">def</span> <span class="nf">serve_app</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">remote</span><span class="p">,</span> <span class="n">debug</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    serve codenav app</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">global</span> <span class="n">HOST</span><span class="p">,</span> <span class="n">PORT</span>
+    <span class="k">global</span> <span class="n">HOST</span><span class="p">,</span> <span class="n">PORT</span>  <span class="c1"># pylint: disable=W0601</span>
     <span class="n">PORT</span> <span class="o">=</span> <span class="n">port</span>
     <span class="k">if</span> <span class="n">remote</span><span class="p">:</span>
         <span class="c1"># host = &quot;pycodenav&quot;</span>

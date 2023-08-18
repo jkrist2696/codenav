@@ -83,10 +83,11 @@
 
 <span class="c1"># from psutil import pid_exists</span>
 
-<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">access</span><span class="p">,</span> <span class="n">W_OK</span><span class="p">,</span> <span class="n">getcwd</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">access</span><span class="p">,</span> <span class="n">W_OK</span><span class="p">,</span> <span class="n">getcwd</span><span class="p">,</span> <span class="n">environ</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">platform</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
 <span class="kn">from</span> <span class="nn">textwrap</span> <span class="kn">import</span> <span class="n">wrap</span>
-<span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">Popen</span>
+<span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">Popen</span><span class="p">,</span> <span class="n">check_output</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">import</span> <span class="nn">psutil</span>
 <span class="kn">from</span> <span class="nn">dash</span> <span class="kn">import</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">ALL</span>
@@ -97,16 +98,26 @@
 <span class="kn">from</span> <span class="nn">.file_system_node</span> <span class="kn">import</span> <span class="n">create_fs_nodes</span>
 <span class="kn">from</span> <span class="nn">.dash_trees</span> <span class="kn">import</span> <span class="n">file_sys_tree</span>
 <span class="kn">from</span> <span class="nn">.shell_server</span> <span class="kn">import</span> <span class="n">get_from_queue</span>
+<span class="kn">from</span> <span class="nn">.helper</span> <span class="kn">import</span> <span class="n">run_capture_out</span>
 
 
 <span class="c1"># CONSTANTS</span>
-<span class="n">scriptdir</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">QUEUE_NAME</span> <span class="o">=</span> <span class="s2">&quot;dash_testing&quot;</span>
-<span class="n">ACTIVATE_CMD</span> <span class="o">=</span> <span class="s2">&quot;C:/ProgramData/Anaconda3/Scripts/activate.bat &amp;&amp; conda activate py39&quot;</span>
-<span class="n">SHELL_SERVER_PATH</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">scriptdir</span><span class="p">,</span> <span class="s2">&quot;shell_server.py&quot;</span><span class="p">)</span>
-<span class="n">SERVER_CMD</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ACTIVATE_CMD</span><span class="si">}</span><span class="s1"> &amp;&amp; python &quot;</span><span class="si">{</span><span class="n">SHELL_SERVER_PATH</span><span class="si">}</span><span class="s1">&quot; &quot;</span><span class="si">{</span><span class="n">QUEUE_NAME</span><span class="si">}</span><span class="s1">&quot; &quot;&#39;</span>
+<span class="n">QUEUE_NAME</span> <span class="o">=</span> <span class="s2">&quot;codenav_shell_beta&quot;</span>
 <span class="n">READY_STR</span> <span class="o">=</span> <span class="s2">&quot;#%# Command Window Ready #%#&quot;</span>
-<span class="c1"># PORT = 1000</span>
+<span class="n">SHELL_SERVER_PATH</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;shell_server.py&quot;</span><span class="p">)</span>
+<span class="c1"># ACTIVATE_CMD = &quot;C:/ProgramData/Anaconda3/Scripts/activate.bat &amp;&amp; conda activate py39&quot;</span>
+<span class="k">if</span> <span class="s2">&quot;CONDA_DEFAULT_ENV&quot;</span> <span class="ow">in</span> <span class="n">environ</span><span class="p">:</span>
+    <span class="n">CURRENT_ENV</span> <span class="o">=</span> <span class="n">environ</span><span class="p">[</span><span class="s2">&quot;CONDA_DEFAULT_ENV&quot;</span><span class="p">]</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">CURRENT_ENV</span> <span class="o">=</span> <span class="s2">&quot;base&quot;</span>
+<span class="n">CONDA_PATH</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">PYTHON</span> <span class="o">=</span> <span class="s2">&quot;python3&quot;</span>
+<span class="k">if</span> <span class="s2">&quot;win&quot;</span> <span class="ow">in</span> <span class="n">platform</span><span class="p">:</span>
+    <span class="n">CONDA_PATH</span> <span class="o">=</span> <span class="s2">&quot;C:/ProgramData/Anaconda3/Scripts/activate.bat &amp;&amp; &quot;</span>
+    <span class="n">PYTHON</span> <span class="o">=</span> <span class="s2">&quot;python&quot;</span>
+<span class="n">ACTIVATE_CMD</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">CONDA_PATH</span><span class="si">}</span><span class="s2">conda activate </span><span class="si">{</span><span class="n">CURRENT_ENV</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="n">PYTHON_CMD</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ACTIVATE_CMD</span><span class="si">}</span><span class="s2"> &amp;&amp; </span><span class="si">{</span><span class="n">PYTHON</span><span class="si">}</span><span class="s2">&quot;</span>
+
 
 <span class="n">SCROLLDOWN</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    function(prismchildren) {</span>
@@ -118,11 +129,19 @@
 <span class="s2">        if (typeof child1 === &quot;undefined&quot;) {</span>
 <span class="s2">            return &quot;placeholder&quot;</span>
 <span class="s2">        }</span>
-<span class="s2">        child2 = child1.children[1];</span>
+<span class="s2">        child2= child1.children[1];</span>
 <span class="s2">        if (typeof child2 === &quot;undefined&quot;) {</span>
 <span class="s2">            return &quot;placeholder&quot;</span>
 <span class="s2">        }</span>
-<span class="s2">        viewport = child2.children[1];</span>
+<span class="s2">        child3 = child2.children[0];</span>
+<span class="s2">        if (typeof child3 === &quot;undefined&quot;) {</span>
+<span class="s2">            return &quot;placeholder&quot;</span>
+<span class="s2">        }</span>
+<span class="s2">        child4 = child3.children[1];</span>
+<span class="s2">        if (typeof child2 === &quot;undefined&quot;) {</span>
+<span class="s2">            return &quot;placeholder&quot;</span>
+<span class="s2">        }</span>
+<span class="s2">        viewport = child4.children[1];</span>
 <span class="s2">        if (typeof viewport === &quot;undefined&quot;) {</span>
 <span class="s2">            return &quot;placeholder&quot;</span>
 <span class="s2">        }</span>
@@ -184,6 +203,47 @@
         <span class="k">if</span> <span class="n">_not_none_haslen</span><span class="p">(</span><span class="n">storepath</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">storepath</span><span class="p">,</span> <span class="n">storepath</span>
         <span class="k">return</span> <span class="n">getcwd</span><span class="p">(),</span> <span class="n">getcwd</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="envcmd_store"><a class="viewcode-back" href="../../codenav.html#codenav.dash_callbacks.envcmd_store">[docs]</a><span class="k">def</span> <span class="nf">envcmd_store</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">storeenv_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">envcmd_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">nodify_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    dirpath_update</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span>
+        <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">envcmd_id</span><span class="p">,</span> <span class="n">storeenv_id</span><span class="p">,</span> <span class="n">nodify_id</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;children&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="n">envcmd_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">])</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">storeenv_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">states</span><span class="p">)</span>  <span class="c1">#</span>
+    <span class="k">def</span> <span class="nf">update_envcmd_</span><span class="p">(</span><span class="n">envcmd</span><span class="p">,</span> <span class="n">storeenv</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;update_envcmd_.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        envcmd :</span>
+<span class="sd">            envcmd</span>
+<span class="sd">        storeenv :</span>
+<span class="sd">            storeenv</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># print(f&quot;\ndirpath: {envcmd}\nstorepath: {storeenv}&quot;)</span>
+        <span class="n">retval</span> <span class="o">=</span> <span class="n">PYTHON_CMD</span>
+        <span class="k">if</span> <span class="n">envcmd</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">retval</span> <span class="o">=</span> <span class="n">envcmd</span>
+        <span class="k">elif</span> <span class="n">_not_none_haslen</span><span class="p">(</span><span class="n">storeenv</span><span class="p">):</span>
+            <span class="n">retval</span> <span class="o">=</span> <span class="n">storeenv</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">_stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">run_capture_out</span><span class="p">(</span><span class="n">retval</span> <span class="o">+</span> <span class="s2">&quot; --version&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">FileNotFoundError</span><span class="p">)</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="n">stderr</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">stderr</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Python Environment is Valid&quot;</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_stdout</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">notify</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="s2">&quot;gg:check-o&quot;</span><span class="p">,</span> <span class="s2">&quot;green&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">retval</span><span class="p">,</span> <span class="n">retval</span><span class="p">,</span> <span class="n">notify</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Python Environment Error&quot;</span>
+        <span class="n">notify</span> <span class="o">=</span> <span class="n">sweet</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">stderr</span><span class="p">,</span> <span class="s2">&quot;clarity:error-solid&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">envcmd</span><span class="p">,</span> <span class="n">storeenv</span><span class="p">,</span> <span class="n">notify</span></div>
 
 
 <div class="viewcode-block" id="tree_create"><a class="viewcode-back" href="../../codenav.html#codenav.dash_callbacks.tree_create">[docs]</a><span class="k">def</span> <span class="nf">tree_create</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">tree_loader_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dirpath_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tree_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -409,7 +469,7 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    tab_save</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">outputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">([</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">],</span> <span class="p">[</span><span class="n">notify_id</span><span class="p">,</span> <span class="n">storetabs_id</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;children&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">])</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">([</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">],</span> <span class="p">[</span><span class="n">notify_id</span><span class="p">,</span> <span class="n">storetabs_id</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;children&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">])</span>
     <span class="n">inputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="n">savetab_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;n_clicks&quot;</span><span class="p">])</span>
     <span class="n">states1</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">storetabs_id</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
     <span class="n">tabinput_id</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;tabinput&quot;</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="n">ALL</span><span class="p">}</span>
@@ -477,6 +537,7 @@
 <div class="viewcode-block" id="button_start_cmd"><a class="viewcode-back" href="../../codenav.html#codenav.dash_callbacks.button_start_cmd">[docs]</a><span class="k">def</span> <span class="nf">button_start_cmd</span><span class="p">(</span>
     <span class="n">app</span><span class="p">,</span>
     <span class="n">command</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">storeenv_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">stdstore_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">storeval_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">state_fxn</span><span class="p">,</span>
@@ -492,10 +553,12 @@
     <span class="k">if</span> <span class="n">first</span><span class="p">:</span>
         <span class="n">outputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">stdstore_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
     <span class="n">inputs</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="n">button_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;n_clicks&quot;</span><span class="p">])</span>
-    <span class="n">states</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">stdstore_id</span><span class="p">,</span> <span class="n">storeval_id</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">])</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="n">_puts</span><span class="p">(</span>
+        <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">stdstore_id</span><span class="p">,</span> <span class="n">storeval_id</span><span class="p">,</span> <span class="n">storeenv_id</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
 
     <span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">prevent_initial_call</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">start_command</span><span class="p">(</span><span class="n">_nclicks</span><span class="p">,</span> <span class="n">stdstore</span><span class="p">,</span> <span class="n">storeval</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">start_command</span><span class="p">(</span><span class="n">_nclicks</span><span class="p">,</span> <span class="n">stdstore</span><span class="p">,</span> <span class="n">storeval</span><span class="p">,</span> <span class="n">envcmd</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;start_command.</span>
 
 <span class="sd">        Parameters</span>
@@ -515,7 +578,16 @@
         <span class="n">nowstr</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">-%m-%y %H:%M:%S&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">READY_STR</span> <span class="ow">in</span> <span class="n">text_in</span><span class="p">:</span>
             <span class="n">scriptpath</span> <span class="o">=</span> <span class="n">state_fxn</span><span class="p">(</span><span class="n">storeval</span><span class="p">)</span>
-            <span class="n">runcmd</span> <span class="o">=</span> <span class="n">SERVER_CMD</span> <span class="o">+</span> <span class="n">command</span> <span class="o">+</span> <span class="s1">&#39;&quot;&quot;&#39;</span> <span class="o">+</span> <span class="n">scriptpath</span> <span class="o">+</span> <span class="s1">&#39;&quot;&quot;&quot;&#39;</span>
+            <span class="c1"># Get server and activate cmd from storeenv</span>
+            <span class="n">runcmd</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">envcmd</span>
+                <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39; &quot;</span><span class="si">{</span><span class="n">SHELL_SERVER_PATH</span><span class="si">}</span><span class="s1">&quot; &quot;</span><span class="si">{</span><span class="n">QUEUE_NAME</span><span class="si">}</span><span class="s1">&quot; &quot;&#39;</span>
+                <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ACTIVATE_CMD</span><span class="si">}</span><span class="s2"> &amp;&amp; &quot;</span>
+                <span class="o">+</span> <span class="n">command</span>
+                <span class="o">+</span> <span class="s1">&#39;&quot;&quot;&#39;</span>
+                <span class="o">+</span> <span class="n">scriptpath</span>
+                <span class="o">+</span> <span class="s1">&#39;&quot;&quot;&quot;&#39;</span>
+            <span class="p">)</span>
             <span class="n">parent_proc</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">(</span><span class="n">runcmd</span><span class="p">)</span>  <span class="c1"># , shell=True</span>
             <span class="n">runtext</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">wrap</span><span class="p">(</span><span class="n">runcmd</span><span class="p">,</span> <span class="mi">150</span><span class="p">))</span>
             <span class="n">text_out</span> <span class="o">=</span> <span class="p">(</span>

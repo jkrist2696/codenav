@@ -6,7 +6,7 @@ Created on Fri Jul 14 23:39:06 2023
 
 """
 
-from os import getcwd, environ
+from os import getcwd
 import webbrowser
 import socket
 from threading import Timer
@@ -22,25 +22,20 @@ from .file_system_node import create_fs_nodes
 
 
 # CONSTANTS
-if "CONDA_DEFAULT_ENV" in environ:
-    CURRENT_ENV = environ["CONDA_DEFAULT_ENV"]
-else:
-    CURRENT_ENV = "base"
-CONDA_PATH = "C:/ProgramData/Anaconda3/Scripts/activate.bat"
-ACTIVATE_CMD = f"{CONDA_PATH} && conda activate {CURRENT_ENV}"
-SERVER_CMD = f'{ACTIVATE_CMD} && python "{call.SHELL_SERVER_PATH}" "dash_testing" "'
 PERSIST = True
 TREE_ID = "tree"
 TREE_LOADER_ID = "treeloader"
 PATH_INPUT_ID = "pathinput"
+ENV_CMD_ID = "envcmd"
 FILE_TABS_ID = "filetabs"
 STORE_PATH_ID = "storepath"
 STORE_ITEMS_ID = "storeitems"
+STORE_ENV_ID = "storeenv"
 STORE_CMD_ID = "storestdout"
 NEW_TAB_ID = "newtab"
 EDIT_TAB_ID = "edittab"
 RUN_TAB_ID = "runtab"
-RUN_TAB_CMD = f"{ACTIVATE_CMD} && python "
+RUN_TAB_CMD = "python "
 SAVE_TAB_ID = "savefile"
 UP_BUTTON_ID = "updir"
 STDOUT_ID = "stdout_text"
@@ -48,9 +43,9 @@ INTERVAL_ID = "stdout_int"
 CLEAN_FILE_ID = "File"
 CLEAN_ALL_ID = "All"
 CLEAN_DOC_ID = "Doc"
-CLEAN_FILE_CMD = f"{ACTIVATE_CMD} && cleandoc -f "  #  -w
-CLEAN_ALL_CMD = f"{ACTIVATE_CMD} && cleandoc -nodoc -d "  #  -w
-CLEAN_DOC_CMD = f"{ACTIVATE_CMD} && cleandoc -d "
+CLEAN_FILE_CMD = "cleandoc -f "  #  -w
+CLEAN_ALL_CMD = "cleandoc -nodoc -d "  #  -w
+CLEAN_DOC_CMD = "cleandoc -d "
 TAG_SEARCH_ID = "tagsearch"
 LOAD_SEARCH_ID = "searchloader"
 RESULT_ID = "searchresults"
@@ -61,9 +56,11 @@ def codenav_app():
     """
     create the dash app object
     """
+
     # Stores
     storepath = dcc.Store(id=STORE_PATH_ID, storage_type="session")
     storeitems = dcc.Store(id=STORE_ITEMS_ID, storage_type="session")
+    storeenv = dcc.Store(id=STORE_ENV_ID, storage_type="session")
     storecmd = dcc.Store(id=STORE_CMD_ID, storage_type="local")
 
     # Cleandoc Buttons Group
@@ -112,7 +109,9 @@ def codenav_app():
     ]  #  persistence=False
     interval = dcc.Interval(id=INTERVAL_ID, interval=500)
     prismdiv = sweet.pyprism("Loading...", id=STDOUT_ID, linenums=False)
-    botright = [interval, prismdiv]
+    headerdiv = sweet.ant_input("Conda Activate and Python Command Here", id=ENV_CMD_ID)
+    botright = sweet.add_header_div(headerdiv, [interval, prismdiv])
+
     quadlayout = sweet.quad_layout(left, middle, topright, botright, splits=[20, 0, 60])
     run_icon = sweet.iconify("ph:play-fill", "#2AB047")
 
@@ -128,6 +127,7 @@ def codenav_app():
         [
             storepath,
             storeitems,
+            storeenv,
             storecmd,
             html.Div(children=[], id="hiddendiv", style={"display": "none"}),
             sweet.notify_container([quadlayout, html.Div(id=NOTIFY_ID)]),
@@ -135,6 +135,7 @@ def codenav_app():
     )
 
     # Callbacks
+    call.envcmd_store(app, STORE_ENV_ID, ENV_CMD_ID, NOTIFY_ID)
     call.dirpath_store(app, STORE_PATH_ID, PATH_INPUT_ID)
     call.dirpath_up(app, PATH_INPUT_ID, UP_BUTTON_ID, "value")
     call.tree_expand(app, TREE_ID)
@@ -148,6 +149,7 @@ def codenav_app():
     call.button_start_cmd(
         app,
         RUN_TAB_CMD,
+        STORE_ENV_ID,
         STORE_CMD_ID,
         STORE_ITEMS_ID,
         call.read_storetabs_file,
@@ -159,6 +161,7 @@ def codenav_app():
     call.button_start_cmd(
         app,
         CLEAN_FILE_CMD,
+        STORE_ENV_ID,
         STORE_CMD_ID,
         STORE_ITEMS_ID,
         call.read_storetabs_file,
@@ -169,6 +172,7 @@ def codenav_app():
     call.button_start_cmd(
         app,
         CLEAN_ALL_CMD,
+        STORE_ENV_ID,
         STORE_CMD_ID,
         STORE_PATH_ID,
         call.read_storepath,
@@ -179,6 +183,7 @@ def codenav_app():
     call.button_start_cmd(
         app,
         CLEAN_DOC_CMD,
+        STORE_ENV_ID,
         STORE_CMD_ID,
         STORE_PATH_ID,
         call.read_storepath,
@@ -205,14 +210,14 @@ def open_app():
     """
     Open dash app upon running script
     """
-    webbrowser.open(f"http://{HOST}:{PORT}")
+    webbrowser.open(f"http://{HOST}:{PORT}")  # type: ignore
 
 
 def serve_app(port, remote, debug):
     """
     serve codenav app
     """
-    global HOST, PORT
+    global HOST, PORT  # pylint: disable=W0601
     PORT = port
     if remote:
         # host = "pycodenav"

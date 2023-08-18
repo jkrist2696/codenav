@@ -73,6 +73,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#codenav.dash_callbacks.button_start_cmd"><code class="docutils literal notranslate"><span class="pre">button_start_cmd()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#codenav.dash_callbacks.dirpath_store"><code class="docutils literal notranslate"><span class="pre">dirpath_store()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#codenav.dash_callbacks.dirpath_up"><code class="docutils literal notranslate"><span class="pre">dirpath_up()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#codenav.dash_callbacks.envcmd_store"><code class="docutils literal notranslate"><span class="pre">envcmd_store()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#codenav.dash_callbacks.open_search"><code class="docutils literal notranslate"><span class="pre">open_search()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#codenav.dash_callbacks.read_storepath"><code class="docutils literal notranslate"><span class="pre">read_storepath()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#codenav.dash_callbacks.read_storetabs_file"><code class="docutils literal notranslate"><span class="pre">read_storetabs_file()</span></code></a></li>
@@ -142,6 +143,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-codenav.helper">codenav.helper module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#codenav.helper.round_sigfig"><code class="docutils literal notranslate"><span class="pre">round_sigfig()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#codenav.helper.run_capture_out"><code class="docutils literal notranslate"><span class="pre">run_capture_out()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#codenav.helper.set_default"><code class="docutils literal notranslate"><span class="pre">set_default()</span></code></a></li>
 </ul>
 </li>
@@ -360,7 +362,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="codenav.dash_callbacks.button_start_cmd">
-<span class="sig-prename descclassname"><span class="pre">codenav.dash_callbacks.</span></span><span class="sig-name descname"><span class="pre">button_start_cmd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdstore_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">storeval_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_fxn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">button_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">button_icon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">button_property</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/codenav/dash_callbacks.html#button_start_cmd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#codenav.dash_callbacks.button_start_cmd" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">codenav.dash_callbacks.</span></span><span class="sig-name descname"><span class="pre">button_start_cmd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">storeenv_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdstore_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">storeval_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_fxn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">button_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">button_icon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">button_property</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/codenav/dash_callbacks.html#button_start_cmd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#codenav.dash_callbacks.button_start_cmd" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
@@ -373,6 +375,12 @@
 <dt class="sig sig-object py" id="codenav.dash_callbacks.dirpath_up">
 <span class="sig-prename descclassname"><span class="pre">codenav.dash_callbacks.</span></span><span class="sig-name descname"><span class="pre">dirpath_up</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dirpath_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upbutton_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/codenav/dash_callbacks.html#dirpath_up"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#codenav.dash_callbacks.dirpath_up" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="codenav.dash_callbacks.envcmd_store">
+<span class="sig-prename descclassname"><span class="pre">codenav.dash_callbacks.</span></span><span class="sig-name descname"><span class="pre">envcmd_store</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">storeenv_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envcmd_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodify_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/codenav/dash_callbacks.html#envcmd_store"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#codenav.dash_callbacks.envcmd_store" title="Permalink to this definition"></a></dt>
+<dd><p>dirpath_update</p>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="codenav.dash_callbacks.open_search">
@@ -705,6 +713,27 @@
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>Union[float, int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="codenav.helper.run_capture_out">
+<span class="sig-prename descclassname"><span class="pre">codenav.helper.</span></span><span class="sig-name descname"><span class="pre">run_capture_out</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shell</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/codenav/helper.html#run_capture_out"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#codenav.helper.run_capture_out" title="Permalink to this definition"></a></dt>
+<dd><p>Run subprocess command and return the stdout and stderr.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cmd</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) -- Pass list of shell commands to subprocess.run</p></li>
+<li><p><strong>shell</strong> (<em>bool</em>) -- Pass shell keyword argument to subprocess.run</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>stdout</strong> (<em>str</em>) -- Standard Output returned from shell</p></li>
+<li><p><strong>stderr</strong> (<em>str</em>) -- Standard Error returned from shell</p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>
