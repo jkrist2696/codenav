@@ -141,12 +141,12 @@ def set_default(variable: Any, default: Any):
 
 
 if __name__ == "__main__":
+    from time import sleep
+
     SEARCH = R"C:\Users\jkris\OneDrive\2022_onward\2023\optibox"
     onodes = create_fs_nodes(SEARCH, ext=[".py"])
     spnode = onodes[-1]
-    import time
-
-    time.sleep(3)
+    sleep(3)
     cnodes = spnode.get_all_children()
     spnode.print_children()
     # for node in cnodes:

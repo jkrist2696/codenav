@@ -6,6 +6,7 @@ Created on Fri Jul 14 23:39:06 2023
 """
 
 from os import path
+from numpy import array
 import feffery_antd_components as fac
 
 BG_COLOR_1_DARK = "#181818"
@@ -23,7 +24,10 @@ def create_tree_list(file_objs: list, parent_icon: str = None, child_icon: str =
     objects must have name, ftype, ind, path
     """
     treelist = []
-    for obj in file_objs:
+    files_names_arr = array([obj.name for obj in file_objs])
+    sort_inds = files_names_arr.argsort()
+    file_objs_sorted = [file_objs[ind] for ind in sort_inds]
+    for obj in file_objs_sorted:
         objpath = obj.directory + "/" + obj.name
         leafdict = {
             "title": obj.name,
@@ -52,7 +56,10 @@ def create_tree_select_list(file_objs: list):
     create_tree_select_list
     """
     treelist = []
-    for obj in file_objs:
+    files_names_arr = array([obj.name for obj in file_objs])
+    sort_inds = files_names_arr.argsort()
+    file_objs_sorted = [file_objs[ind] for ind in sort_inds]
+    for obj in file_objs_sorted:
         if not obj.parent:
             continue
         if obj.ftype == "file":

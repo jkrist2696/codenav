@@ -1,10 +1,12 @@
 # CodéNav
 
-Web App for cleaning, searching, editing, and navigating Python code.
+Web App for cleaning, searching, editing, and navigating Python code. Leverages [cleandoc](https://pypi.org/project/cleandoc/) and [snipsearch](https://pypi.org/project/snipsearch/) packages.
 
 ## Install
 
+```
 pip install codenav
+```
 
 ## Usage
 

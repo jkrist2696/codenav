@@ -5,7 +5,8 @@ Created on Fri Jul 14 23:39:06 2023
 @author: jkris
 """
 
-
+from os import path
+from sys import platform, argv
 from socket import gethostname
 from subprocess import Popen, PIPE, STDOUT, CalledProcessError
 from multiprocessing.managers import BaseManager
@@ -13,8 +14,16 @@ from multiprocessing import Queue, Process
 from time import sleep
 import psutil
 
-PORT_D = 9000
+PORT_D = 8000
 KEY_D = b"key"
+SHELL = True
+if "win" in platform.lower():
+    ACTIVATE = "C:\\ProgramData\\Anaconda3\\Scripts\\activate.bat && conda activate py39 && python"
+else:
+    # conda_path = "/appl/anaconda/anaconda3-2021.05/"
+    CONDA_PATH = "/home/jkrist2696/anaconda3"
+    CONDA_INIT = path.join(CONDA_PATH, "etc/profile.d/conda.sh")
+    ACTIVATE = f'. "{CONDA_INIT}" && conda activate py39 && python3'
 
 
 class QueueManager(BaseManager):
@@ -23,9 +32,7 @@ class QueueManager(BaseManager):
     """
 
 
-def run_queue_server(
-    queuename: str, port: int, hostname: str = None, key: str = b"key"
-):
+def run_queue_server(queuename: str, port: int, hostname: str = None, key: str = KEY_D):
     """
     run_queue_server
     """
@@ -37,8 +44,6 @@ def run_queue_server(
     queue_done = Queue()
     QueueManager.register(queuename + "_done", callable=lambda: queue_done)
     queue_server = manager.get_server()
-    # stopper = Timer(1, lambda: server.shutdown)
-    # QueueManager.register(queuename + "_server", callable=lambda: server)
     print(f"Server Started (Host, Queue, Port) = ({hostname}, {queuename}, {port})")
     queue_server.serve_forever()
 
@@ -59,13 +64,31 @@ def connect_to_queue(
     return queue
 
 
+def test_connect(
+    queuename: str, port: int = PORT_D, key: str = KEY_D, tries: int = 10
+) -> bool:
+    """test_connect"""
+    error_str = "None"
+    for i in range(tries):
+        try:
+            connect_to_queue(queuename, port=port, key=key)
+            connect_to_queue(queuename + "_done", port=port, key=key)
+            print(f"    Connected in {i+1} tries.")
+            return True
+        except ConnectionRefusedError as err:
+            error_str = err
+            sleep(0.1 * i)
+    print(f"    Could not connect in {i+1} attempt(s).\n        error: {error_str}")
+    return False
+
+
 def kill_id(pid: int, reason: str = ""):
     """
     kill_id
     """
     if psutil.pid_exists(pid):
         if len(reason) > 0:
-            print(f"Killing process due to {reason}: {pid}")
+            print(f"    Killing process due to {reason}: {pid}")
         process = psutil.Process(pid)
         for childproc in process.children(recursive=True):
             childproc.kill()
@@ -90,7 +113,7 @@ def get_from_queue(
         hostname = gethostname()
     if stop is not None:
         kill_id(server_id, reason=stop)
-        return [f"Killed Process: {server_id}\n"], False
+        return [f"    Killed Process: {server_id}\n"], False
     try:
         queue = connect_to_queue(queuename, hostname=hostname, port=port, key=key)
         queue_done = connect_to_queue(
@@ -98,7 +121,9 @@ def get_from_queue(
         )
     except ConnectionRefusedError as err:  # ,OSError,ConnectionResetError
         outstring = f"!!!! No Connection with (Host,Queue,Port) = ({hostname},{queuename},{port})"
-        return [f"{outstring}\n    Process {server_id} Killed: {err}\n"], False
+        return [
+            f"{outstring}\n    Process {server_id} has no active connection: {err}\n"
+        ], False
     queueitems = []
     if (not queue_done.empty()) and queue.empty():
         _done = queue_done.get()
@@ -116,11 +141,12 @@ def sub_stdout_stream(command: str, queuename: str, port: int):
     queue = connect_to_queue(queuename, port=port)
     queue_done = connect_to_queue(queuename + "_done", port=port)
     # print(f"\nsub_stdout_stream Command:    {command}")
+    # test below in linux while shell=False
     process = Popen(
         command,
         stdout=PIPE,
         stderr=STDOUT,
-        # shell=True,
+        shell=SHELL,
         errors="ignore",
         encoding="utf-8",
         text=True,
@@ -143,31 +169,29 @@ def stream_queue(queuename: str, command: str, port: int = PORT_D):
     """
     server_proc = Process(target=run_queue_server, args=(queuename, port))
     server_proc.start()
-    stream_proc = Process(target=sub_stdout_stream, args=(command, queuename, port))
-    stream_proc.start()
-    print(
-        f"\nServer Process ID = {server_proc.pid}, Stream Process ID = {stream_proc.pid}"
-    )
-    stream_proc.join()
+    print(f"\nServer Process ID = {server_proc.pid}")
+    test_connect(queuename, port=port, key=KEY_D)
+    sub_stdout_stream(command, queuename, port)
     server_proc.join()
-    return server_proc, stream_proc
+    return server_proc
 
 
-def test():
+def shell_server_test(__file__):
     """
-    test
+    shell_server_test
     """
+
     queuename = "test_server"
-    testpath = "C:\\Users\\jkris\\OneDrive\\2022_onward\\2023\\python\\myrepo\\dash\\codenav\\codenav\\queue_test.py"
-    serverpath = "C:\\Users\\jkris\\OneDrive\\2022_onward\\2023\\python\\myrepo\\dash\\codenav\\codenav\\shell_server.py"
-    activate = (
-        "C:\\ProgramData\\Anaconda3\\Scripts\\activate.bat && conda activate py39"
-    )
-    runpycmd = f'{activate} && python ""{testpath}""'
+    scriptdir = path.dirname(__file__)
+    testpath = path.join(scriptdir, "queue_test.py")
+    serverpath = path.join(scriptdir, "shell_server.py")
+    runpycmd = f'{ACTIVATE} ""{testpath}""'
     server_args = f'"{serverpath}" "{queuename}" "{runpycmd}"'
-    runserver = f"{activate} && python {server_args}"
+    runserver = f"{ACTIVATE} {server_args}"
     print(f"\nServer Command:\n{runserver}")
-    parent_proc = Popen(runserver, shell=True)
+    parent_proc = Popen(runserver, shell=SHELL)
+    # parent_proc = Popen("/bin/bash", shell=SHELL, stdin=PIPE, encoding="utf-8")
+    test_connect(queuename)
     print("\nParent Process Started")
     pid = parent_proc.pid
     i = 0
@@ -178,26 +202,31 @@ def test():
         print(
             f"\n    time={i} : proc[{pid}]={psutil.pid_exists(pid)} : Status={status}"
         )
-        print("".join(lines))
+        if lines:
+            print("".join(lines))
+        else:
+            print("    lines = False")
         i += increment
         sleep(increment)
     print("\nLoop Finished")
-    lines, status = get_from_queue(pid, queuename, port=PORT_D, stop=True)
-    print(f"\n    time={i} : proc[{pid}]={psutil.pid_exists(pid)} : Status={status}")
-    print("".join(lines))
-    # parent_proc.wait()
-    print("\nFinal Check")
-    lines, status = get_from_queue(pid, queuename, port=PORT_D, stop=True)
+    lines, status = get_from_queue(pid, queuename, port=PORT_D, stop="loop finished")
     print(f"\n    time={i} : proc[{pid}]={psutil.pid_exists(pid)} : Status={status}")
     if lines:
         print("".join(lines))
+    else:
+        print("    lines = False")
+    print("\nFinal Check")
+    lines, status = get_from_queue(pid, queuename, port=PORT_D, stop="final check")
+    print(f"\n    time={i} : proc[{pid}]={psutil.pid_exists(pid)} : Status={status}")
+    if lines:
+        print("".join(lines))
+    else:
+        print("    lines = False")
 
 
 if __name__ == "__main__":
-    from sys import argv
-
     if len(argv) == 1:
-        test()
+        shell_server_test(__file__)
     else:
         PORT = PORT_D
         if len(argv) > 3:

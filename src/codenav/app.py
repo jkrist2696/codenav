@@ -57,62 +57,31 @@ def codenav_app():
     create the dash app object
     """
 
-    # Stores
-    storepath = dcc.Store(id=STORE_PATH_ID, storage_type="session")
-    storeitems = dcc.Store(id=STORE_ITEMS_ID, storage_type="session")
-    storeenv = dcc.Store(id=STORE_ENV_ID, storage_type="session")
-    storecmd = dcc.Store(id=STORE_CMD_ID, storage_type="local")
-
-    # Cleandoc Buttons Group
-    cleanfile_icons = ["carbon:clean", "ant-design:file-twotone"]
+    # Cleandoc Buttons
     fc_button, fc_icons = sweet.icon_button(
-        CLEAN_FILE_ID, cleanfile_icons, "Clean Current File"
+        CLEAN_FILE_ID, ["carbon:clean", "ant-design:file-twotone"], "Clean Current File"
     )
-    cleanall_hint = "Clean All Files in Current Directory"
-    cleanall_icons = ["carbon:clean", "ant-design:folder-twotone"]
-    ac_button, ac_icons = sweet.icon_button(CLEAN_ALL_ID, cleanall_icons, cleanall_hint)
-    cleandoc_hint = "Clean All Files and Create HTML Docs"
-    cleandoc_icons = ["carbon:clean", "tabler:file-type-html"]
-    cd_button, cd_icons = sweet.icon_button(CLEAN_DOC_ID, cleandoc_icons, cleandoc_hint)
-    clean_buttons = sweet.dmc_group([fc_button, ac_button, cd_button])
-
-    # Folder Selection Bar
-    upbut = sweet.action_icon("lucide:folder-up", "Up One Folder", UP_BUTTON_ID)
-    textdiv = sweet.ant_input("📁 Folder Path", id=PATH_INPUT_ID, persistence=PERSIST)
-    # , style={"display": "none"}
-    treeselectdiv = html.Div(
-        [], id="pathdiv", style={"width": "100%", "minWidth": "0", "display": "none"}
+    ac_button, ac_icons = sweet.icon_button(
+        CLEAN_ALL_ID,
+        ["carbon:clean", "ant-design:folder-twotone"],
+        "Clean All Files in Current Directory",
     )
-    treepathbar = html.Div(
-        [upbut, treeselectdiv, textdiv],
-        style={"display": "flex", "width": "100%", "padding": "5px 5px"},
-    )
-    fs_nodes = create_fs_nodes(getcwd(), ext=[".py"])
-    treediv = trees.file_sys_tree(fs_nodes, TREE_ID, persistence=PERSIST)
-    treeloader = sweet.spin_loader([treediv], TREE_LOADER_ID)
-    middle = sweet.spin_loader([html.Div(id=RESULT_ID)], LOAD_SEARCH_ID)
-    searchdiv = sweet.tag_search(
-        "Search Code Content",
-        TAG_SEARCH_ID,
-        style={"padding": "0 5px"},
-        persistence=PERSIST,
-    )
-    botleft = sweet.flex_row([treeloader], style={"border": ""})
-    left = sweet.flex_container(
-        [clean_buttons, searchdiv, treepathbar, botleft], flexcol=True
+    cd_button, cd_icons = sweet.icon_button(
+        CLEAN_DOC_ID,
+        ["carbon:clean", "tabler:file-type-html"],
+        "Clean All Files and Create HTML Docs",
     )
 
-    topright = [
+    # Create 4 flexbox layout
+    quadlayout = sweet.quad_layout(
+        create_left(sweet.dmc_group([fc_button, ac_button, cd_button])),
+        sweet.spin_loader([html.Div(id=RESULT_ID)], LOAD_SEARCH_ID),
         sweet.file_tabs(
             [], FILE_TABS_ID, NEW_TAB_ID, EDIT_TAB_ID, RUN_TAB_ID, SAVE_TAB_ID
-        )
-    ]  #  persistence=False
-    interval = dcc.Interval(id=INTERVAL_ID, interval=500)
-    prismdiv = sweet.pyprism("Loading...", id=STDOUT_ID, linenums=False)
-    headerdiv = sweet.ant_input("Conda Activate and Python Command Here", id=ENV_CMD_ID)
-    botright = sweet.add_header_div(headerdiv, [interval, prismdiv])
-
-    quadlayout = sweet.quad_layout(left, middle, topright, botright, splits=[20, 0, 60])
+        ),  #  persistence=False
+        create_botright(),
+        splits=[25, 0, 60],
+    )
     run_icon = sweet.iconify("ph:play-fill", "#2AB047")
 
     # Dash App Creation
@@ -125,10 +94,10 @@ def codenav_app():
     app.title = "CodeNav 🧭"
     app.layout = html.Main(
         [
-            storepath,
-            storeitems,
-            storeenv,
-            storecmd,
+            dcc.Store(id=STORE_PATH_ID, storage_type="session"),
+            dcc.Store(id=STORE_ITEMS_ID, storage_type="session"),
+            dcc.Store(id=STORE_ENV_ID, storage_type="local"),
+            dcc.Store(id=STORE_CMD_ID, storage_type="local"),
             html.Div(children=[], id="hiddendiv", style={"display": "none"}),
             sweet.notify_container([quadlayout, html.Div(id=NOTIFY_ID)]),
         ]
@@ -206,6 +175,48 @@ def codenav_app():
     return app
 
 
+def create_left(clean_buttons):
+    """
+    create_left
+    """
+    upbut = sweet.action_icon("lucide:folder-up", "Up One Folder", UP_BUTTON_ID)
+    textdiv = sweet.ant_input("📁 Folder Path", id=PATH_INPUT_ID, persistence=PERSIST)
+    # , style={"display": "none"}
+    treeselectdiv = html.Div(
+        [], id="pathdiv", style={"width": "100%", "minWidth": "0", "display": "none"}
+    )
+    treepathbar = html.Div(
+        [upbut, treeselectdiv, textdiv],
+        style={"display": "flex", "width": "100%", "padding": "5px 5px"},
+    )
+    fs_nodes = create_fs_nodes(getcwd(), ext=[".py"])
+    treediv = trees.file_sys_tree(fs_nodes, TREE_ID, persistence=PERSIST)
+    treeloader = sweet.spin_loader([treediv], TREE_LOADER_ID)
+
+    searchdiv = sweet.tag_search(
+        "Search Code Content",
+        TAG_SEARCH_ID,
+        style={"padding": "0 5px"},
+        persistence=PERSIST,
+    )
+    botleft = sweet.flex_row([treeloader], style={"border": ""})
+    left = sweet.flex_container(
+        [clean_buttons, searchdiv, treepathbar, botleft], flexcol=True
+    )
+    return left
+
+
+def create_botright():
+    """
+    create_botright
+    """
+    interval = dcc.Interval(id=INTERVAL_ID, interval=500)
+    prismdiv = sweet.pyprism("Loading...", id=STDOUT_ID, linenums=False)
+    headerdiv = sweet.ant_input("Conda Activate and Python Command Here", id=ENV_CMD_ID)
+    botright = sweet.add_header_div(headerdiv, [interval, prismdiv])
+    return botright
+
+
 def open_app():
     """
     Open dash app upon running script
@@ -218,19 +229,22 @@ def serve_app(port, remote, debug):
     serve codenav app
     """
     global HOST, PORT  # pylint: disable=W0601
-    PORT = port
+    PORT = port  # type: ignore
     if remote:
         # host = "pycodenav"
-        HOST = socket.gethostbyname(socket.gethostname())
+        HOST = socket.gethostbyname(socket.gethostname())  # type: ignore
     else:
-        HOST = "localhost"
+        HOST = "localhost"  # type: ignore
     app = codenav_app()
     if debug:
-        app.run_server(debug=True, port=PORT)
+        app.run_server(debug=True, port=PORT)  # type: ignore
+    elif remote:
+        print(f"    Hosting CodéNav App at http://{HOST}:{PORT}")  # type: ignore
+        serve(app.server, host=HOST, port=PORT, threads=10)  # type: ignore
     else:
         Timer(1, open_app).start()
-        print(f"    Hosting CodéNav App at http://{HOST}:{PORT}")
-        serve(app.server, host=HOST, port=PORT, threads=10)
+        print(f"    Hosting CodéNav App at http://{HOST}:{PORT}")  # type: ignore
+        serve(app.server, host=HOST, port=PORT, threads=10)  # type: ignore
 
 
 if __name__ == "__main__":

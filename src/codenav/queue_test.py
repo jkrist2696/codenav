@@ -23,7 +23,6 @@ def main():
     logger.info(logstr)
     # raise FileExistsError("dis for testing lol")
     # extra comment here
-    print("extra printout here")
 
 
 if __name__ == "__main__":
